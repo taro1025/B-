@@ -25,7 +25,6 @@ resource "aws_db_subnet_group" "b_plus_subnet_group" {
 
 #RDS
 
-variable "pass_b_plus" {} #Macの環境変数にDBのパスを入れてる
 
 resource "aws_db_instance" "b_plus_db" {
     identifier = "b-plus-db"
@@ -35,7 +34,7 @@ resource "aws_db_instance" "b_plus_db" {
     instance_class = "db.t3.micro"
     name = "b_plus_db"
     username  = "root"
-    password = "${var.pass_b_plus}"
+    password = "${var.APP_DATABASE_PASSWORD}"
     db_subnet_group_name = "${aws_db_subnet_group.b_plus_subnet_group.name}"
     vpc_security_group_ids = ["${aws_security_group.b_plus_rds_security.id}"]
     #parameter_group_name = "${aws_db_parameter_group.b_plus_param_group.name}"
