@@ -6,71 +6,43 @@ services:
     build:
       context: ./front/
       dockerfile: Dockerfile
-    volumes:
-      - ./front:/usr/src/app
-    command: sh -c "cd b-plus-app && npm start"
     ports:
       - 8000:8000 #3000を8000に(migi)
-    networks:
-      - app-network #front-networkから変更
 
 
   api: #rubyね
     build:
       context: ./api/
-      dockerfile: Dockerfile
-# =========ローカルと本番切り替え===========
-    command: bundle exec puma -C config/puma.rb -e production
-    #command: bundle exec puma -C config/puma.rb
-# ======================================
-    volumes:
-      - ./api:/app
-      - public-data:/app/public
-      - tmp-data:/app/tmp
-      - log-data:/app/log
-    networks:
-      - app-network
+      dockerfile: Dockerfile.prod
     ports:               #変更(追加)
       - 3000:3000
     #本番環境ではオフ！
-    #depends_on:
-    #  - db
-  #db:
-  #  image: mysql:5.7
-  #  ports:
-  #    - "4306:3306"
-  #  command: --default-authentication-plugin=mysql_native_password
-  #  volumes:
-  #    - ./api/db/mysql_data:/var/lib/mysql
-  #  environment:
-  #    MYSQL_ROOT_PASSWORD: password
-  #  networks:
-  #    - app-network
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "4306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./api/db/mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
 
   web:
     build:
-      context: ./nginx_docker
-    volumes:
-      - public-data:/app/public
-      - tmp-data:/app/tmp
-      - ./front/b-plus-app/build:/var/www
-      - ./nginx_docker/prod_conf/:/etc/nginx/conf.d/
+      context: ./front/
+      dockerfile: Dockerfile.prod
     ports:
       - 80:80
     depends_on:
       - api
       - front
-    networks:
-      - app-network
 
 volumes:
   public-data:
   tmp-data:
   log-data:
   db-data:
-
-networks:
-  app-network:
-    external: true
-  front-network:
-    external: true
