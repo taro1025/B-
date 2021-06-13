@@ -58,9 +58,9 @@ services:
       - ./nginx_docker/dev_conf/:/etc/nginx/conf.d/
     ports:
       - 80:80
-    depends_on:
-      - api
-      - front
+    #depends_on:
+      #- api
+      #- front
     networks:
       - app-network
 
