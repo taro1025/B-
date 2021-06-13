@@ -1,7 +1,7 @@
 #ECS用のセキュリティグループ
 
 resource "aws_security_group" "b_plus_ecs_security" {
-  name        = "allow_tls"
+  name        = "allow_tls_ecs"
   description = "Allow TLS inbound traffic"
   vpc_id      = aws_vpc.b_plus_vpc.id
 
@@ -30,7 +30,7 @@ resource "aws_security_group" "b_plus_ecs_security" {
 #RDS用のセキュリティグループ
 
 resource "aws_security_group" "b_plus_rds_security" {
-  name        = "allow_tls"
+  name        = "allow_tls_rds"
   description = "Allow TLS inbound traffic"
   vpc_id      = aws_vpc.b_plus_vpc.id
 

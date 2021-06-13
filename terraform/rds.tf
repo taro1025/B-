@@ -11,17 +11,17 @@ resource "aws_db_subnet_group" "b_plus_subnet_group" {
 }
 
 #パラメータグループ
-
-resource "aws_db_parameter_group" "b_plus_param_group" {
-    name = "b-plus-param-group"
-    family = "mysql.5.7"
-    description = "b_plus_param_group"
-
-    parameter {
-        name = "log_min_duration_statement"
-        value = "100"
-    }
-}
+#
+#resource "aws_db_parameter_group" "b_plus_param_group" {
+#    name = "b-plus-param-group"
+#    family = "mysql5.7"
+#    description = "b_plus_param_group"
+#
+#    parameter {
+#        name = "log_min_duration_statement"
+#        value = "100"
+#    }
+#}
 
 #RDS
 
@@ -38,7 +38,7 @@ resource "aws_db_instance" "b_plus_db" {
     password = "${var.pass_b_plus}"
     db_subnet_group_name = "${aws_db_subnet_group.b_plus_subnet_group.name}"
     vpc_security_group_ids = ["${aws_security_group.b_plus_rds_security.id}"]
-    parameter_group_name = "${aws_db_parameter_group.b_plus_param_group.name}"
+    #parameter_group_name = "${aws_db_parameter_group.b_plus_param_group.name}"
     multi_az = false
     backup_retention_period = "7"
     backup_window = "19:00-19:30"
