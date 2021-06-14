@@ -3,10 +3,11 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@6.15
   aws-ecs: circleci/aws-ecs@2.0.0
-workflows:
+#workflows:
+jobs:
   #reactのデプロイ
   react-deploy:
-    jobs:
+    steps:
       - aws-ecr/build-and-push-image:
           #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
           account-url: AWS_ECR_ACCOUNT_URL
@@ -22,12 +23,14 @@ workflows:
           # ECRのリポジトリ
           repo: front
           tag: "${CIRCLE_SHA1}"
-          filters:
-            branches:
-              only: main
+          #filters:
+          #  branches:
+          #    only: main
+  react-update:
+      steps:
       - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
+          #requires:
+          #  - aws-ecr/build-and-push-image
           # ECSのタスク定義名
           family: 'b_plus_service'
           # ECSのクラスター名かARNのフルパス
@@ -39,7 +42,7 @@ workflows:
 
   # Railsのデプロイ
   rails-deploy:
-    jobs:
+    steps:
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL
           region: AWS_REGION
@@ -52,12 +55,14 @@ workflows:
           # ECRのリポジトリ
           repo: api
           tag: "${CIRCLE_SHA1}"
-          filters:
-            branches:
-              only: main
+          #filters:
+          #  branches:
+          #    only: main
+  rails-update:
+    steps:
       - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
+          #requires:
+          #  - aws-ecr/build-and-push-image
           # ECSのタスク定義名
           family: 'b_plus_service'
           # ECSのクラスター名かARNのフルパス
@@ -69,7 +74,7 @@ workflows:
 
   # Nginxのデプロイ
   nginx-deploy:
-    jobs:
+    steps:
       - aws-ecr/build-and-push-image:
           #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
           account-url: AWS_ECR_ACCOUNT_URL
@@ -88,12 +93,14 @@ workflows:
           #requires:
           #  - react-deploy:
           #  - rails-deploy:
-          filters:
-            branches:
-              only: main
+          #filters:
+          #  branches:
+          #    only: main
+  nginx-update:
+    steps:
       - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
+          #requires:
+          #  - aws-ecr/build-and-push-image
           # ECSのタスク定義名
           family: 'b_plus_service'
           # ECSのクラスター名かARNのフルパス
@@ -102,3 +109,29 @@ workflows:
           service-name: 'b-plus'
           # containerはタスク定義で設定したコンテナ名にする
           container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
+
+workflows:
+  push-and-update:
+    jobs:
+      - react-deploy
+      - react-update:
+        requires:
+          - react-deploy
+        filters:
+          branches:
+            only: main
+      - rails-deploy
+      - rails-update:
+        requires:
+          - rails-deploy
+        filters:
+          branches:
+            only: main
+      - nginx-deploy
+      - nginx-update:
+        requires:
+          - nginx-deploy
+          - react-deploy
+        filters:
+          branches:
+            only: main
