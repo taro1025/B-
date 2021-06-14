@@ -4,38 +4,6 @@ orbs:
   aws-ecr: circleci/aws-ecr@6.15
   aws-ecs: circleci/aws-ecs@2.0.0
 workflows:
-  # Nginxのデプロイ
-  nginx-deploy:
-    jobs:
-      - aws-ecr/build-and-push-image:
-          #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
-          account-url: AWS_ECR_ACCOUNT_URL
-          # リージョン
-          region: AWS_REGION
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          # ECRにリポジトリがなかったら創るか？
-          create-repo: true
-          # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
-          dockerfile: ~/B-/front/Dockerfile.prod
-          # ECRのリポジトリ
-          repo: nginx
-          tag: "${CIRCLE_SHA1}"
-          filters:
-            branches:
-              only: main
-      - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
-          # ECSのタスク定義名
-          family: 'b_plus_service'
-          # ECSのクラスター名かARNのフルパス
-          cluster-name: 'b-plus'
-          # サービス名
-          service-name: 'b-plus'
-          # containerはタスク定義で設定したコンテナ名にする
-          container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
-
   #reactのデプロイ
   react-deploy:
     jobs:
@@ -49,7 +17,8 @@ workflows:
           # ECRにリポジトリがなかったら創るか？
           create-repo: true
           # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
-          dockerfile: ~/B-/front/Dockerfile
+          #dockerfile: front/Dockerfile
+          path: 'front/'
           # ECRのリポジトリ
           repo: front
           tag: "${CIRCLE_SHA1}"
@@ -78,7 +47,8 @@ workflows:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           # ECRにリポジトリがなかったら創るか？
           create-repo: true
-          dockerfile: /home/circleci/project/B-/api/Dockerfile.prod
+          dockerfile: Dockerfile.prod
+          path: api/
           # ECRのリポジトリ
           repo: api
           tag: "${CIRCLE_SHA1}"
@@ -96,3 +66,39 @@ workflows:
           service-name: 'b-plus'
           # containerはタスク定義で設定したコンテナ名にする
           container-image-name-updates: "container=api,tag=${CIRCLE_SHA1}"
+
+  # Nginxのデプロイ
+  nginx-deploy:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
+          account-url: AWS_ECR_ACCOUNT_URL
+          # リージョン
+          region: AWS_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          # ECRにリポジトリがなかったら創るか？
+          create-repo: true
+          # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
+          dockerfile: Dockerfile.prod
+          path: 'front/'
+          # ECRのリポジトリ
+          repo: nginx
+          tag: "${CIRCLE_SHA1}"
+          #requires:
+          #  - react-deploy:
+          #  - rails-deploy:
+          filters:
+            branches:
+              only: main
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          # ECSのタスク定義名
+          family: 'b_plus_service'
+          # ECSのクラスター名かARNのフルパス
+          cluster-name: 'b-plus'
+          # サービス名
+          service-name: 'b-plus'
+          # containerはタスク定義で設定したコンテナ名にする
+          container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
