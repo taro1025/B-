@@ -1,3 +1,4 @@
 api/db/mysql_data/*
 terraform/.terraform
+terraform/terraform.tfvars
 

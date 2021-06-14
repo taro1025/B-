@@ -27,7 +27,7 @@ resource "aws_subnet" "private_1a" {
   availability_zone = "ap-northeast-1a"
 
   tags = {
-    Name = "b_plus_public_1a"
+    Name = "b_plus_private_1a"
   }
 }
 
@@ -38,6 +38,6 @@ resource "aws_subnet" "private_1c" {
   availability_zone = "ap-northeast-1c"
 
   tags = {
-    Name = "b_plus_public_1a"
+    Name = "b_plus_private_1c"
   }
 }

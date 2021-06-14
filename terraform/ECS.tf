@@ -1,7 +1,8 @@
+#タスク定義
+
 data "aws_iam_role" "ecs_task_execution_role" {
   name = "ecsTaskExecutionRole"
 }
-
 
 resource "aws_ecs_task_definition" "service" {
   family = "b_plus_service"
@@ -38,6 +39,16 @@ resource "aws_ecs_task_definition" "service" {
           value = "${var.MASTER_KEY}"
         }
       ]
+      logConfiguration = {
+          logDriver = "awslogs"
+          options = {
+            awslogs-region = "ap-northeast-1"
+            awslogs-group = "/ecs/project/b_plus"
+            awslogs-stream-prefix = "yada"
+
+          }
+        }
+
     },
     {
       name      = "front"
@@ -76,4 +87,46 @@ resource "aws_ecs_task_definition" "service" {
     name      = "service-storage"
     #host_path = "/ecs/service-storage"
   }
+}
+
+#クラスタ
+
+resource "aws_ecs_cluster" "b_plus_cluster" {
+  name = "b-plus"
+
+  setting {
+    name  = "containerInsights"
+    value = "disabled"
+  }
+}
+
+#サービス
+
+resource "aws_ecs_service" "b_plus" {
+  name            = "b_plus"
+  cluster         = aws_ecs_cluster.b_plus_cluster.id
+  task_definition = aws_ecs_task_definition.service.arn
+  desired_count   = 1
+  launch_type     = "FARGATE"
+
+  network_configuration {
+    subnets = [aws_subnet.public_1a.id]
+    security_groups = [aws_security_group.b_plus_ecs_security.id]
+    assign_public_ip = true
+  }
+  #ordered_placement_strategy {
+  #  type  = "binpack"
+  #  field = "cpu"
+  #}
+#
+  load_balancer {
+    target_group_arn = aws_lb_target_group.targetGP.arn
+    container_name   = "nginx"
+    container_port   = 80
+  }
+#
+  #placement_constraints {
+  #  type       = "memberOf"
+  #  expression = "attribute:ecs.availability-zone in [us-west-2a, us-west-2b]"
+  #}
 }
