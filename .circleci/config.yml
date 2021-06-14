@@ -3,14 +3,10 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@6.15
   aws-ecs: circleci/aws-ecs@2.0.0
-#workflows:
-jobs:
+workflows:
   #reactのデプロイ
   react-deploy:
     jobs:
-      docker:
-        - image: 'cimg/python:3.9.1'
-      steps:
       - aws-ecr/build-and-push-image:
           #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
           account-url: AWS_ECR_ACCOUNT_URL
@@ -26,9 +22,9 @@ jobs:
           # ECRのリポジトリ
           repo: front
           tag: "${CIRCLE_SHA1}"
-          #filters:
-          #  branches:
-          #    only: main
+          filters:
+            branches:
+              only: main
       - aws-ecs/deploy-service-update:
           requires:
             - aws-ecr/build-and-push-image
