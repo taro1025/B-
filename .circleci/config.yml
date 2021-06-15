@@ -21,7 +21,7 @@ workflows:
           path: 'front/'
           # ECRのリポジトリ
           repo: front
-          tag: "${CIRCLE_SHA1}"
+          tag: "latest" #"${CIRCLE_SHA1}"
           filters:
             branches:
               only: main
@@ -52,7 +52,7 @@ workflows:
           path: api/
           # ECRのリポジトリ
           repo: api
-          tag: "${CIRCLE_SHA1}"
+          tag: "latest" #"${CIRCLE_SHA1}"
           filters:
             branches:
               only: main
@@ -75,7 +75,7 @@ workflows:
           path: front/
           # ECRのリポジトリ
           repo: nginx
-          tag: "${CIRCLE_SHA1}"
+          tag: "latest" #"${CIRCLE_SHA1}"
           #requires:
           #  - react-deploy:
           #  - rails-deploy:
