@@ -1,7 +1,7 @@
 FROM nginx:1.15.8
 
 RUN rm -f /etc/nginx/conf.d/*
-RUN rm -r -f /usr/share/nginx/html && mkdir -p b-plus-app/build #追加
+RUN rm -r -f /usr/share/nginx/html && mkdir -p ./b-plus-app/build #追加
 
 
 #nginxからフロントにアクセスできるように
