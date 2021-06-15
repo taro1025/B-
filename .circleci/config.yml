@@ -59,7 +59,7 @@ workflows:
           create-repo: true
           # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
           dockerfile: Dockerfile.prod
-          path: 'front/'
+          path: 'front'
           # ECRのリポジトリ
           repo: nginx
           tag: "${CIRCLE_SHA1}"
