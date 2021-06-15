@@ -25,6 +25,18 @@ workflows:
           filters:
             branches:
               only: main
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          # ECSのタスク定義名
+          family: 'b_plus_service'
+          # ECSのクラスター名かARNのフルパス
+          cluster-name: 'b-plus'
+          # サービス名
+          service-name: 'b_plus'
+          # containerはタスク定義で設定したコンテナ名にする
+          #container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
+
 
   # Railsのデプロイ
   rails-deploy:
@@ -44,17 +56,6 @@ workflows:
           filters:
             branches:
               only: main
-      - aws-ecs/deploy-service-update:
-          requires:
-            - aws-ecr/build-and-push-image
-          # ECSのタスク定義名
-          family: 'b_plus_service'
-          # ECSのクラスター名かARNのフルパス
-          cluster-name: 'b-plus'
-          # サービス名
-          service-name: 'b_plus'
-          # containerはタスク定義で設定したコンテナ名にする
-          #container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
 
 
   # Nginxのデプロイ
