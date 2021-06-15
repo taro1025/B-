@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
 
-  front:
-    build:
-      context: ./front/
-      dockerfile: Dockerfile
-    ports:
-      - 8000:8000 #3000を8000に(migi)
-
+  #front:
+  #  build:
+  #    context: ./front/
+  #    dockerfile: Dockerfile
+  #  ports:
+  #    - 8000:8000 #3000を8000に(migi)
+#
 
   api: #rubyね
     build:
@@ -39,7 +39,7 @@ services:
       - 80:80
     depends_on:
       - api
-      - front
+      #- front
 
 volumes:
   public-data:

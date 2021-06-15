@@ -1,3 +1,11 @@
+FROM node:14.17-alpine as build
+WORKDIR /usr/src/app
+
+COPY . /usr/src/app
+RUN rm -r -f b-plus-app/build && cd b-plus-app \
+  && npm i && npm run build
+
+
 FROM nginx:1.15.8
 
 RUN rm -f /etc/nginx/conf.d/*
@@ -5,7 +13,8 @@ RUN rm -r -f /usr/share/nginx/html   #&& mkdir -p ./b-plus-app/build #追加
 
 
 #nginxからフロントにアクセスできるよう
-COPY ./b-plus-app/build/  /var/www/
+
+COPY --from=build /usr/src/app/b-plus-app/build/  /var/www/
 COPY ./prod_conf/ /etc/nginx/conf.d/
 
 # ビルド完了後にNginxを起動

@@ -58,29 +58,29 @@ resource "aws_ecs_task_definition" "service" {
       essential = true
       portMappings = [
         {
-          containerPort = 8000
-          hostPort      = 8000
-        }
-      ]
-    },
-    {
-      name      = "nginx"
-      image     = "242989754518.dkr.ecr.ap-northeast-1.amazonaws.com/nginx"
-      #cpu       = 10
-      memory    = 128
-      essential = true
-      portMappings = [
-        {
-          containerPort = 80
+          containerPort = 80 #8000を80に
           hostPort      = 80
         }
       ]
-      volumesFrom = [
-        {
-          sourceContainer = "api"
-        }
-      ]
-    }
+    } #,
+    #{
+    #  name      = "nginx"
+    #  image     = "242989754518.dkr.ecr.ap-northeast-1.amazonaws.com/nginx"
+    #  #cpu       = 10
+    #  memory    = 128
+    #  essential = true
+    #  portMappings = [
+    #    {
+    #      containerPort = 80
+    #      hostPort      = 80
+    #    }
+    #  ]
+    #  volumesFrom = [
+    #    {
+    #      sourceContainer = "api"
+    #    }
+    #  ]
+    #}
   ])
 
   volume {
@@ -121,7 +121,7 @@ resource "aws_ecs_service" "b_plus" {
 #
   load_balancer {
     target_group_arn = aws_lb_target_group.targetGP.arn
-    container_name   = "nginx"
+    container_name   = "front" #"nginx"
     container_port   = 80
   }
 #
