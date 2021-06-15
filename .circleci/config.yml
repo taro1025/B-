@@ -7,7 +7,7 @@ workflows:
   #reactのデプロイ
   react-deploy:
     jobs:
-      - aws-ecr/push-image:
+      - aws-ecr/build-and-push-image:
           #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
           account-url: AWS_ECR_ACCOUNT_URL
           # リージョン
@@ -29,7 +29,7 @@ workflows:
   # Railsのデプロイ
   rails-deploy:
     jobs:
-      - aws-ecr/push-image:
+      - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL
           region: AWS_REGION
           aws-access-key-id: AWS_ACCESS_KEY_ID
@@ -48,7 +48,7 @@ workflows:
   # Nginxのデプロイ
   nginx-deploy:
     jobs:
-      - aws-ecr/push-image:
+      - aws-ecr/build-and-push-image:
           #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
           account-url: AWS_ECR_ACCOUNT_URL
           # リージョン
@@ -71,7 +71,7 @@ workflows:
               only: main
       - aws-ecs/deploy-service-update:
           requires:
-            - aws-ecr/push-image
+            - aws-ecr/build-and-push-image
           # ECSのタスク定義名
           family: 'b_plus_service'
           # ECSのクラスター名かARNのフルパス
