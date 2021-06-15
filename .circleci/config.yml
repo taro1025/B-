@@ -17,6 +17,8 @@ jobs:
       #    name: Make the executable
       #    command: |
       #      go build -o demo-app src/main.go
+    machine:
+      image: ubuntu-2004:202104-01
       - run:
           name: Setup common environment variables
           command: |
