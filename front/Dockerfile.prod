@@ -1,12 +1,12 @@
 FROM nginx:1.15.8
 
 RUN rm -f /etc/nginx/conf.d/*
-RUN rm -r -f /usr/share/nginx/html #追加
+RUN rm -r -f /usr/share/nginx/html && mkdir -p b-plus-app/build #追加
 
 
 #nginxからフロントにアクセスできるように
-COPY ./b-plus-app/build  /var/www
-COPY ./prod_conf/ /etc/nginx/conf.d/
+COPY b-plus-app/build  /var/www
+COPY prod_conf/ /etc/nginx/conf.d/
 
 # ビルド完了後にNginxを起動
 CMD /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
