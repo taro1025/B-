@@ -63,7 +63,7 @@ jobs:
           # ECRのリポジトリ
           repo: api
           tag: "${CIRCLE_SHA1}"
-      - aws-ecs/deploy-service-update:
+      - aws-ecs/update-service:
           requires:
             - aws-ecr/build-and-push-image
           # ECSのタスク定義名
