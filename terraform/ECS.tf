@@ -35,7 +35,7 @@ resource "aws_ecs_task_definition" "service" {
           value = "${var.DB_ENDPOINT}"
         },
         {
-          name = "MASTER_KEY"
+          name = "RAILS_MASTER_KEY"
           value = "${var.MASTER_KEY}"
         }
       ]
