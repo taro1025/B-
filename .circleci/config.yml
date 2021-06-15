@@ -13,11 +13,11 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run:
-          name: Make the executable
-          command: |
-            go build -o demo-app src/main.go
-      - run:
+      #- run:
+      #    name: Make the executable
+      #    command: |
+      #      go build -o demo-app src/main.go
+      #- run:
           name: Setup common environment variables
           command: |
             echo 'export ECR_REPOSITORY_NAME="api"' >> $BASH_ENV
