@@ -4,7 +4,7 @@ RUN rm -f /etc/nginx/conf.d/*
 RUN rm -r -f /usr/share/nginx/html && mkdir -p ./b-plus-app/build #追加
 
 
-#nginxからフロントにアクセスできるように
+#nginxからフロントにアクセスできるよう
 COPY ./b-plus-app/build/  /var/www/
 COPY ./prod_conf/ /etc/nginx/conf.d/
 
