@@ -64,8 +64,6 @@ jobs:
           repo: api
           tag: "${CIRCLE_SHA1}"
       - aws-ecs/update-service:
-          requires:
-            - aws-ecr/build-and-push-image
           # ECSのタスク定義名
           family: 'b_plus_service'
           # ECSのクラスター名かARNのフルパス
