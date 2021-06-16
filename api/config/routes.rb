@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :book_user_reads
       resources :book_user_favorites
       resources :posts
+      resources :comments
       resources :ranks
     end
   end
