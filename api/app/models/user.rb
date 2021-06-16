@@ -8,7 +8,8 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
 
-  has_many :book_user_reads
+  has_many :book_user_reads, dependent: :destroy
+  has_many :book_want_to_reads, dependent: :destroy
 
    private
     def downcase_email
