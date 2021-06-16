@@ -37,4 +37,19 @@ RSpec.describe "BookUserReads", type: :request do
       }.to change{ @user.book_user_reads.count }.by(0)
     end
   end
+
+  describe "can be registerd more twice" do
+    it "should be createtd" do
+      #Login
+      post "/api/v1/login", params: { session: { email: @user.email,password: @user.password}}
+      #1times
+      expect{
+        post "/api/v1/book_user_reads", params: { id: @user.id, book_isbn: "978-4-00-310101-8"}
+      }.to change{ @user.book_user_reads.count }.by(+1)
+      #2times
+      expect{
+        post "/api/v1/book_user_reads", params: { id: @user.id, book_isbn: "978-4-00-310101-8"}
+      }.to change{ @user.book_user_reads.count }.by(+1)
+    end
+  end
 end
