@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :users
       resources :book_want_to_reads
       resources :book_user_reads
+      resources :ranks
     end
   end
 end
