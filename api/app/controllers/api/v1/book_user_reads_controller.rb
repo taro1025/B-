@@ -25,8 +25,6 @@ module Api
 
       def index
       end
-
-
     end
   end
 end

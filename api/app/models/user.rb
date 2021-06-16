@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :book_user_reads, dependent: :destroy
   has_many :book_want_to_reads, dependent: :destroy
   has_many :ranks, dependent: :destroy
+  has_many :book_user_favorites, dependent: :destroy
 
    private
     def downcase_email
