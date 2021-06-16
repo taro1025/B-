@@ -1,6 +1,9 @@
 require 'rails_helper'
 require 'json'
 
+#感想のCRUDと
+#タイムラインのテスト
+
 RSpec.describe "Posts", type: :request do
   before do
     @user = User.create(
@@ -46,6 +49,33 @@ RSpec.describe "Posts", type: :request do
 
       post = Post.find(res['post']['id'])
       expect(post.impression).to eq("非常に面白かった")
+    end
+  end
+
+  describe "GET Timeline" do
+    it "valid order" do
+      bob =  User.create(
+          name: "bob", email: "game1@gmail.com",
+          password: "aaaa1234", password_confirmation: "aaaa1234")
+      tom =  User.create(
+        name: "tom", email: "game2@gmail.com",
+        password: "aaaa1234", password_confirmation: "aaaa1234")
+      rios =  User.create(
+          name: "rios", email: "game3@gmail.com",
+          password: "aaaa1234", password_confirmation: "aaaa1234")
+
+      expect_timeline = []
+      expect_timeline << bob.posts.create(book_isbn: "0123456789", impression: "4")
+      expect_timeline << tom.posts.create(book_isbn: "0123456789", impression: "3")
+      expect_timeline << @user.posts.create(book_isbn: "0123456789", impression: "2")
+      expect_timeline << bob.posts.create(book_isbn: "0123456789", impression: "1")
+      expect_timeline << rios.posts.create(book_isbn: "0123456789", impression: "0")
+
+      @user.follow(bob)
+      @user.follow(tom)
+      @user.follow(rios)
+
+      expect(@user.get_timeline).to eq(expect_timeline)
     end
   end
 end

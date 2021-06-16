@@ -61,7 +61,7 @@ RSpec.describe "BookUserFavorites", type: :request do
         }
       }.to change{ @user.book_user_favorites.count }.by(0)
       res = JSON.parse(response.body)
-      puts res
+
       expect(res['message']).to eq("必読書の登録に失敗しました。再度、登録をお試しください。")
     end
   end
