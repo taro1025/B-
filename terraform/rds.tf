@@ -42,6 +42,7 @@ resource "aws_db_instance" "b_plus_db" {
     backup_retention_period = "7"
     backup_window = "19:00-19:30"
     auto_minor_version_upgrade = false
+    skip_final_snapshot  = true
 }
 
 output "rds_endpoint" {
