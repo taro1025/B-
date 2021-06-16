@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   end
 
   def correct_user
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]) #ページの持ち主
     unless @user == current_user
       render json: {
         message: "他ユーザーの情報を書き換えてはいけません。"
