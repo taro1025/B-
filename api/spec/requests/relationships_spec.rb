@@ -16,14 +16,25 @@ RSpec.describe "Relationships", type: :request do
 
   describe "taro follow jiro" do
     it "should be success " do
-      expect{@taro.follow(@jiro)}.to change{ @taro.following.count}.by(+1)
+      #Login
+      post "/api/v1/login", params: { session: { email: @taro.email,password: @taro.password}}
+
+      expect{
+        post "/api/v1/relationships", params: { id: @jiro.id}
+      }.to change{ @taro.following.count}.by(+1)
     end
   end
 
   describe "taro unfollow jiro" do
     it "should be success" do
-      expect{@taro.follow(@jiro)}.to change{ @taro.following.count}.by(+1)
-      expect{@taro.unfollow(@jiro)}.to change{ @taro.following.count}.by(-1)
+      #Login
+      post "/api/v1/login", params: { session: { email: @taro.email,password: @taro.password}}
+      #follow
+      @taro.follow(@jiro)
+      #unfollow
+      expect{
+        delete "/api/v1/relationships/#{@jiro.id}"
+      }.to change{ @taro.following.count}.by(-1)
     end
   end
 

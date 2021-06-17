@@ -64,13 +64,19 @@ RSpec.describe "Posts", type: :request do
           name: "rios", email: "game3@gmail.com",
           password: "aaaa1234", password_confirmation: "aaaa1234")
 
-      expect_timeline = []
-      expect_timeline << bob.posts.create(book_isbn: "0123456789", impression: "4")
-      expect_timeline << tom.posts.create(book_isbn: "0123456789", impression: "3")
-      expect_timeline << @user.posts.create(book_isbn: "0123456789", impression: "2")
-      expect_timeline << bob.posts.create(book_isbn: "0123456789", impression: "1")
-      expect_timeline << rios.posts.create(book_isbn: "0123456789", impression: "0")
+      four = bob.posts.create(book_isbn: "0123456789", impression: "4")
+      three = tom.posts.create(book_isbn: "0123456789", impression: "3")
+      two = @user.posts.create(book_isbn: "0123456789", impression: "2")
+      one = bob.posts.create(book_isbn: "0123456789", impression: "1")
+      zero = rios.posts.create(book_isbn: "0123456789", impression: "0")
 
+      expect_timeline = []
+
+      expect_timeline << zero
+      expect_timeline << one
+      expect_timeline << two
+      expect_timeline << three
+      expect_timeline << four
       @user.follow(bob)
       @user.follow(tom)
       @user.follow(rios)
