@@ -8,6 +8,7 @@ module Api
         other_user = User.find(params[:id])
         if @current_user && other_user
           @current_user.follow(other_user)
+          @current_user.create_notification_follow!(params[:id])
           render json: {}, status: :ok
         else
           render json: {}, status: :internal_server_error
