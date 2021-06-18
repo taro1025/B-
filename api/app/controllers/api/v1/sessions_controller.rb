@@ -12,6 +12,7 @@ module Api
             logged_in: true
           }, status: :ok
         else
+          puts "userはいる" if user
           render json: {message: "パスワードまたはemailアドレスが間違っています。"}, status: :internal_server_error
         end
       end
