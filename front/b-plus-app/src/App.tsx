@@ -7,22 +7,26 @@ import {
   Redirect
 } from "react-router-dom";
 
+import { Layout } from "./containers/Layout"
 import { TopPage } from "./containers/TopPage";
+
 
 const App: React.FC = () => {
   return (
     <Router>
-      <Switch>
-        <Route
-          exact
-          path="/"
-        >
-          <TopPage></TopPage>
-        </Route>
+      <Layout>
+        <Switch>
+          <Route
+            exact
+            path="/"
+          >
+            <TopPage></TopPage>
+          </Route>
 
-        <Redirect to="/" />
+          <Redirect to="/" />
 
-      </Switch>
+        </Switch>
+      </Layout>
     </Router>
   );
 }
