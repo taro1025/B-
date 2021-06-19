@@ -1,5 +1,5 @@
 import React from "react"
-import styled, { createGlobalStyle } from "styled-components"
+import styled from "styled-components"
 
 //Material UIs
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';

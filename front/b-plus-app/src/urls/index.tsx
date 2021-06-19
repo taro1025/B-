@@ -16,6 +16,7 @@ const DEFAULT_API_LOCALHOST: string = 'http://127.0.0.1:3000/api/v1';
 //Login
 export const loginUrl: string = `${DEFAULT_API_LOCALHOST}/login`
 export const logoutUrl: string = `${DEFAULT_API_LOCALHOST}/logout`
+export const checkLoginUrl: string = `${DEFAULT_API_LOCALHOST}/checkLogin`
 
 //User
 export const followingUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/users/${user_id}/following`

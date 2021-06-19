@@ -28,6 +28,14 @@ module Api
         end
       end
 
+      def check
+        if current_user
+            render json: { logged_in: true, user: @current_user }, stauts: :ok
+        else
+            render json: { logged_in: false, message: 'ユーザーが存在しません' }, status: :internal_server_error
+        end
+      end
+
       private
           def login(user)
             session[:user_id] = user.id
