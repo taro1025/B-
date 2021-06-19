@@ -10,22 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_13_013152) do
+ActiveRecord::Schema.define(version: 2021_06_16_040038) do
+
+  create_table "admin_users", charset: "utf8mb4", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
 
   create_table "book_user_favorites", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "book_id", null: false
     t.integer "user_id", null: false
     t.text "description_summary"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "book_isbn"
   end
 
   create_table "book_user_reads", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "book_id", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "book_isbn"
+  end
+
+  create_table "book_want_to_reads", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "book_isbn"
   end
 
   create_table "comments", charset: "utf8mb4", force: :cascade do |t|
@@ -59,19 +78,19 @@ ActiveRecord::Schema.define(version: 2021_06_13_013152) do
   end
 
   create_table "posts", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "book_id", null: false
     t.integer "user_id", null: false
     t.text "impression"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "book_isbn"
   end
 
   create_table "ranks", charset: "utf8mb4", force: :cascade do |t|
     t.integer "rank_id", null: false
-    t.integer "book_id", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "book_isbn"
   end
 
   create_table "relationships", charset: "utf8mb4", force: :cascade do |t|
@@ -88,13 +107,6 @@ ActiveRecord::Schema.define(version: 2021_06_13_013152) do
     t.string "name", null: false
     t.string "email", null: false
     t.string "password_digest"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "want_to_reads", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "book_id", null: false
-    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

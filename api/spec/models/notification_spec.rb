@@ -1,5 +1,6 @@
 require 'rails_helper'
+require 'json'
 
 RSpec.describe Notification, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
 end
