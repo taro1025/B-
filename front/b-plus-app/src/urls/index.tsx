@@ -69,3 +69,6 @@ export const deleteRanksUrl = (user_id: string): string => `${DEFAULT_API_LOCALH
 //Relationship(Follow & Unfollow)
 export const followsUrl: string = `${DEFAULT_API_LOCALHOST}/relationships`
 export const unfollowsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/relationships/${user_id}`
+
+//google
+export const searchBooksUrl: string = 'https://www.googleapis.com/books/v1/volumes'

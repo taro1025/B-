@@ -10,6 +10,7 @@ import {
 import { Layout } from "./containers/Layout"
 import { TopPage } from "./containers/TopPage";
 import { Login } from "./containers/Login"
+import { Search } from "./containers/Search"
 import { IState } from "./interfaces"
 
 import { checkLoginStatus } from "./apis/checkLoginStatus"
@@ -43,6 +44,13 @@ const App: React.FC = () => {
             //setUser={setUser}
             ></TopPage>
           </Route>
+
+          <Route exact path="/search">
+            <Search
+
+            ></Search>
+          </Route>
+
 
           <Route
             exact

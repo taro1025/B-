@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import { NoDecoLink } from "../components/NoDecoLink";
 
 //Material UIs
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
@@ -17,10 +18,10 @@ export const Footer: React.FC = () => {
 
     <BottomNavigationWrapper>
       <BottomNavigation>
-        <BottomNavigationAction label="home" icon={<Home />} />
-        <BottomNavigationAction label="manage" icon={<Book />} />
-        <BottomNavigationAction label="search" icon={<Search />} />
-        <BottomNavigationAction label="notification" icon={<Notifications />} />
+        <BottomNavigationAction label="home" icon={<Home />} component={NoDecoLink} to="/" />
+        <BottomNavigationAction label="manage" icon={<Book />} component={NoDecoLink} to="/" />
+        <BottomNavigationAction label="search" icon={<Search />} component={NoDecoLink} to="/search" />
+        <BottomNavigationAction label="notification" icon={<Notifications />} component={NoDecoLink} to="/" />
       </BottomNavigation>
     </BottomNavigationWrapper>
 

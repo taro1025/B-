@@ -42,4 +42,3 @@ export const TopPage = (props: { user: IState | undefined }) => {
     </div>
   )
 }
-//onClick={() => handleClickLogout()
