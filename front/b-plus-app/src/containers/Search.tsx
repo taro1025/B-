@@ -45,7 +45,7 @@ export const Search = (props: bookStateProps) => {
           {books.map((item: any, i: number) => {
             return (
               item.volumeInfo.imageLinks ?
-                <div key={item.id}><NoDecoLink to={`/book/${i}/${word}`}><img src={item.volumeInfo.imageLinks.smallThumbnail} /></NoDecoLink></div>
+                <div key={item.id}><NoDecoLink to={`/book/${i}`}><img src={item.volumeInfo.imageLinks.smallThumbnail} /></NoDecoLink></div>
                 :
                 <p>noimage</p>)
           })}
