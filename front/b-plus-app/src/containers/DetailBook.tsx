@@ -27,7 +27,7 @@ export const DetailBook = (props: bookStateProps) => {
       <div>
         <h2>プロテスタンティズムの倫理と資本主義の精神</h2>
       </div>
-      <DonutButton></DonutButton>
+      <DonutButton isbn={params.id}></DonutButton>
     </div>
 
   )

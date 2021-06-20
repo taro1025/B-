@@ -1,5 +1,5 @@
 import styled from "styled-components"
-
+import { registerWantToBook } from "../apis/registerWantToBook"
 //メ　モ
 //本当はドーナツ型のボタンにしたかったのだけどやり方が分からなかった。
 const Wrapper = styled.div`
@@ -24,12 +24,17 @@ const Button = styled.button`
 `
 
 
-export const DonutButton = () => {
+export const DonutButton = (props: { isbn: string }) => {
+
+  const handleWantToBook = () => {
+    registerWantToBook(props.isbn)
+  }
+
   return (
     <Wrapper>
       <Ul>
         <Button>読んだ本に登録</Button>
-        <Button>読みたい本に登録</Button>
+        <Button onClick={() => handleWantToBook()}>読みたい本に登録</Button>
         <Button>人生の本に登録</Button>
       </Ul>
     </Wrapper>
