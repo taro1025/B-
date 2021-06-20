@@ -16,11 +16,11 @@ export const checkLoginStatus = (
       if (response.data.logged_in && loggedInStatus === false) {
 
         setLoggedInStatus(true)
-        setUser({ name: response.data.user.name, id: response.data.user.id })
+        setUser({ ...response.data.user })
       } else if (!response.data.logged_in && loggedInStatus === true) {
 
         setLoggedInStatus(false)
-        setUser({ name: "", id: 0 })
+        setUser(undefined)
       }
     })
     .catch(error => {

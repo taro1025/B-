@@ -22,7 +22,7 @@ const App: React.FC = () => {
   const loginAction = (props: any, data: any) => {
     //set State of Login
     setLoggedInStatus(true)
-    setUser({ name: data.user.name, id: data.user.id })
+    setUser(data.user)
     //jump to top
     props.history.push("/")
   }

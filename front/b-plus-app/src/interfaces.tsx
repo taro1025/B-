@@ -6,9 +6,20 @@ export interface LoginInterface {
   password: string;
 }
 
+//export type IState = {
+//  name: string,
+//  id?: number
+//}
 export type IState = {
+
   name: string,
-  id?: number
+  id?: number,
+  email: string,
+  password_digest: string,
+  updated_at: string,
+  created_at: string,
+
+
 }
 
 export interface loginProps {
