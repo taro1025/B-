@@ -7,8 +7,13 @@ import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import { Search, Home, Notifications, Book } from '@material-ui/icons';
 
 const BottomNavigationWrapper = styled.footer`
+  width: 100%;
   position: fixed;
   bottom: 0;
+`
+
+const BN = styled(BottomNavigation)`
+  justify-content: initial;
 `
 
 
