@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { searchBooks } from "../apis/searchBooks"
 import { NoDecoLink } from "../components/NoDecoLink";
+import { searchProps } from "../interfaces"
 
 
-export const Search = () => {
+export const Search = (props: searchProps) => {
 
   const [word, setWord] = useState<string>("")
-  const [books, setBooks] = useState<any>()
+  //const [books, setBooks] = useState<any>()
+  const books = props.books
+  const setBooks = props.setBooks
+
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     console.log("これから検索")

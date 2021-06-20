@@ -26,3 +26,8 @@ export interface loginProps {
   loginAction: (props: any, data: any) => void;
   loggedInStatus: boolean;
 }
+
+export interface searchProps {
+  books: any;
+  setBooks: React.Dispatch<any>
+}

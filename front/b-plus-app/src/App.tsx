@@ -19,6 +19,7 @@ const App: React.FC = () => {
 
   const [loggedInStatus, setLoggedInStatus] = useState(false)
   const [user, setUser] = useState<IState | undefined>()
+  const [books, setBooks] = useState<any>()
 
   const loginAction = (props: any, data: any) => {
     //set State of Login
@@ -45,11 +46,17 @@ const App: React.FC = () => {
             ></TopPage>
           </Route>
 
-          <Route exact path="/search">
-            <Search
-
-            ></Search>
-          </Route>
+          <Route
+            exact
+            path="/search"
+            render={props =>
+              <Search
+                {...props}
+                books={books}
+                setBooks={setBooks}
+              />
+            }
+          />
 
 
           <Route
