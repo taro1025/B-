@@ -27,7 +27,7 @@ export interface loginProps {
   loggedInStatus: boolean;
 }
 
-export interface searchProps {
+export interface bookStateProps {
   books: any;
   setBooks: React.Dispatch<any>
 }

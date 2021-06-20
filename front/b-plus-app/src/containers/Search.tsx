@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { searchBooks } from "../apis/searchBooks"
 import { NoDecoLink } from "../components/NoDecoLink";
-import { searchProps } from "../interfaces"
+import { bookStateProps } from "../interfaces"
 
 
-export const Search = (props: searchProps) => {
+export const Search = (props: bookStateProps) => {
 
   const [word, setWord] = useState<string>("")
-  //const [books, setBooks] = useState<any>()
   const books = props.books
   const setBooks = props.setBooks
 
@@ -43,10 +42,10 @@ export const Search = (props: searchProps) => {
 
       {books && (
         <div>
-          {books.map((item: any) => {
+          {books.map((item: any, i: number) => {
             return (
               item.volumeInfo.imageLinks ?
-                <div key={item.id}><img src={item.volumeInfo.imageLinks.smallThumbnail} /></div>
+                <div key={item.id}><NoDecoLink to={`/book/${i}/${word}`}><img src={item.volumeInfo.imageLinks.smallThumbnail} /></NoDecoLink></div>
                 :
                 <p>noimage</p>)
           })}

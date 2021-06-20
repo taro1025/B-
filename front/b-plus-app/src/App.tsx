@@ -11,6 +11,7 @@ import { Layout } from "./containers/Layout"
 import { TopPage } from "./containers/TopPage";
 import { Login } from "./containers/Login"
 import { Search } from "./containers/Search"
+import { DetailBook } from "./containers/DetailBook"
 import { IState } from "./interfaces"
 
 import { checkLoginStatus } from "./apis/checkLoginStatus"
@@ -58,6 +59,17 @@ const App: React.FC = () => {
             }
           />
 
+          <Route
+            exact
+            path="/book/:id"
+            render={props =>
+              <DetailBook
+                {...props}
+                books={books}
+                setBooks={setBooks}
+              />
+            }
+          />
 
           <Route
             exact
