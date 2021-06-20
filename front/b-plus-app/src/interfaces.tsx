@@ -8,7 +8,7 @@ export interface LoginInterface {
 
 export type IState = {
   name: string,
-  id: number
+  id?: number
 }
 
 export interface loginProps {

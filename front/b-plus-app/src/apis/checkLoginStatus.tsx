@@ -8,7 +8,7 @@ import { checkLoginUrl } from '../urls/index';
 export const checkLoginStatus = (
   loggedInStatus: boolean,
   setLoggedInStatus: Dispatch<SetStateAction<boolean>>,
-  setUser: Dispatch<SetStateAction<IState>>
+  setUser: Dispatch<SetStateAction<IState | undefined>>
 ) => {
   return axios.get(checkLoginUrl, { withCredentials: true })
     .then(response => {

@@ -17,10 +17,7 @@ import { checkLoginStatus } from "./apis/checkLoginStatus"
 const App: React.FC = () => {
 
   const [loggedInStatus, setLoggedInStatus] = useState(false)
-  const [user, setUser] = useState<IState>({
-    name: "",
-    id: 0
-  })
+  const [user, setUser] = useState<IState | undefined>()
 
   const loginAction = (props: any, data: any) => {
     //set State of Login
