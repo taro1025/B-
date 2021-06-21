@@ -1,7 +1,13 @@
 import { useState } from "react"
 import { DialogContent, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import Button from '@material-ui/core/Button';
 import styled from "styled-components"
+import { useContext } from 'react'
+import { User } from "../../App"
+import { Isbn } from "../../containers/DetailBook"
+import { registerReadBook } from "../../apis/registerReadBook"
+
 
 const OverWrapper = styled.div`
   position: fixed;
@@ -20,6 +26,13 @@ const CloseButton = styled.button`
   outline: none;
   padding: 0;
   appearance: none;
+  margin-right: 1rem;
+  color: white;
+`
+
+const DialogTitleColored = styled(DialogTitle)`
+  color: white;
+  background-color: #065fe3;
 `
 
 export const RegisterReadBook = (
@@ -28,6 +41,18 @@ export const RegisterReadBook = (
     isReadBookDialog: true
   }
 ) => {
+
+  const contextUser: any = useContext(User)
+  const contextIsbn: any = useContext(Isbn)
+
+  const handleReadBook = () => {
+    if (contextUser.user) {
+      registerReadBook(contextIsbn.isbn, contextUser.user.id)
+    } else {
+      console.log("ログインが必要")
+    }
+  }
+
   const setDialog = props.setReadBookDialog
   const isOpen = props.isReadBookDialog
 
@@ -44,32 +69,31 @@ export const RegisterReadBook = (
     >
 
 
-      <DialogTitle>
+      <DialogTitleColored>
         <CloseButton onClick={() => handleCloseDialog()}>←</CloseButton>本の感想
-      </DialogTitle>
+      </DialogTitleColored>
       <form>
         <DialogContent>
 
           <TextareaAutosize
             aria-label="minimum height"
             rowsMin={30}
-            cols={35}
+            cols={45}
             placeholder="感想を書く(任意)"
             value={text}
             onChange={e => setText(e.target.value)}
           />
+          <DialogActions>
+
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleReadBook()}
+            >投稿</Button>
+
+          </DialogActions>
         </DialogContent>
-        <DialogActions>
 
-
-          <button>
-            送信
-           </button>
-
-
-
-
-        </DialogActions>
       </form>
 
     </Dialog>

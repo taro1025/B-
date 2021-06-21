@@ -1,3 +1,4 @@
+import React from "react"
 import { bookStateProps } from "../interfaces"
 import { useParams } from 'react-router-dom'
 import packagelock from "../package-lock.jpeg"
@@ -15,6 +16,7 @@ const ImageWrapper = styled.div`
 const Image = styled.img`
 
 `
+export const Isbn = React.createContext({})
 
 export const DetailBook = (props: bookStateProps) => {
   const params = useParams<{ id: string }>()
@@ -26,7 +28,10 @@ export const DetailBook = (props: bookStateProps) => {
       <div>
         <h2>プロテスタンティズムの倫理と資本主義の精神</h2>
       </div>
-      <DonutButton isbn={params.id}></DonutButton>
+      <Isbn.Provider value={params.id}>
+        <DonutButton isbn={params.id}></DonutButton>
+      </Isbn.Provider>
+
     </div>
 
   )

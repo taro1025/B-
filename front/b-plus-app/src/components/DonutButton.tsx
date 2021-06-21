@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import { registerWantToBook } from "../apis/registerWantToBook"
-import { registerReadBook } from "../apis/registerReadBook"
 import { useContext } from 'react'
 import { User } from "../App"
 import { useState } from "react"
@@ -42,13 +41,7 @@ export const DonutButton = (props: { isbn: string }) => {
     }
   }
 
-  const handleReadBook = () => {
-    if (context.user) {
-      registerReadBook(props.isbn, context.user.id)
-    } else {
-      console.log("ログインが必要")
-    }
-  }
+
 
   const [isReadBookDialog, setReadBookDialog] = useState(false)
   const [isFavoriteDialog, setFavoriteDialog] = useState(false)
