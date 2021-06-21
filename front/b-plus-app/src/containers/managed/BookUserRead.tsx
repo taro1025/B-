@@ -39,7 +39,7 @@ export const BookUserRead = () => {
     if (context.user) {
       fetchBookUserRead(context.user.id)
         .then(res => {
-          //console.log("response", res.books)
+          console.log("response", res.books)
           //setBooks(res.books)
         })
     }
