@@ -10,7 +10,7 @@ export const Search = (props: bookStateProps) => {
 
   const [word, setWord] = useState<string>("")
   let books = props.books
-  const setBooks = props.setBooks
+  //const setBooks = props.setBooks
   //このbooksデータはダミー。isbnがgoogleapiになかったので。
   books = [
 

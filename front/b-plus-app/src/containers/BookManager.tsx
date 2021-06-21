@@ -6,16 +6,23 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { TabPanel, allyProps } from '../components/TabPanel';
 
+//Managed Components
+import { BookLog } from "./managed/BookLog"
+import { BookUserRead } from "./managed/BookUserRead"
+import { BookWantToRead } from "./managed/BookWantToRead"
+import { BookUserFavorite } from "./managed/BookUserFavorite"
+
 export const BookManager = () => {
   const [value, setValue] = useState(0)
-  const handleChange = (event: any) => {
-    setValue(event.target.value);
+  const handleChange = (event: any, newValue: any) => {
+    setValue(newValue);
   };
+
   return (
     <Paper>
       <Tabs
         value={value}
-        onChange={(e) => handleChange(e)}
+        onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
         centered
@@ -25,6 +32,20 @@ export const BookManager = () => {
         <Tab label="人生の本" {...allyProps(2)}></Tab>
         <Tab label="読みたい本" {...allyProps(3)}></Tab>
       </Tabs>
+
+      <TabPanel value={value} index={0}>
+        <BookLog />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <BookUserRead />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <BookUserFavorite />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <BookWantToRead />
+      </TabPanel>
+
     </Paper>
   )
 }
