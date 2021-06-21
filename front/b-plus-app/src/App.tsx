@@ -12,6 +12,7 @@ import { TopPage } from "./containers/TopPage";
 import { Login } from "./containers/Login"
 import { Search } from "./containers/Search"
 import { DetailBook } from "./containers/DetailBook"
+import { BookManager } from "./containers/BookManager"
 import { IState } from "./interfaces"
 
 import { checkLoginStatus } from "./apis/checkLoginStatus"
@@ -49,6 +50,10 @@ const App: React.FC = () => {
               user={user}
             //setUser={setUser}
             ></TopPage>
+          </Route>
+
+          <Route exact path="/book_manager">
+            <BookManager></BookManager>
           </Route>
 
           <Route

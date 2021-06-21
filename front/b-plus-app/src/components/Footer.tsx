@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
     <BottomNavigationWrapper>
       <BottomNavigation>
         <BottomNavigationAction label="home" icon={<Home />} component={NoDecoLink} to="/" />
-        <BottomNavigationAction label="manage" icon={<Book />} component={NoDecoLink} to="/" />
+        <BottomNavigationAction label="manage" icon={<Book />} component={NoDecoLink} to="/book_manager" />
         <BottomNavigationAction label="search" icon={<Search />} component={NoDecoLink} to="/search" />
         <BottomNavigationAction label="notification" icon={<Notifications />} component={NoDecoLink} to="/" />
       </BottomNavigation>

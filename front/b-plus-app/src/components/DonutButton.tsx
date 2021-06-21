@@ -28,11 +28,10 @@ const Button = styled.button`
 
 export const DonutButton = (props: { isbn: string }) => {
 
-  const user: any = useContext(User)
+  const context: any = useContext(User)
   //console.log("userrr", user.user.id)
   const handleWantToBook = () => {
-    console.log("遠照")
-    registerWantToBook(props.isbn, user.user.id)
+    registerWantToBook(props.isbn, context.user.id)
   }
 
   return (
