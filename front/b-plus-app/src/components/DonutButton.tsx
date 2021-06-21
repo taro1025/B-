@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { registerWantToBook } from "../apis/registerWantToBook"
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { User } from "../App"
 //メ　モ
 //本当はドーナツ型のボタンにしたかったのだけどやり方が分からなかった。

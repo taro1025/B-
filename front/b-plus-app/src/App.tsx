@@ -53,7 +53,9 @@ const App: React.FC = () => {
           </Route>
 
           <Route exact path="/book_manager">
-            <BookManager></BookManager>
+            <User.Provider value={{ user }}>
+              <BookManager />
+            </User.Provider>
           </Route>
 
           <Route

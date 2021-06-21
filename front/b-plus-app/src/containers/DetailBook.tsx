@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { bookStateProps } from "../interfaces"
 import { useParams } from 'react-router-dom'
 import packagelock from "../package-lock.jpeg"

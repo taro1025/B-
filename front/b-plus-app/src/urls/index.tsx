@@ -29,9 +29,10 @@ export const deleteUserUrl = (user_id: string): string => `${DEFAULT_API_LOCALHO
 
 //Book want to Read
 export const createBookWantToReadsUrl: string = `${DEFAULT_API_LOCALHOST}/book_want_to_reads`
-//export const showBookWantToReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_want_to_reads/${user_id}`
+export const showBookWantToReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_want_to_reads/${user_id}`
 export const updateBookWantToReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_want_to_reads/${user_id}`
 export const deleteBookWantToReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_want_to_reads/${user_id}`
+
 
 
 //Book User Read
