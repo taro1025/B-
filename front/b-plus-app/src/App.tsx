@@ -16,6 +16,10 @@ import { IState } from "./interfaces"
 
 import { checkLoginStatus } from "./apis/checkLoginStatus"
 
+
+export const User = React.createContext({})
+
+
 const App: React.FC = () => {
 
   const [loggedInStatus, setLoggedInStatus] = useState(false)
@@ -59,15 +63,18 @@ const App: React.FC = () => {
             }
           />
 
+
           <Route
             exact
             path="/book/:id"
             render={props =>
-              <DetailBook
-                {...props}
-                books={books}
-                setBooks={setBooks}
-              />
+              <User.Provider value={{ user }}>
+                <DetailBook
+                  {...props}
+                  books={books}
+                  setBooks={setBooks}
+                />
+              </User.Provider>
             }
           />
 

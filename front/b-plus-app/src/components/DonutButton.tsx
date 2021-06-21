@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import { registerWantToBook } from "../apis/registerWantToBook"
+import React, { useContext } from 'react'
+import { User } from "../App"
 //メ　モ
 //本当はドーナツ型のボタンにしたかったのだけどやり方が分からなかった。
 const Wrapper = styled.div`
@@ -26,8 +28,11 @@ const Button = styled.button`
 
 export const DonutButton = (props: { isbn: string }) => {
 
+  const user: any = useContext(User)
+  //console.log("userrr", user.user.id)
   const handleWantToBook = () => {
-    registerWantToBook(props.isbn)
+    console.log("遠照")
+    registerWantToBook(props.isbn, user.user.id)
   }
 
   return (
