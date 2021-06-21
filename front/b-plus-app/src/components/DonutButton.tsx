@@ -3,6 +3,9 @@ import { registerWantToBook } from "../apis/registerWantToBook"
 import { registerReadBook } from "../apis/registerReadBook"
 import { useContext } from 'react'
 import { User } from "../App"
+import { useState } from "react"
+import { RegisterReadBook } from "./register/RegisterReadBook"
+import { RegisterFavoriteBook } from "./register/RegisterFavoriteBook"
 //メ　モ
 //本当はドーナツ型のボタンにしたかったのだけどやり方が分からなかった。
 const Wrapper = styled.div`
@@ -47,14 +50,20 @@ export const DonutButton = (props: { isbn: string }) => {
     }
   }
 
-  return (
-    <Wrapper>
-      <Ul>
-        <Button onClick={() => handleReadBook()}>読んだ本に登録</Button>
-        <Button onClick={() => handleWantToBook()}>読みたい本に登録</Button>
-        <Button>人生の本に登録</Button>
-      </Ul>
-    </Wrapper>
+  const [isReadBookDialog, setReadBookDialog] = useState(false)
+  const [isFavoriteDialog, setFavoriteDialog] = useState(false)
 
+  return (
+    <>
+      <Wrapper>
+        <Ul>
+          <Button onClick={() => setReadBookDialog(true)}>読んだ本に登録</Button>
+          <Button onClick={() => handleWantToBook()}>読みたい本に登録</Button>
+          <Button>人生の本に登録</Button>
+        </Ul>
+      </Wrapper>
+      {isReadBookDialog && <RegisterReadBook setReadBookDialog={setReadBookDialog} isReadBookDialog={isReadBookDialog} />}
+      {isFavoriteDialog && <RegisterFavoriteBook />}
+    </>
   );
 };
