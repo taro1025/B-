@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { registerWantToBook } from "../apis/registerWantToBook"
+import { registerReadBook } from "../apis/registerReadBook"
 import { useContext } from 'react'
 import { User } from "../App"
 //メ　モ
@@ -31,13 +32,25 @@ export const DonutButton = (props: { isbn: string }) => {
   const context: any = useContext(User)
   //console.log("userrr", user.user.id)
   const handleWantToBook = () => {
-    registerWantToBook(props.isbn, context.user.id)
+    if (context.user) {
+      registerWantToBook(props.isbn, context.user.id)
+    } else {
+      console.log("ログインが必要")
+    }
+  }
+
+  const handleReadBook = () => {
+    if (context.user) {
+      registerReadBook(props.isbn, context.user.id)
+    } else {
+      console.log("ログインが必要")
+    }
   }
 
   return (
     <Wrapper>
       <Ul>
-        <Button>読んだ本に登録</Button>
+        <Button onClick={() => handleReadBook()}>読んだ本に登録</Button>
         <Button onClick={() => handleWantToBook()}>読みたい本に登録</Button>
         <Button>人生の本に登録</Button>
       </Ul>

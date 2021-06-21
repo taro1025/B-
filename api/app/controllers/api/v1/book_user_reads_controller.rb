@@ -2,10 +2,11 @@
 module Api
   module V1
     class BookUserReadsController < ApplicationController
-      before_action :correct_user, only: [:create, :destroy]
+      before_action :current_user, only: [:create, :destroy]
 
       def create
-        if @user.book_user_reads.create(book_isbn: params[:book_isbn])
+        user = User.find(params[:id])
+        if user.book_user_reads.create(book_isbn: params[:book_isbn])
           render json: {}, status: :ok
         else
           render json: {
@@ -15,7 +16,8 @@ module Api
       end
 
       def destroy
-        if book_user_read = @user.book_user_reads.find_by(book_isbn: params[:book_isbn])
+        user = User.find(params[:id])
+        if book_user_read = user.book_user_reads.find_by(book_isbn: params[:book_isbn])
           book_user_read.delete
           render json: {}, status: :ok
         else
