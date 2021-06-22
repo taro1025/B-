@@ -42,9 +42,14 @@ export const RegisterReadBook = (
   }
 ) => {
 
+  const setDialog = props.setReadBookDialog
+  const isOpen = props.isReadBookDialog
+  const handleCloseDialog = () => {
+    setDialog(false)
+  }
+
   const contextUser: any = useContext(User)
   const contextIsbn: any = useContext(Isbn)
-
   const handleReadBook = () => {
     if (contextUser.user) {
       registerReadBook(contextIsbn.isbn, contextUser.user.id)
@@ -53,14 +58,13 @@ export const RegisterReadBook = (
     }
   }
 
-  const setDialog = props.setReadBookDialog
-  const isOpen = props.isReadBookDialog
-
-  const handleCloseDialog = () => {
-    setDialog(false)
-  }
-
   const [text, setText] = useState("")
+  const checkText = (targetValue: string) => {
+    if (targetValue.length > 220) {
+      return
+    }
+    setText(targetValue)
+  }
   return (
     <Dialog
       fullScreen
@@ -77,12 +81,13 @@ export const RegisterReadBook = (
 
           <TextareaAutosize
             aria-label="minimum height"
-            rowsMin={30}
+            rowsMin={15}
             cols={45}
             placeholder="感想を書く(任意)"
             value={text}
-            onChange={e => setText(e.target.value)}
+            onChange={e => checkText(e.target.value)}
           />
+          <p>{text.length}/220</p>
           <DialogActions>
 
             <Button
