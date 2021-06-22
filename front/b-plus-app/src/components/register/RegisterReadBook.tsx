@@ -7,7 +7,7 @@ import { useContext } from 'react'
 import { User } from "../../App"
 import { Isbn } from "../../containers/DetailBook"
 import { registerReadBook } from "../../apis/registerReadBook"
-
+import { createPost } from "../../apis/createPost"
 
 const OverWrapper = styled.div`
   position: fixed;
@@ -47,12 +47,19 @@ export const RegisterReadBook = (
   const handleCloseDialog = () => {
     setDialog(false)
   }
-
+  //Ibnsがない時に投稿ができないようにテスト、ヴァ理デーションすること
   const contextUser: any = useContext(User)
   const contextIsbn: any = useContext(Isbn)
+
+  console.log("isbn", contextIsbn)
+
   const handleReadBook = () => {
-    if (contextUser.user) {
-      registerReadBook(contextIsbn.isbn, contextUser.user.id)
+    if (contextUser.user && contextIsbn) {
+      registerReadBook(contextIsbn, contextUser.user.id)
+        .then(res => {
+          console.log(contextIsbn, text)
+          createPost(text, contextIsbn)
+        })
     } else {
       console.log("ログインが必要")
     }

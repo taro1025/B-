@@ -3,7 +3,7 @@ import axios from 'axios';
 import { createPostsUrl } from '../urls/index';
 
 
-export const createUser = (impression: string, book_isbn: string) => {
+export const createPost = (impression: string, book_isbn: string) => {
   return axios.post(createPostsUrl,
     {
       impression: impression,
