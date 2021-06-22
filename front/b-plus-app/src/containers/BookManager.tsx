@@ -12,12 +12,21 @@ import { BookUserRead } from "./managed/BookUserRead"
 import { BookWantToRead } from "./managed/BookWantToRead"
 import { BookUserFavorite } from "./managed/BookUserFavorite"
 
+import { makeStyles } from "@material-ui/core/styles"; import IconButton from '@material-ui/core/IconButton';
+
+const useStyles = makeStyles({
+  nopadding: {
+    padding: "0px!"
+  },
+});
+
 export const BookManager = () => {
   const [value, setValue] = useState(0)
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
 
+  const classes = useStyles();
   return (
     <Paper>
       <Tabs

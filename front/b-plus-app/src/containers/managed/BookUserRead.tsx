@@ -6,6 +6,7 @@ import { NoDecoLink } from "../../components/NoDecoLink";
 import dummyImage from "../../dummyImage.jpeg"
 import IconButton from '@material-ui/core/IconButton';
 import SyncIcon from '@material-ui/icons/Sync';
+import { Hierarchy } from "../../components/Hierarchy"
 
 const Ul = styled.ul`
   display: flex;
@@ -23,45 +24,17 @@ const Img = styled.img`
   border: 1px solid #fff;
 `
 
-const JumpWrapper = styled.div`
-  position: fixed;
-  top: 110px;
-  left: 0.1rem;
-`
-const JumpBar = styled.div`
-  width: .7rem;
-  height: 500px;
-  background-color: #333333;
-  border-radius: 10px;
-  opacity: 0.7;
-  position: absolute;
-  top:0;
-  left: .25rem;
-
-`
-const RankWrapper = styled.div`
-  position: relative;
-  height: 500px;
-  top:0;
-  left: 0;
-  display:flex;
-  flex-flow: column;
-  justify-content:space-between;
-  z-index: 99
+const MyIconButton = styled(IconButton)`
+  padding:initial;
 `
 
-const CircleSpan = styled.span`
-  opacity: initial;
-  width: 1.3rem;
-  height: 1.3rem;
-  background-color: #111188;
-  border-radius: 100%;
-  color: white;
-  text-align: center;
-`
+
+
 
 //ダミーデータを使用のためコメントアウトしてる
+//画面切り替えボタンのMuiBoxのpaddingを無くしたい.
 export const BookUserRead = () => {
+
 
   const [isHierarchy, setHierarchy] = useState(true)
   //const [books, setBooks] = useState<any>()
@@ -85,23 +58,15 @@ export const BookUserRead = () => {
     }
   }, [])
 
+
   return (
     <>
-      <IconButton color="primary" aria-label="add to shopping cart">
+      <MyIconButton size="small" color="primary" aria-label="add to shopping cart">
         <SyncIcon />
-      </IconButton>
+      </MyIconButton>
       {
         isHierarchy ?
-          <JumpWrapper>
-            <RankWrapper>
-              <CircleSpan>S</CircleSpan>
-              <CircleSpan>A</CircleSpan>
-              <CircleSpan>B</CircleSpan>
-              <CircleSpan>C</CircleSpan>
-              <CircleSpan>D</CircleSpan>
-            </RankWrapper>
-            <JumpBar />
-          </JumpWrapper>
+          <Hierarchy />
           :
           <Ul>
             {
