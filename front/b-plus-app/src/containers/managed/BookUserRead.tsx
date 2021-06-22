@@ -39,6 +39,10 @@ export const BookUserRead = () => {
   const [isHierarchy, setHierarchy] = useState(true)
   //const [books, setBooks] = useState<any>()
 
+  const handleHierarchy = () => {
+    setHierarchy(!isHierarchy)
+  }
+
   const context: any = useContext(User)
 
   const dummy_books: any = []
@@ -61,7 +65,7 @@ export const BookUserRead = () => {
 
   return (
     <>
-      <MyIconButton size="small" color="primary" aria-label="add to shopping cart">
+      <MyIconButton onClick={() => handleHierarchy()} size="small" color="primary" aria-label="add to shopping cart">
         <SyncIcon />
       </MyIconButton>
       {
