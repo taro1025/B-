@@ -4,35 +4,13 @@ import { searchBooks } from "../apis/searchBooks"
 import { NoDecoLink } from "../components/NoDecoLink";
 import { bookStateProps } from "../interfaces"
 import packagelock from "../package-lock.jpeg" //ダミー画像
-
+import { dummy_books } from "../dummyData"
 
 export const Search = (props: bookStateProps) => {
 
   const [word, setWord] = useState<string>("")
   let books = props.books
   //const setBooks = props.setBooks
-  //このbooksデータはダミー。isbnがgoogleapiになかったので。
-  books = [
-
-    [{
-      isbn: "0123456789",
-      title: "進撃の巨人1"
-    }],
-    [{
-      isbn: "1123456789",
-      title: "進撃の巨人1"
-    }],
-    [{
-      isbn: "2123456789",
-      title: "進撃の巨人1"
-    }],
-    [{
-      isbn: "3123456789",
-      title: "進撃の巨人1"
-    }]
-  ]
-  console.log(books)
-  //setBooks(books)
 
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -63,19 +41,32 @@ export const Search = (props: bookStateProps) => {
 
       </form>
 
-      {books && (
-        <div>
-          {books.map((item: any, i: number) => {
-            console.log("item", item)
-            return (
-
-              < div key={item.id} > <NoDecoLink to={`/book/${item[0].isbn}`}><img src={packagelock}></img></NoDecoLink></div>
-            )
-          })}
-        </div>
-      )
+      {
+        // books && (
+        // <div>
+        //   {books.map((item: any, i: number) => {
+        //     console.log("item", item)
+        //     return (
+        //
+        //       < div key={item.id} > <NoDecoLink to={`/book/${item[0].isbn}`}><img src={packagelock}></img></NoDecoLink></div>
+        //     )
+        //   })}
+        // </div>
+        // )
       }
+      {
+        dummy_books && (
+          <div>
+            {dummy_books.map((item: any, i: number) => {
+              console.log("item", item)
+              return (
 
+                < div key={item.id} > <NoDecoLink to={`/book/${item[0].isbn}`}><img src={packagelock}></img></NoDecoLink></div>
+              )
+            })}
+          </div>
+        )
+      }
     </div >
   )
 }

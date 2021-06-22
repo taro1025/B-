@@ -4,7 +4,7 @@ module Api
       before_action :current_user, only: [:create, :destroy, :update]
 
       def create
-        post = @current_user.posts.new(book_isbn: params[:book_isbn], impression: params[:impression])
+        post = @current_user.posts.new(user_name: @current_user.name, book_isbn: params[:book_isbn], impression: params[:impression])
         if post.save
           render json: { post: post }, status: :ok
         else
