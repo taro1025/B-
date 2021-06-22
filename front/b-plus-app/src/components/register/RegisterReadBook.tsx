@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import styled from "styled-components"
 import { useContext } from 'react'
 import { User } from "../../App"
-import { Isbn } from "../../containers/DetailBook"
+import { Isbn } from "../tabs/Detail"
 import { registerReadBook } from "../../apis/registerReadBook"
 import { createPost } from "../../apis/createPost"
 

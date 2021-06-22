@@ -1,38 +1,75 @@
-import React from "react"
+import { useState } from "react"
 import { bookStateProps } from "../interfaces"
 import { useParams } from 'react-router-dom'
-import packagelock from "../package-lock.jpeg"
-import { DonutButton } from "../components/DonutButton"
 import styled from "styled-components"
 
+import { Detail } from "../components/tabs/Detail"
+import { Posts } from "../components/tabs/Posts"
+import { MyPosts } from "../components/tabs/MyPosts"
+
+//to use for Tab
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import { TabPanel, allyProps } from '../components/TabPanel';
+import { makeStyles } from "@material-ui/core/styles"; import IconButton from '@material-ui/core/IconButton';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& .MuiBox-root': {
+      padding: '0px',
+    },
+  },
+}));
 //　メ　モ
 //reloadするとstateの値が消えてしまうのでエラーになる
 //そこを余裕が出た時localstrageとか使って改善したい
 
-const ImageWrapper = styled.div`
-  padding: 1rem 0;
-  text-align: center;
-`
+
 const Image = styled.img`
 
 `
-export const Isbn = React.createContext({})
+
 
 export const DetailBook = (props: bookStateProps) => {
+
+  const classes = useStyles(props);
+
   const params = useParams<{ id: string }>()
   //const book = props.books[params.id]
 
-  return (
-    <div>
-      <ImageWrapper><img src={packagelock}></img></ImageWrapper>
-      <div>
-        <h2>プロテスタンティズムの倫理と資本主義の精神</h2>
-      </div>
-      <Isbn.Provider value={params.id}>
-        <DonutButton isbn={params.id}></DonutButton>
-      </Isbn.Provider>
+  const [value, setValue] = useState(0)
+  const handleChange = (event: any, newValue: any) => {
+    setValue(newValue);
+  };
 
-    </div>
+  return (
+
+    <Paper>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        indicatorColor="primary"
+        textColor="primary"
+        centered
+      >
+        <Tab label="登録" {...allyProps(0)}></Tab>
+        <Tab label="みんなの感想" {...allyProps(1)}></Tab>
+        <Tab label="自分の感想" {...allyProps(2)}></Tab>
+      </Tabs>
+
+      <TabPanel className={classes.root} value={value} index={0}>
+        <Detail />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Posts />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <MyPosts />
+      </TabPanel>
+
+    </Paper>
+
 
   )
 }
