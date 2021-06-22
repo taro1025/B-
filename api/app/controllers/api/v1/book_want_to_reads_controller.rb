@@ -2,10 +2,9 @@ module Api
   module V1
     class BookWantToReadsController < ApplicationController
       before_action :current_user, only: [:create, :destroy]
-
+      before_action :correct_user, only: [:show]
       def create
-        user = User.find(params[:id])
-        if user.book_want_to_reads.create(book_isbn: params[:book_isbn])
+        if @current_user.book_want_to_reads.create(book_isbn: params[:book_isbn])
           render json: {}, status: :ok
         else
           render json: {
@@ -15,8 +14,7 @@ module Api
       end
 
       def destroy
-        user = User.find(params[:id])
-        if book_want_to_read = user.book_want_to_reads.find_by(book_isbn: params[:book_isbn])
+        if book_want_to_read = @current_user.book_want_to_reads.find_by(book_isbn: params[:book_isbn])
           book_want_to_read.delete
           render json: {}, status: :ok
         else
@@ -25,8 +23,7 @@ module Api
       end
 
       def show
-        user = User.find(params[:id])
-        if books = user.book_want_to_reads
+        if books = @user.book_want_to_reads
           render json: {books: books}, status: :ok
         else
           render json: {message:"読みたい本に登録されている本はありません。"}, status: :internal_server_error

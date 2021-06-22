@@ -7,7 +7,7 @@ export const registerWantToBook = (book_isbn: string, user_id: string) => {
     {
       book_isbn: book_isbn,
       id: user_id
-    })
+    }, { withCredentials: true })
     .then(res => {
       console.log("成功")
       return res.data

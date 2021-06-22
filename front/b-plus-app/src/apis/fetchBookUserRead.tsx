@@ -3,7 +3,7 @@ import { showBookUserReadsUrl } from "../urls/index";
 
 
 export const fetchBookUserRead = (user_id: string) => {
-  return axios.get(showBookUserReadsUrl(user_id))
+  return axios.get(showBookUserReadsUrl(user_id), { withCredentials: true })
     .then(res => {
       return res.data
     })
