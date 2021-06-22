@@ -47,7 +47,7 @@ export const RegisterReadBook = (
   const handleCloseDialog = () => {
     setDialog(false)
   }
-  //Ibnsがない時に投稿ができないようにテスト、ヴァ理デーションすること
+
   const contextUser: any = useContext(User)
   const contextIsbn: any = useContext(Isbn)
 
