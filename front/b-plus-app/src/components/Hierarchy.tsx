@@ -71,6 +71,10 @@ const CircleSpan = styled.span`
 
 `
 
+const BooksWrapper = styled.div`
+  padding-left: 1.3rem;
+  padding-right: .15rem;
+`
 
 
 //実際には、ランクごとに本を取得して表示させる。
@@ -94,62 +98,62 @@ export const Hierarchy = () => {
         </RankWrapper>
         <JumpBar />
       </JumpWrapper>
+      <BooksWrapper>
+        <p>Sだお</p>
+        <section id="s">
+          <Ul>
 
-      <p>Sだお</p>
-      <section id="s">
-        <Ul>
-
-          {
-            dummy_books.map((book: any) => {
-              return book
-            })
-          }
-        </Ul>
-      </section>
+            {
+              dummy_books.map((book: any) => {
+                return book
+              })
+            }
+          </Ul>
+        </section>
               Aだお
       <section id="a">
-        <Ul>
+          <Ul>
 
-          {
-            dummy_books.map((book: any) => {
-              return book
-            })
-          }
-        </Ul>
-      </section>
+            {
+              dummy_books.map((book: any) => {
+                return book
+              })
+            }
+          </Ul>
+        </section>
               Bだお
       <section id="b">
-        <Ul>
+          <Ul>
 
-          {
-            dummy_books.map((book: any) => {
-              return book
-            })
-          }
-        </Ul>
-      </section>
+            {
+              dummy_books.map((book: any) => {
+                return book
+              })
+            }
+          </Ul>
+        </section>
               Cだお
       <section id="c">
-        <Ul>
+          <Ul>
 
-          {
-            dummy_books.map((book: any) => {
-              return book
-            })
-          }
-        </Ul>
-      </section>
-      <section id="d">
-        <Ul>
+            {
+              dummy_books.map((book: any) => {
+                return book
+              })
+            }
+          </Ul>
+        </section>
+        <section id="d">
+          <Ul>
 
-          {
-            dummy_books.map((book: any) => {
-              return book
-            })
-          }
-        </Ul>
-      </section>
-
+            {
+              dummy_books.map((book: any) => {
+                return book
+              })
+            }
+          </Ul>
+        </section>
+      </BooksWrapper>
     </>
   )
 }

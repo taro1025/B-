@@ -12,13 +12,15 @@ import { BookUserRead } from "./managed/BookUserRead"
 import { BookWantToRead } from "./managed/BookWantToRead"
 import { BookUserFavorite } from "./managed/BookUserFavorite"
 
-import { makeStyles } from "@material-ui/core/styles"; import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
-  nopadding: {
-    padding: "0px!"
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& .MuiBox-root': {
+      padding: '0px',
+    },
   },
-});
+}));
 
 export const BookManager = () => {
   const [value, setValue] = useState(0)
@@ -45,7 +47,7 @@ export const BookManager = () => {
       <TabPanel value={value} index={0}>
         <BookLog />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel className={classes.root} value={value} index={1}>
         <BookUserRead />
       </TabPanel>
       <TabPanel value={value} index={2}>

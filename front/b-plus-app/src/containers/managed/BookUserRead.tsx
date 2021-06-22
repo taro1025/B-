@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SyncIcon from '@material-ui/icons/Sync';
 import { Hierarchy } from "../../components/Hierarchy"
 
+
 const Ul = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -26,6 +27,7 @@ const Img = styled.img`
 
 const MyIconButton = styled(IconButton)`
   padding:initial;
+  left: 88vw;
 `
 
 
@@ -64,7 +66,7 @@ export const BookUserRead = () => {
 
 
   return (
-    <>
+    <div>
       <MyIconButton onClick={() => handleHierarchy()} size="small" color="primary" aria-label="add to shopping cart">
         <SyncIcon />
       </MyIconButton>
@@ -89,6 +91,6 @@ export const BookUserRead = () => {
           </Ul>
       }
 
-    </>
+    </div>
   )
 }
