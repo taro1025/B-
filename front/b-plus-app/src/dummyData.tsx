@@ -51,3 +51,12 @@ export const dummy_posts = [
     user_name: "ディアルガ"
   }],
 ]
+
+export const dummy_my_posts = [
+  [{
+    isbn: "0123456789",
+    impression: "まじでめえちゃ面白かった。おすすめできる数少ない本.",
+    user_id: "1",
+    user_name: "taro"
+  }],
+]
