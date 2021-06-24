@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_22_082320) do
+ActiveRecord::Schema.define(version: 2021_06_24_073133) do
 
   create_table "admin_users", charset: "utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,6 +22,24 @@ ActiveRecord::Schema.define(version: 2021_06_22_082320) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "amount_books", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "camulative_page_now"
+    t.integer "camulative_page_four"
+    t.integer "camulative_page_eight"
+    t.integer "camulative_page_twelve"
+    t.integer "camulative_page_six_teen"
+    t.integer "camulative_page_twenty"
+    t.integer "camulative_page_twenty_four"
+    t.integer "camulative_page_twenty_eight"
+    t.integer "amount_page_this"
+    t.integer "amount_book_this"
+    t.integer "amount_page_last"
+    t.integer "amount_book_last"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "book_user_favorites", charset: "utf8mb4", force: :cascade do |t|
