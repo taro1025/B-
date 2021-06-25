@@ -9,6 +9,9 @@ import { Isbn } from "../tabs/Detail"
 import { registerReadBook } from "../../apis/registerReadBook"
 import { createPost } from "../../apis/createPost"
 
+//ベタがきでregisterReadBookにページ数を指定しているけど
+//APIを導入にしたら本の情報からページ数をとって入れるように。
+
 const OverWrapper = styled.div`
   position: fixed;
   top: 0;
@@ -55,7 +58,7 @@ export const RegisterReadBook = (
 
   const handleReadBook = () => {
     if (contextUser.user && contextIsbn) {
-      registerReadBook(contextIsbn, contextUser.user.id)
+      registerReadBook(contextIsbn, contextUser.user.id, 212)
         .then(res => {
           console.log(contextIsbn, text)
           createPost(text, contextIsbn)

@@ -40,6 +40,10 @@ export const createBookUserReadsUrl: string = `${DEFAULT_API_LOCALHOST}/book_use
 export const showBookUserReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_reads/${user_id}`
 export const updateBookUserReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_reads/${user_id}`
 export const deleteBookUserReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_reads/${user_id}`
+//Graph data
+export const getGraphDataUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/graph_data/${user_id}`
+export const getMonthDataUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/month_data/${user_id}`
+
 
 //Book User Favorite
 export const createBookUserFavoritesUrl: string = `${DEFAULT_API_LOCALHOST}/book_user_favorites`

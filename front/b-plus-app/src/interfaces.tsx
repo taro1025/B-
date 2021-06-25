@@ -31,3 +31,49 @@ export interface bookStateProps {
   books: any;
   setBooks: React.Dispatch<any>
 }
+
+export interface GraphInterface {
+  today: {
+    page: number;
+    amount_book: number;
+  },
+  four: {
+    page: number;
+    amount_book: number;
+  },
+  eight: {
+    page: number;
+    amount_book: number;
+  },
+  twelve: {
+    page: number;
+    amount_book: number;
+  },
+  six_teen: {
+    page: number;
+    amount_book: number;
+  },
+  twenty: {
+    page: number;
+    amount_book: number;
+  },
+  twenty_four: {
+    page: number;
+    amount_book: number;
+  },
+  twenty_eight: {
+    page: number;
+    amount_book: number;
+  },
+}
+
+export interface MonthInterface {
+  this_month: {
+    page: number;
+    amount_book: number;
+  },
+  last_month: {
+    page: number;
+    amount_book: number;
+  },
+}

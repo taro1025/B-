@@ -111,7 +111,7 @@ module Api
           books = user.book_user_reads.where("updated_at BETWEEN ? AND ?", start_day, end_day)
           page = 0
           books.each do |book|
-            page += book.page
+            page += book.page if book.page
           end
 
           [page, books.length]
