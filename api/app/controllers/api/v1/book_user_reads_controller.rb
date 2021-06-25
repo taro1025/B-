@@ -38,17 +38,10 @@ module Api
       def get_graph_data
         records = []
         today = Date.today
+        #4日前時点、８日前時点、、、２８日前時点の累計ページ数を取得
         8.times do |n|
           records << get_spacify_record(today - (4*(n-1)))
         end
-        #records << get_spacify_record(today)
-        #records << get_spacify_record(today-4)
-        #records << get_spacify_record(today-8)
-        #records << get_spacify_record(today-12)
-        #records << get_spacify_record(today-16)
-        #records << get_spacify_record(today-20)
-        #records << get_spacify_record(today-24)
-        #records << get_spacify_record(today-28)
         render json: {
           today: records[0],
           four: records[1],
@@ -62,14 +55,6 @@ module Api
       end
 
       private
-      #値は適当。params[:amount_page]でフロントからページ数を受け取りたい。
-        def update_amount
-          amount_book = @current_user.amount_book || @current_user.create_amount_book
-          amount_book.camulative_page_now += 231
-          amount_book.amount_page_this += 231
-          amount_book.amount_book_this += 1
-          amount_book.save
-        end
 
         def get_spacify_record(end_day)
           user = User.find(params[:id])

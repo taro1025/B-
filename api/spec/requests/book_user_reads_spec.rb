@@ -58,6 +58,11 @@ RSpec.describe "BookUserReads", type: :request do
     it "return graph data" do
       #Login
       post "/api/v1/login", params: { session: { email: @user.email,password: @user.password}}
+      travel -360.day do #360日前に遡って10000p登録
+        expect{
+          post "/api/v1/book_user_reads", params: { id: @user.id, book_isbn: "978-4-00-310101-8", page:10000}
+        }.to change{ @user.book_user_reads.count }.by(+1)
+      end
       travel -4.day do #4日前に遡って120p登録
         expect{
           post "/api/v1/book_user_reads", params: { id: @user.id, book_isbn: "978-4-00-310101-8", page:120}
@@ -73,12 +78,12 @@ RSpec.describe "BookUserReads", type: :request do
       }.to change{ @user.book_user_reads.count }.by(+1)
 
 
-      #todayが632p, 4日前は120p,それ以前は0であるべき
+      #todayが10632p, 4日前は10120p,それ以前は10000pであるべき
       get "/api/v1/graph_data/#{@user.id}"
       res = JSON.parse(response.body)
 
-      expect(res['today']).to eq(632)
-      expect(res['four']).to eq(120)
+      expect(res['today']).to eq(10632)
+      expect(res['four']).to eq(10120)
     end
   end
 end

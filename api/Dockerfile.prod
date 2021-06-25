@@ -4,7 +4,7 @@ FROM ruby:3.0
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
   && apt-get update -qq \
-  && apt-get install -y nodejs yarn cron
+  && apt-get install -y nodejs yarn
 WORKDIR /app
 COPY . /app
 RUN bundle config --local set path 'vendor/bundle' \
@@ -20,7 +20,5 @@ COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
-# wheneverでcrontab書き込み
-RUN bundle exec whenever --update-crontab
 
-CMD bash -c "cron -f && rm -f tmp/pids/server.pid && bundle exec puma -C config/puma/production.rb -e production"
+CMD bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma/production.rb -e production"
