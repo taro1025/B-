@@ -5,9 +5,10 @@ module Api
       before_action :current_user, only: [:create, :destroy]
       before_action :correct_user, only: [:show]
       def create
-        read_book = @current_user.book_user_reads.new(book_isbn: params[:book_isbn])
+        read_book = @current_user.book_user_reads.new(
+                  book_isbn: params[:book_isbn], page: params[:page])
         if read_book.save
-          update_amount
+          #update_amount
           render json: {}, status: :ok
         else
           render json: {
@@ -34,6 +35,32 @@ module Api
         end
       end
 
+      def get_graph_data
+        records = []
+        today = Date.today
+        8.times do |n|
+          records << get_spacify_record(today - (4*(n-1)))
+        end
+        #records << get_spacify_record(today)
+        #records << get_spacify_record(today-4)
+        #records << get_spacify_record(today-8)
+        #records << get_spacify_record(today-12)
+        #records << get_spacify_record(today-16)
+        #records << get_spacify_record(today-20)
+        #records << get_spacify_record(today-24)
+        #records << get_spacify_record(today-28)
+        render json: {
+          today: records[0],
+          four: records[1],
+          eight: records[2],
+          twelve: records[3],
+          six_teen: records[4],
+          twenty: records[5],
+          twenty_four: records[6],
+          twenty_eight: records[7]
+        },status: :ok
+      end
+
       private
       #値は適当。params[:amount_page]でフロントからページ数を受け取りたい。
         def update_amount
@@ -42,6 +69,19 @@ module Api
           amount_book.amount_page_this += 231
           amount_book.amount_book_this += 1
           amount_book.save
+        end
+
+        def get_spacify_record(end_day)
+          user = User.find(params[:id])
+          start_day = user.book_user_reads.first.created_at
+          books = user.book_user_reads.where("updated_at BETWEEN ? AND ?", start_day, end_day)
+          page = 0
+          books.each do |book|
+            page += book.page
+          end
+
+          page
+
         end
     end
   end
