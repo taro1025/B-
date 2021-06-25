@@ -5,7 +5,9 @@ module Api
       before_action :current_user, only: [:create, :destroy]
       before_action :correct_user, only: [:show]
       def create
-        if @current_user.book_user_reads.create(book_isbn: params[:book_isbn])
+        read_book = @current_user.book_user_reads.new(book_isbn: params[:book_isbn])
+        if read_book.save
+          update_amount
           render json: {}, status: :ok
         else
           render json: {
@@ -31,6 +33,16 @@ module Api
           render json: {message:"読みたい本に登録されている本はありません。"}, status: :internal_server_error
         end
       end
+
+      private
+      #値は適当。params[:amount_page]でフロントからページ数を受け取りたい。
+        def update_amount
+          amount_book = @current_user.amount_book || @current_user.create_amount_book
+          amount_book.camulative_page_now += 231
+          amount_book.amount_page_this += 231
+          amount_book.amount_book_this += 1
+          amount_book.save
+        end
     end
   end
 end
