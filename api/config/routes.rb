@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :ranks
       resources :likes, only: [:create, :destroy]
       resources :relationships, only: [:create, :destroy]
+      get '/notification', to: 'notifications#get_notification'
     end
   end
 end

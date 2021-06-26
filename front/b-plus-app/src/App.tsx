@@ -14,6 +14,7 @@ import { Search } from "./containers/Search"
 import { DetailBook } from "./containers/DetailBook"
 import { BookManager } from "./containers/BookManager"
 import { UserProfile } from "./containers/UserProfile"
+import { Notification } from "./containers/Notification"
 
 import { IState } from "./interfaces"
 
@@ -111,6 +112,10 @@ const App: React.FC = () => {
 
             <Route exact path="/user/:id">
               <UserProfile />
+            </Route>
+
+            <Route exact path="/notification">
+              <Notification />
             </Route>
 
           </Switch>

@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
           icon={<Book />}
           component={NoDecoLink} to={userId ? `/book_manager/${userId}` : "/login"} />
         <BottomNavigationAction label="search" icon={<Search />} component={NoDecoLink} to="/search" />
-        <BottomNavigationAction label="notification" icon={<Notifications />} component={NoDecoLink} to="/" />
+        <BottomNavigationAction label="notification" icon={<Notifications />} component={NoDecoLink} to="/notification" />
       </BottomNavigation>
     </BottomNavigationWrapper>
 
