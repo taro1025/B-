@@ -4,10 +4,15 @@ module Api
       before_action :current_user
 
       def get_notification
-        notice = @current_user.active_notifications.all
+        notifications = @current_user.passive_notifications
+        notifications.where(checked: false).each do |notice|
+          notice.update_attribute(:checked, true)
+        end
+
+        notices = notifications.where.not(visitor_id: @current_user.id)
 
         render json: {
-          notice: notice
+          notices: notices
         }, status: :ok
       end
 

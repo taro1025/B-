@@ -1,5 +1,6 @@
 const DEFAULT_API_LOCALHOST: string = 'http://127.0.0.1:3000/api/v1';
 
+//Notiifcation
 //Login
 //User
 //Book Want To Read
@@ -12,6 +13,8 @@ const DEFAULT_API_LOCALHOST: string = 'http://127.0.0.1:3000/api/v1';
 //Login
 //Relationship(Follow & Unfollow)
 
+//Notification
+export const notificationsUrl = `${DEFAULT_API_LOCALHOST}/notification`
 
 //Login
 export const loginUrl: string = `${DEFAULT_API_LOCALHOST}/login`
