@@ -4,6 +4,11 @@ import { useParams } from "react-router-dom"
 import cat from "../cat.jpeg"
 import styled from "styled-components"
 import { BookManager } from "./BookManager"
+
+const ProfileWrapper = styled.div`
+  padding-bottom: 1rem;
+`
+
 const ProfileImg = styled.img`
   height: 4rem;
   width: 4rem;
@@ -37,10 +42,16 @@ export const UserProfile = () => {
   //})
   return (
     <>
-      <div>
+      <ProfileWrapper>
         <ProfileImg src={cat} />
         <ProfileSpan>倫太郎</ProfileSpan>
-      </div>
+      </ProfileWrapper>
+      <BookManager
+        log={3}
+        readBook={0}
+        favoriteBook={1}
+        bookWantToRead={2}
+      />
     </>
   );
 }

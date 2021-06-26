@@ -21,6 +21,7 @@ import { checkLoginStatus } from "./apis/checkLoginStatus"
 
 
 export const User = React.createContext({})
+export const UserId = React.createContext<number | undefined>(undefined)
 
 
 const App: React.FC = () => {
@@ -44,7 +45,7 @@ const App: React.FC = () => {
   console.log("user", user)
   return (
     <Router>
-      <User.Provider value={{ user }}>
+      <UserId.Provider value={user ? user.id : undefined}>
         <Layout>
           <Switch>
 
@@ -57,7 +58,12 @@ const App: React.FC = () => {
 
             <Route exact path="/book_manager/:id">
               <User.Provider value={{ user }}>
-                <BookManager />
+                <BookManager
+                  log={0}
+                  readBook={1}
+                  favoriteBook={2}
+                  bookWantToRead={3}
+                />
               </User.Provider>
             </Route>
 
@@ -109,7 +115,7 @@ const App: React.FC = () => {
 
           </Switch>
         </Layout >
-      </User.Provider>
+      </UserId.Provider>
     </Router >
   );
 }

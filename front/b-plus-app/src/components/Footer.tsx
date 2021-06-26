@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
 import { NoDecoLink } from "../components/NoDecoLink";
-import { User } from "../App";
+import { UserId } from "../App";
 
 //Material UIs
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
@@ -19,8 +19,8 @@ const BN = styled(BottomNavigation)`
 
 
 export const Footer: React.FC = () => {
-  const context: any = useContext(User)
-  console.log("fotter", context)
+  const userId: number | undefined = useContext(UserId)
+  console.log("fotter", userId)
   return (
 
     <BottomNavigationWrapper>
@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
         <BottomNavigationAction
           label="manage"
           icon={<Book />}
-          component={NoDecoLink} to={context.user ? `/book_manager/${context.user.id}` : "/login"} />
+          component={NoDecoLink} to={userId ? `/book_manager/${userId}` : "/login"} />
         <BottomNavigationAction label="search" icon={<Search />} component={NoDecoLink} to="/search" />
         <BottomNavigationAction label="notification" icon={<Notifications />} component={NoDecoLink} to="/" />
       </BottomNavigation>

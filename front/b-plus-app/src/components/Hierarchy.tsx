@@ -3,24 +3,17 @@ import styled from 'styled-components';
 import dummyImage from "../dummyImage.jpeg"
 import { NoDecoLink } from "./NoDecoLink";
 
-const Ul = styled.ul`
+const HierarchyWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-
-`
-const Li = styled.li`
-  flex-basis: 33.3%;
-`
-
-const Img = styled.img`
-  width: 100%;
-  border: 1px solid #fff;
+  //height: 100%;
 `
 
 const JumpWrapper = styled.div`
   position: fixed;
-  top: 110px;
+    position: -webkit-sticky; /* Safariに対応する */
+  position: sticky; /* 要素を固定/解除する */
+  top: 70px;
+  height: 100%;
   left: 0.1rem;
 `
 const JumpBar = styled.div`
@@ -72,10 +65,24 @@ const CircleSpan = styled.span`
 `
 
 const BooksWrapper = styled.div`
-  padding-left: 1.3rem;
+  padding-left: .3rem;
   padding-right: .15rem;
+  padding-bottom: 60px;
+`
+const Ul = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+`
+const Li = styled.li`
+  flex-basis: 33.3%;
 `
 
+const Img = styled.img`
+  width: 100%;
+  border: 1px solid #fff;
+`
 
 //実際には、ランクごとに本を取得して表示させる。
 
@@ -87,7 +94,7 @@ export const Hierarchy = () => {
     )
   }
   return (
-    <>
+    <HierarchyWrapper>
       <JumpWrapper>
         <RankWrapper>
           <Anchor href="#s"><CircleSpan>S</CircleSpan></Anchor>
@@ -154,6 +161,6 @@ export const Hierarchy = () => {
           </Ul>
         </section>
       </BooksWrapper>
-    </>
+    </HierarchyWrapper>
   )
 }

@@ -22,11 +22,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const BookManager = () => {
+interface Props {
+  log: 0 | 1 | 2 | 3;
+  readBook: 0 | 1 | 2 | 3;
+  favoriteBook: 0 | 1 | 2 | 3;
+  bookWantToRead: 0 | 1 | 2 | 3;
+}
+
+export const BookManager = (props: Props) => {
   const [value, setValue] = useState(0)
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
+  const que = []
+  que[props.log] = "記録"
+  que[props.readBook] = "読んだ本"
+  que[props.favoriteBook] = "人生の本"
+  que[props.bookWantToRead] = "読みたい本"
 
   const classes = useStyles();
   return (
@@ -38,22 +50,22 @@ export const BookManager = () => {
         textColor="primary"
         centered
       >
-        <Tab label="記録" {...allyProps(0)}></Tab>
-        <Tab label="読んだ本" {...allyProps(1)}></Tab>
-        <Tab label="人生の本" {...allyProps(2)}></Tab>
-        <Tab label="読みたい本" {...allyProps(3)}></Tab>
+        <Tab label={que[0]} {...allyProps(props.log)}></Tab>
+        <Tab label={que[1]} {...allyProps(props.readBook)}></Tab>
+        <Tab label={que[2]} {...allyProps(props.favoriteBook)}></Tab>
+        <Tab label={que[3]} {...allyProps(props.bookWantToRead)}></Tab>
       </Tabs>
 
-      <TabPanel value={value} index={0}>
+      <TabPanel value={value} index={props.log}>
         <BookLog />
       </TabPanel>
-      <TabPanel className={classes.root} value={value} index={1}>
+      <TabPanel className={classes.root} value={value} index={props.readBook}>
         <BookUserRead />
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={props.favoriteBook}>
         <BookUserFavorite />
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={props.bookWantToRead}>
         <BookWantToRead />
       </TabPanel>
 
