@@ -5,6 +5,10 @@ import dummyImage from "../../dummyImage.jpeg"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SmsIcon from '@material-ui/icons/Sms';
 
+
+const PostWrapper = styled.div`
+  padding-bottom: 60px;
+`
 const Post = styled.div`
   border: 0.1px solid black;
 `
@@ -77,38 +81,78 @@ const LikeButton = styled.button`
 const WhiteHeartIcon = styled(FavoriteIcon)`
   color: white;
 `
-export const Posts = () => {
+
+interface Props {
+  user_id: number;
+  book_isbn: string;
+  user_name: string;
+  id: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export const Posts = (props: { posts?: Array<Props> }) => {
   console.log(dummy_posts)
 
   return (
     <>
-      {
-        dummy_posts.map((post: any) => {
+      <PostWrapper>
+        {
+          props.posts ?
+            props.posts.map((post: any) => {
+              return (
 
-          return (
-            <Post>
-              <Profile>
-                <div><ProfileImg src={cat} /></div>
-                <ProfileSpan>{post[0].user_name}</ProfileSpan>
-              </Profile>
-              <Text>{post[0].impression}</Text>
-              <BookWrapper>
-                <BookImage src={dummyImage} />
-                <BookTitle>20題で得た知見</BookTitle>
-                <Rank>S</Rank>
-              </BookWrapper>
-              <ActionWrapper>
-                <CommentButton>
-                  <SmsIcon />
-                </CommentButton>
-                <LikeButton>
-                  <WhiteHeartIcon />
-                </LikeButton>
-              </ActionWrapper>
-            </Post>
-          )
-        })
-      }
+                <Post>
+                  <Profile>
+                    <div><ProfileImg src={cat} /></div>
+                    <ProfileSpan>{post.user_name}</ProfileSpan>
+                  </Profile>
+                  <Text>{post.impression}</Text>
+                  <BookWrapper>
+                    <BookImage src={dummyImage} />
+                    <BookTitle>20題で得た知見</BookTitle>
+                    <Rank>S</Rank>
+                  </BookWrapper>
+                  <ActionWrapper>
+                    <CommentButton>
+                      <SmsIcon />
+                    </CommentButton>
+                    <LikeButton>
+                      <WhiteHeartIcon />
+                    </LikeButton>
+                  </ActionWrapper>
+                </Post>
+
+              )
+            })
+            :
+            dummy_posts.map((post: any) => {
+
+              return (
+                <Post>
+                  <Profile>
+                    <div><ProfileImg src={cat} /></div>
+                    <ProfileSpan>{post[0].user_name}</ProfileSpan>
+                  </Profile>
+                  <Text>{post[0].impression}</Text>
+                  <BookWrapper>
+                    <BookImage src={dummyImage} />
+                    <BookTitle>20題で得た知見</BookTitle>
+                    <Rank>S</Rank>
+                  </BookWrapper>
+                  <ActionWrapper>
+                    <CommentButton>
+                      <SmsIcon />
+                    </CommentButton>
+                    <LikeButton>
+                      <WhiteHeartIcon />
+                    </LikeButton>
+                  </ActionWrapper>
+                </Post>
+              )
+            })
+        }
+      </PostWrapper>
     </>
   )
 }

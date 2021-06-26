@@ -1,7 +1,7 @@
 module Api
   module V1
     class PostsController < ApplicationController
-      before_action :current_user, only: [:create, :destroy, :update]
+      before_action :current_user, only: [:create, :destroy, :update, :timeline]
 
       def create
         post = @current_user.posts.new(user_name: @current_user.name, book_isbn: params[:book_isbn], impression: params[:impression])
@@ -32,6 +32,14 @@ module Api
       end
 
       def index
+
+      end
+
+      def timeline
+        timeline = @current_user.get_timeline
+        render json: {
+          timeline: timeline
+        }, stauts: :ok
       end
 
     end

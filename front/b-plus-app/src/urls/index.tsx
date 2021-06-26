@@ -59,6 +59,9 @@ export const createPostsUrl: string = `${DEFAULT_API_LOCALHOST}/posts`
 //export const showPostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
 export const updatePostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
 export const deletePostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
+//Timeline
+export const timelineUrl = `${DEFAULT_API_LOCALHOST}/timeline`
+
 
 //Like
 export const createLikesUrl: string = `${DEFAULT_API_LOCALHOST}/likes`

@@ -2,15 +2,17 @@ import { NoDecoLink } from "../components/NoDecoLink";
 
 import { logout } from "../apis/logout"
 import { IState } from '../interfaces'
-
+import { getTimeline } from "../apis/getTimeline"
+import { useEffect, useState } from "react";
+import { Posts } from "../components/tabs/Posts"
 
 interface Props {
   user: {
     name: string;
     id: number;
   };
-
 }
+
 export const TopPage = (props: { user: IState | undefined }) => {
   let userId: number | undefined
   let userName: string | undefined
@@ -25,6 +27,18 @@ export const TopPage = (props: { user: IState | undefined }) => {
     logout(user_id)
   }
 
+  const [timeline, setTimeline] = useState<[] | undefined>()
+  useEffect(() => {
+    if (userId) {
+      getTimeline()
+        .then((res) => {
+          setTimeline(res.timeline)
+          console.log("timeline", res.timeline)
+        })
+        .catch((e) => console.log(e))
+    }
+  }, [])
+
   return (
     <div className="App">
       {
@@ -36,6 +50,13 @@ export const TopPage = (props: { user: IState | undefined }) => {
           <h1><NoDecoLink to={'/'} > ログアウト</NoDecoLink></h1>
           :
           <h1><NoDecoLink to={'/'} onClick={() => handleClickLogout(userId!)}> ログアウト</NoDecoLink></h1>
+      }
+
+      {
+        timeline &&
+        <Posts
+          posts={timeline}
+        />
       }
 
 
