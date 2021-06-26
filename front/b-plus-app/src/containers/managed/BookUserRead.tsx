@@ -1,5 +1,5 @@
-import { useEffect, useContext, useState } from "react"
-import { User } from "../../App";
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 import { fetchBookUserRead } from "../../apis/fetchBookUserRead";
 import styled from 'styled-components';
 import { NoDecoLink } from "../../components/NoDecoLink";
@@ -44,8 +44,8 @@ export const BookUserRead = () => {
   const handleHierarchy = () => {
     setHierarchy(!isHierarchy)
   }
+  const params: any = useParams()
 
-  const context: any = useContext(User)
 
   const dummy_books: any = []
   for (let i = 0; i < 20; i++) {
@@ -55,8 +55,8 @@ export const BookUserRead = () => {
   }
   //res.booksは本のisbnが複数入ってる。本当はさらにこれを使ってAmazonAPIで本の情報を取得したい。
   useEffect(() => {
-    if (context.user) {
-      fetchBookUserRead(context.user.id)
+    if (params.id) {
+      fetchBookUserRead(params.id)
         .then(res => {
           //console.log("response", res.books)
           //setBooks(res.books)

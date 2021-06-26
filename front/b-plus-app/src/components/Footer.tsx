@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
 import { NoDecoLink } from "../components/NoDecoLink";
+import { User } from "../App";
 
 //Material UIs
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
@@ -18,13 +19,17 @@ const BN = styled(BottomNavigation)`
 
 
 export const Footer: React.FC = () => {
-  //<> </>はフラグメント。divで全体を囲まないでよくなる
+  const context: any = useContext(User)
+  console.log("fotter", context)
   return (
 
     <BottomNavigationWrapper>
       <BottomNavigation>
         <BottomNavigationAction label="home" icon={<Home />} component={NoDecoLink} to="/" />
-        <BottomNavigationAction label="manage" icon={<Book />} component={NoDecoLink} to="/book_manager" />
+        <BottomNavigationAction
+          label="manage"
+          icon={<Book />}
+          component={NoDecoLink} to={context.user ? `/book_manager/${context.user.id}` : "/login"} />
         <BottomNavigationAction label="search" icon={<Search />} component={NoDecoLink} to="/search" />
         <BottomNavigationAction label="notification" icon={<Notifications />} component={NoDecoLink} to="/" />
       </BottomNavigation>

@@ -1,4 +1,5 @@
 import { useEffect, useContext, useState } from "react";
+import { useParams } from "react-router-dom"
 import { Bar } from 'react-chartjs-2';
 import styled from "styled-components"
 import { User } from "../../App";
@@ -87,17 +88,17 @@ export const BookLog = () => {
 
 
   const [monthData, setMonthData] = useState<MonthInterface>()
+  const params: any = useParams()
 
-  const context: any = useContext(User)
   useEffect(() => {
-    if (typeof context.user === 'undefined') {
+    if (typeof params.id === 'undefined') {
       return
     } else {
-      getGraphData(context.user.id)
+      getGraphData(params.id)//context.user.id)
         .then((res) =>
           setGraphData(res)
         )
-      getMonthData(context.user.id)
+      getMonthData(params.id)//context.user.id)
         .then((res) => {
           setMonthData(res)
         })
@@ -105,7 +106,8 @@ export const BookLog = () => {
   }, [])
   const month = new Date();
 
-  const thisLastDay = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+  //const thisLastDay = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+  const todayNum: number = new Date().getDate()
   const lastLastDay = new Date(month.getFullYear(), month.getMonth(), 0).getDate();
   return (
     <>
@@ -125,13 +127,13 @@ export const BookLog = () => {
             <span>{month.getMonth() + 1}月</span>
             <div><Strong>{monthData && monthData.this_month.page}</Strong><Unit>ページ</Unit></div>
             <div><Strong>{monthData && monthData.this_month.amount_book}</Strong><Unit>冊</Unit></div>
-            <div><Strong>{Math.floor(1000 / thisLastDay)}</Strong><Unit>ページ/日</Unit></div>
+            <div><Strong>{monthData ? Math.floor(monthData.this_month.page / todayNum) : 0}</Strong><Unit>ページ/日</Unit></div>
           </Month>
           <Month>
             <span>{month.getMonth()}月</span>
             <div><Strong>{monthData && monthData.last_month.page}</Strong><Unit>ページ</Unit></div>
             <div><Strong>{monthData && monthData.last_month.amount_book}</Strong><Unit>冊</Unit></div>
-            <div><Strong>{Math.floor(1900 / lastLastDay)}</Strong><Unit>ページ/日</Unit></div>
+            <div><Strong>{monthData ? Math.floor(monthData.last_month.page / lastLastDay) : 0}</Strong><Unit>ページ/日</Unit></div>
           </Month>
         </MonthWrapper>
       </Wrapper>

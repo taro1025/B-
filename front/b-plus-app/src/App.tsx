@@ -13,6 +13,8 @@ import { Login } from "./containers/Login"
 import { Search } from "./containers/Search"
 import { DetailBook } from "./containers/DetailBook"
 import { BookManager } from "./containers/BookManager"
+import { UserProfile } from "./containers/UserProfile"
+
 import { IState } from "./interfaces"
 
 import { checkLoginStatus } from "./apis/checkLoginStatus"
@@ -42,65 +44,72 @@ const App: React.FC = () => {
   console.log("user", user)
   return (
     <Router>
-      <Layout>
-        <Switch>
+      <User.Provider value={{ user }}>
+        <Layout>
+          <Switch>
 
-          <Route exact path="/">
-            <TopPage
-              user={user}
-            //setUser={setUser}
-            ></TopPage>
-          </Route>
+            <Route exact path="/">
+              <TopPage
+                user={user}
+              //setUser={setUser}
+              ></TopPage>
+            </Route>
 
-          <Route exact path="/book_manager">
-            <User.Provider value={{ user }}>
-              <BookManager />
-            </User.Provider>
-          </Route>
-
-          <Route
-            exact
-            path="/search"
-            render={props =>
-              <Search
-                {...props}
-                books={books}
-                setBooks={setBooks}
-              />
-            }
-          />
-
-
-          <Route
-            exact
-            path="/book/:id"
-            render={props =>
+            <Route exact path="/book_manager/:id">
               <User.Provider value={{ user }}>
-                <DetailBook
+                <BookManager />
+              </User.Provider>
+            </Route>
+
+            <Route
+              exact
+              path="/search"
+              render={props =>
+                <Search
                   {...props}
                   books={books}
                   setBooks={setBooks}
                 />
-              </User.Provider>
-            }
-          />
+              }
+            />
 
-          <Route
-            exact
-            path="/login"
-            render={props =>
-              <Login
-                {...props}
-                loginAction={loginAction}
-                loggedInStatus={loggedInStatus}
-              />
-            }
-          />
 
-          <Redirect to="/" />
+            <Route
+              exact
+              path="/book/:id"
+              render={props =>
+                <User.Provider value={{ user }}>
+                  <DetailBook
+                    {...props}
+                    books={books}
+                    setBooks={setBooks}
+                  />
+                </User.Provider>
+              }
+            />
 
-        </Switch>
-      </Layout >
+            <Route
+              exact
+              path="/login"
+              render={props =>
+                <Login
+                  {...props}
+                  loginAction={loginAction}
+                  loggedInStatus={loggedInStatus}
+                />
+              }
+            />
+
+
+
+
+            <Route exact path="/user/:id">
+              <UserProfile />
+            </Route>
+
+          </Switch>
+        </Layout >
+      </User.Provider>
     </Router >
   );
 }
