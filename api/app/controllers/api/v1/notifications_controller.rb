@@ -12,12 +12,12 @@ module Api
         notices = notifications.where.not(visitor_id: @current_user.id)
         notices_with_name = []
         notices.each do |notice|
-          if notice.action == 'like' || 'comment'
-            post = Post.find_by(id: notice.post_id)
-            notices_with_name << {notice: notice, name: notice.visitor.name, post: post}
-          else
+          #if notice.action == 'like' || 'comment'
+          #  post = Post.find_by(id: notice.post_id)
+          #  notices_with_name << {notice: notice, name: notice.visitor.name, post: post}
+          #else
             notices_with_name << {notice: notice, name: notice.visitor.name}
-          end
+          #end
         end
         render json: {
           notices: notices_with_name
