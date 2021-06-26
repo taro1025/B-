@@ -1,7 +1,7 @@
 import { getNotice } from "../apis/getNotice"
 import { useEffect, useState } from "react"
 export const Notification = () => {
-  const [notices, setNotice] = useState()
+  const [notices, setNotice] = useState<[] | undefined>()
 
   useEffect(() => {
     getNotice()
@@ -13,10 +13,27 @@ export const Notification = () => {
   console.log("notice", notices)
   return (
     <>
-      <div>
-        <span>ジローさんが〇〇しました</span>
-        <p>ほんとにそれですよね。私もあああだったのでとてもよくわかります。</p>
-      </div>
+      {
+        notices &&
+        notices!.map((notice: any) => {
+          switch (notice.notice.action) {
+            case 'follow':
+              return (
+                <div>
+                  <span>{notice.name}さんがフォローしました</span>
+                </div>
+              )
+            case 'like':
+              return ()
+            case 'comment':
+              return ()
+            default:
+              return
+          }
+        })
+
+      }
+
     </>
   );
 }

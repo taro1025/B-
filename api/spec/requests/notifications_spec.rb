@@ -70,15 +70,14 @@ RSpec.describe "Notifications", type: :request do
             }
       }.to change{ Notification.count }.by(+1)
 
-      #ログインユーザーを＠taroに切り替え
+      #ログインユーザーを＠userに切り替え
       delete "/api/v1/logout", params: { id:@jiro.id }
       #Login
       post "/api/v1/login", params: { session: { email: @user.email,password: @user.password}}
 
-
       get "/api/v1/notification"
       res = JSON.parse(response.body)
-      puts "response #{res}"
+
       expect(res['notices'].length).to eq(2)
     end
   end
