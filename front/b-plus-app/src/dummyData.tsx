@@ -18,6 +18,33 @@ export const dummy_books = [
   }]
 ]
 
+export const dummyBookUserFavorite = [
+  {
+    isbn: "0123456789",
+    user_id: 4,
+    description_summary: "この本で生きるのが楽になった",
+    description: "この本を読むことで私はとても生きるのが楽になりましたt。なぜなら。。。。。"
+  },
+  {
+    isbn: "1123456789",
+    user_id: 4,
+    description_summary: "この本で女の子とわかり合うことができました。",
+    description: "私は過去、女の子がとても苦手でした。それは私が・・・・だったからです。しかし私はこの本と会うことで。"
+  },
+  {
+    isbn: "2123456789",
+    user_id: 4,
+    description_summary: "この本で人生変わった",
+    description: "fkゲリjフォエフェロイgジェルgジェおふぁjgfじゃえお＠jfお＠理事あ＠j顔rgなgん宜蘭祇園ゔぉあ；んヴァレpんギア＠rんヴィオ亜＠dんヴォ＠エラんgrいう会え＠おjfdsvんれあうgh＠会えjロイmrぬvgたhげろjdmvfんbゔぁえいrj＠フォp；szdmkfんが売り＠jfもpvにtげふぃj＠dもpヴォgtねありウェおmんヴァ＠絵おりん義r＠お塩vdskfm「おいあrんg＠お間にヴォなfヴォい＠庵路＠gmんr＠お塩mv＠あrg＠おjゴアrjgおjfKBんfbなgkfklな＠ヴァdkg＠あg＠あ＠あ＠g。"
+  },
+  {
+    isbn: "3123456789",
+    user_id: 4,
+    description_summary: "この本で生きるのが楽になった",
+    description: "この本を生きるのが楽たt。なぜなら。。。。。"
+  }
+]
+
 //本のランクも一緒に載せたいね
 export const dummy_posts = [
   [{

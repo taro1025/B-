@@ -4,7 +4,7 @@ import cat from "../../cat.jpeg"
 import dummyImage from "../../dummyImage.jpeg"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SmsIcon from '@material-ui/icons/Sms';
-
+import { BookProps } from "../../interfaces"
 
 const PostWrapper = styled.div`
   padding-bottom: 60px;
@@ -82,16 +82,8 @@ const WhiteHeartIcon = styled(FavoriteIcon)`
   color: white;
 `
 
-interface Props {
-  user_id: number;
-  book_isbn: string;
-  user_name: string;
-  id: number;
-  created_at: string;
-  updated_at: string;
-}
 
-export const Posts = (props: { posts?: Array<Props> }) => {
+export const Posts = (props: { posts?: Array<BookProps> }) => {
   console.log(dummy_posts)
 
   return (

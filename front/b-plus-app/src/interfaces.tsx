@@ -32,6 +32,15 @@ export interface bookStateProps {
   setBooks: React.Dispatch<any>
 }
 
+export interface BookProps {
+  user_id: number;
+  book_isbn: string;
+  user_name: string;
+  id: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface GraphInterface {
   today: {
     page: number;
