@@ -36,6 +36,7 @@ export const BookUserFavorite = (props: { posts?: Array<BookProps> }) => {
       {
         isNumber.number != undefined &&
         <FavoriteDialog
+          descriptionSummary={dummyBookUserFavorite[isNumber.number].description_summary}
           description={dummyBookUserFavorite[isNumber.number].description}
           setDialogNumber={setDialogNumber}
         />
