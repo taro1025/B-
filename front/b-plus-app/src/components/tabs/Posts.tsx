@@ -86,11 +86,8 @@ const WhiteHeartIcon = styled(FavoriteIcon)`
 
 
 export const Posts = (props: { posts?: BookProps[] }) => {
-  console.log(dummy_posts)
-  const books = []
-
+  //楽天の仕様のため1秒毎にリクエストを送ります。
   function sleep(waitSec: any) {
-    //楽天の仕様上1秒毎にリクエストを送ります。
     return new Promise(function (resolve: any) {
 
       setTimeout(function () { resolve() }, waitSec);
@@ -98,19 +95,28 @@ export const Posts = (props: { posts?: BookProps[] }) => {
     });
   }
 
+  interface fetchBooksForPost {
+    url: string;
+    title: string;
+  }
+  const [books, setBooks] = useState<fetchBooksForPost[]>()
+  let booksForPost: fetchBooksForPost[] = []
+
   async function getBookImgEveryOneSecond() {
     if (props.posts) {
       for (const post of props.posts) {
         await getBooks(post.book_isbn)
           .then((res) => {
-
-            books.push(res.Items[0].Item.mediumImageUrl)
-
+            booksForPost.push({
+              url: res.Items[0].Item.mediumImageUrl,
+              title: res.Items[0].Item.title
+            })
           })
           .catch(res => console.log("失敗"))
         await sleep(1000)
       }
     }
+    setBooks(booksForPost)
   }
 
   useEffect(() => {
@@ -122,9 +128,9 @@ export const Posts = (props: { posts?: BookProps[] }) => {
       <PostWrapper>
         {
           props.posts ?
-            props.posts.map((post: any) => {
+            props.posts.map((post: any, i: number) => {
               return (
-
+                post.impression &&
                 <Post>
                   <Profile>
                     <div><ProfileImg src={cat} /></div>
@@ -132,8 +138,8 @@ export const Posts = (props: { posts?: BookProps[] }) => {
                   </Profile>
                   <Text>{post.impression}</Text>
                   <BookWrapper>
-                    <BookImage src={dummyImage} />
-                    <BookTitle>20題で得た知見</BookTitle>
+                    <BookImage src={books && books[i].url} />
+                    <BookTitle>{books && books[i].title}</BookTitle>
                     <Rank>S</Rank>
                   </BookWrapper>
                   <ActionWrapper>
@@ -160,7 +166,7 @@ export const Posts = (props: { posts?: BookProps[] }) => {
                   <Text>{post[0].impression}</Text>
                   <BookWrapper>
                     <BookImage src={dummyImage} />
-                    <BookTitle>20題で得た知見</BookTitle>
+                    <BookTitle>20題で得た知見nnn</BookTitle>
                     <Rank>S</Rank>
                   </BookWrapper>
                   <ActionWrapper>
