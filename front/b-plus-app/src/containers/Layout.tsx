@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    box-sizing : border-box;
   }
 
   code {
@@ -39,6 +40,7 @@ const Body = styled.div`
 //vh：ビューポート（画面サイズ）の高さに対する割合。100vhは画面の高さと同じ（100%）を表す
 //100%は親要素に対して。100vhは画面に対して。
   height: calc(100vh - 60px);
+  background-color: #fafafa;
 `;
 
 export const Layout: React.FC = ({ children }) => {

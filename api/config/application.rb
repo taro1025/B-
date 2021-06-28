@@ -41,5 +41,7 @@ module App
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::ContentSecurityPolicy::Middleware
     config.action_dispatch.cookies_same_site_protection = :lax
+
+    config.autoload_paths += Dir["#{config.root}/lib"]
   end
 end

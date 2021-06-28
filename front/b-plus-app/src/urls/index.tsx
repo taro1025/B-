@@ -1,5 +1,6 @@
 const DEFAULT_API_LOCALHOST: string = 'http://127.0.0.1:3000/api/v1';
 
+//Notiifcation
 //Login
 //User
 //Book Want To Read
@@ -12,6 +13,8 @@ const DEFAULT_API_LOCALHOST: string = 'http://127.0.0.1:3000/api/v1';
 //Login
 //Relationship(Follow & Unfollow)
 
+//Notification
+export const notificationsUrl = `${DEFAULT_API_LOCALHOST}/notification`
 
 //Login
 export const loginUrl: string = `${DEFAULT_API_LOCALHOST}/login`
@@ -29,16 +32,21 @@ export const deleteUserUrl = (user_id: string): string => `${DEFAULT_API_LOCALHO
 
 //Book want to Read
 export const createBookWantToReadsUrl: string = `${DEFAULT_API_LOCALHOST}/book_want_to_reads`
-//export const showBookWantToReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_want_to_reads/${user_id}`
+export const showBookWantToReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_want_to_reads/${user_id}`
 export const updateBookWantToReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_want_to_reads/${user_id}`
 export const deleteBookWantToReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_want_to_reads/${user_id}`
 
 
+
 //Book User Read
 export const createBookUserReadsUrl: string = `${DEFAULT_API_LOCALHOST}/book_user_reads`
-//export const showBookUserReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_reads/${user_id}`
+export const showBookUserReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_reads/${user_id}`
 export const updateBookUserReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_reads/${user_id}`
 export const deleteBookUserReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_reads/${user_id}`
+//Graph data
+export const getGraphDataUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/graph_data/${user_id}`
+export const getMonthDataUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/month_data/${user_id}`
+
 
 //Book User Favorite
 export const createBookUserFavoritesUrl: string = `${DEFAULT_API_LOCALHOST}/book_user_favorites`
@@ -51,6 +59,9 @@ export const createPostsUrl: string = `${DEFAULT_API_LOCALHOST}/posts`
 //export const showPostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
 export const updatePostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
 export const deletePostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
+//Timeline
+export const timelineUrl = `${DEFAULT_API_LOCALHOST}/timeline`
+
 
 //Like
 export const createLikesUrl: string = `${DEFAULT_API_LOCALHOST}/likes`
@@ -69,3 +80,6 @@ export const deleteRanksUrl = (user_id: string): string => `${DEFAULT_API_LOCALH
 //Relationship(Follow & Unfollow)
 export const followsUrl: string = `${DEFAULT_API_LOCALHOST}/relationships`
 export const unfollowsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/relationships/${user_id}`
+
+//google
+export const searchBooksUrl: string = 'https://www.googleapis.com/books/v1/volumes'

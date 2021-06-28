@@ -1,10 +1,10 @@
 module Api
   module V1
     class PostsController < ApplicationController
-      before_action :correct_user, only: [:create, :destroy, :update]
+      before_action :current_user, only: [:create, :destroy, :update, :timeline]
 
       def create
-        post = @user.posts.new(book_isbn: params[:book_isbn], impression: params[:impression])
+        post = @current_user.posts.new(user_name: @current_user.name, book_isbn: params[:book_isbn], impression: params[:impression])
         if post.save
           render json: { post: post }, status: :ok
         else
@@ -13,7 +13,7 @@ module Api
       end
 
       def destroy
-        if post = @user.posts.find(params[:post_id])
+        if post = @current_user.posts.find(params[:post_id])
           post.delete
           render json: {}, status: :ok
         else
@@ -32,6 +32,14 @@ module Api
       end
 
       def index
+
+      end
+
+      def timeline
+        timeline = @current_user.get_timeline
+        render json: {
+          timeline: timeline
+        }, stauts: :ok
       end
 
     end

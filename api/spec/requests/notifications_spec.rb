@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'json'
 
-RSpec.describe Notification, type: :request do
+RSpec.describe "Notifications", type: :request do
   before do
     @user = User.create(
       name: "test", email: "game4967@gmail.com",
@@ -52,6 +52,33 @@ RSpec.describe Notification, type: :request do
       }.to change{ Notification.count }.by(+1)
 
       expect(Notification.find_by(visited_id: @jiro.id, action: "follow"))
+    end
+  end
+  describe "Get get_notification" do
+    it "return notice" do
+      #Login
+      post "/api/v1/login", params: { session: { email: @jiro.email,password: @jiro.password}}
+
+      #@jiroが@userに通知をつける
+      expect{
+        post "/api/v1/relationships", params: { id: @user.id}
+      }.to change{ Notification.count }.by(+1)
+      expect{
+        post "/api/v1/comments", params: {
+            id: @jiro.id, post_id: @post.id,
+            comment: "とても面白かった"
+            }
+      }.to change{ Notification.count }.by(+1)
+
+      #ログインユーザーを＠userに切り替え
+      delete "/api/v1/logout", params: { id:@jiro.id }
+      #Login
+      post "/api/v1/login", params: { session: { email: @user.email,password: @user.password}}
+
+      get "/api/v1/notification"
+      res = JSON.parse(response.body)
+
+      expect(res['notices'].length).to eq(2)
     end
   end
 end
