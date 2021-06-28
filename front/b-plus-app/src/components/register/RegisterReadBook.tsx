@@ -14,6 +14,7 @@ import styled from "styled-components"
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
+import { getBooks } from "../../apis/getBooks"
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -79,13 +80,23 @@ export const RegisterReadBook = (
   const contextUser: any = useContext(User)
   const contextIsbn: any = useContext(Isbn)
 
-  const handleReadBook = () => {
+  const handleReadBook = async () => {
     if (contextUser.user && contextIsbn) {
-      registerReadBook(contextIsbn, contextUser.user.id, Number(state.page))
+      let url: string
+      await getBooks(contextIsbn)
+        .then(res => url = res.Items[0].Item.largeImageUrl)
+      await registerReadBook(contextIsbn, contextUser.user.id, Number(state.page))
         .then(res => {
           createPost(state.text, contextIsbn)
-          state.rank && createRank(contextUser.user.id, state.rank, contextIsbn).then((res) => console.log("rankおk", res))
+          state.rank &&
+            createRank(
+              contextUser.user.id,
+              state.rank,
+              contextIsbn,
+              url
+            )
         })
+
     } else {
       console.log("ログインが必要")
     }

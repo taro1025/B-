@@ -5,7 +5,7 @@ module Api
       before_action :correct_user, only: [:create, :destroy]
 
       def create
-        rank = @user.ranks.new(book_isbn: params[:book_isbn], rank_id: params[:rank_id].to_i)
+        rank = @user.ranks.new(url: params[:url], book_isbn: params[:book_isbn], rank_id: params[:rank_id].to_i)
         if rank.save
           render json: { rank: rank.rank_id}, status: :ok
         else

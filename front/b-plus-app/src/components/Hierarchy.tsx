@@ -98,29 +98,6 @@ export const Hierarchy = () => {
       <Li><NoDecoLink to={`/book/9999999`}><Img src={dummyImage} /></NoDecoLink></Li>
     )
   }
-  //interface fetchBooksForPost {
-  //  url: string;
-  //  title: string;
-  //}
-  //const [ata, setData] = useState<fetchBooksForPost[]>()
-  //let booksForPost: fetchBooksForPost[] = []
-  //
-  //async function getBookImgEveryOneSecond() {
-  //  if (books && books.sumLength) {
-  //    for (const post of books.sumLength) {
-  //      await getBooks(post.book_isbn)
-  //        .then((res) => {
-  //          booksForPost.push({
-  //            url: res.Items[0].Item.mediumImageUrl,
-  //            title: res.Items[0].Item.title
-  //          })
-  //        })
-  //        .catch(res => console.log("失敗"))
-  //      await sleep(1000)
-  //    }
-  //  }
-  //  setBooks(booksForPost)
-  //}
 
   interface RankI {
     s: any;
@@ -166,11 +143,10 @@ export const Hierarchy = () => {
               books &&
               books.s.map((book: any) => {
                 console.log(book.book_isbn)
-                getBooks(book.book_isbn)
-                  .then(res => {
-                    return <Li><NoDecoLink to={`/book/${book.book_sibn}`}><Img src={res.Item && res.Items[0] && res.Items[0].Item.mediumImageUrl} /></NoDecoLink></Li>
-                  })
-                  .catch(e => console.log(e))
+
+                return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
+
+
               })
             }
           </Ul>
@@ -180,8 +156,13 @@ export const Hierarchy = () => {
           <Ul>
 
             {
-              dummy_books.map((book: any) => {
-                return book
+              books &&
+              books.a.map((book: any) => {
+                console.log(book.book_isbn)
+
+                return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
+
+
               })
             }
           </Ul>
@@ -191,8 +172,13 @@ export const Hierarchy = () => {
           <Ul>
 
             {
-              dummy_books.map((book: any) => {
-                return book
+              books &&
+              books.b.map((book: any) => {
+                console.log(book.book_isbn)
+
+                return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
+
+
               })
             }
           </Ul>
@@ -202,8 +188,13 @@ export const Hierarchy = () => {
           <Ul>
 
             {
-              dummy_books.map((book: any) => {
-                return book
+              books &&
+              books.c.map((book: any) => {
+                console.log(book.book_isbn)
+
+                return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
+
+
               })
             }
           </Ul>
@@ -212,8 +203,13 @@ export const Hierarchy = () => {
           <Ul>
 
             {
-              dummy_books.map((book: any) => {
-                return book
+              books &&
+              books.d.map((book: any) => {
+                console.log(book.book_isbn)
+
+                return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
+
+
               })
             }
           </Ul>
