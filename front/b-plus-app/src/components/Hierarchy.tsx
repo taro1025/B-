@@ -2,6 +2,11 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import styled from 'styled-components';
 import dummyImage from "../dummyImage.jpeg"
 import { NoDecoLink } from "./NoDecoLink";
+import { getBooksByRank } from "../apis/getBooksByRank"
+import { getBooks } from "../apis/getBooks"
+import { useEffect, useState, useContext } from "react"
+import { UserId } from "../App"
+
 
 const HierarchyWrapper = styled.div`
   display: flex;
@@ -93,6 +98,53 @@ export const Hierarchy = () => {
       <Li><NoDecoLink to={`/book/9999999`}><Img src={dummyImage} /></NoDecoLink></Li>
     )
   }
+  //interface fetchBooksForPost {
+  //  url: string;
+  //  title: string;
+  //}
+  //const [ata, setData] = useState<fetchBooksForPost[]>()
+  //let booksForPost: fetchBooksForPost[] = []
+  //
+  //async function getBookImgEveryOneSecond() {
+  //  if (books && books.sumLength) {
+  //    for (const post of books.sumLength) {
+  //      await getBooks(post.book_isbn)
+  //        .then((res) => {
+  //          booksForPost.push({
+  //            url: res.Items[0].Item.mediumImageUrl,
+  //            title: res.Items[0].Item.title
+  //          })
+  //        })
+  //        .catch(res => console.log("失敗"))
+  //      await sleep(1000)
+  //    }
+  //  }
+  //  setBooks(booksForPost)
+  //}
+
+  interface RankI {
+    s: any;
+    a: any;
+    b: any;
+    c: any;
+    d: any;
+    sumLength: number;
+  }
+  const [books, setBooks] = useState<RankI>()
+  const userId = useContext(UserId)
+  useEffect(() => {
+    getBooksByRank(String(userId))
+      .then(res => {
+        setBooks({
+          s: res.s,
+          a: res.a,
+          b: res.b,
+          c: res.c,
+          d: res.d,
+          sumLength: res.sum
+        })
+      })
+  }, [])
   return (
     <HierarchyWrapper>
       <JumpWrapper>
@@ -111,8 +163,14 @@ export const Hierarchy = () => {
           <Ul>
 
             {
-              dummy_books.map((book: any) => {
-                return book
+              books &&
+              books.s.map((book: any) => {
+                console.log(book.book_isbn)
+                getBooks(book.book_isbn)
+                  .then(res => {
+                    return <Li><NoDecoLink to={`/book/${book.book_sibn}`}><Img src={res.Item && res.Items[0] && res.Items[0].Item.mediumImageUrl} /></NoDecoLink></Li>
+                  })
+                  .catch(e => console.log(e))
               })
             }
           </Ul>

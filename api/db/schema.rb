@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_25_055412) do
+ActiveRecord::Schema.define(version: 2021_06_28_151615) do
 
   create_table "admin_users", charset: "utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2021_06_25_055412) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "book_isbn"
+    t.string "url"
   end
 
   create_table "relationships", charset: "utf8mb4", force: :cascade do |t|

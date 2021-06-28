@@ -77,6 +77,7 @@ export const deleteCommentsUrl = (user_id: string): string => `${DEFAULT_API_LOC
 //Rank
 export const createRanksUrl: string = `${DEFAULT_API_LOCALHOST}/ranks`
 export const deleteRanksUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/ranks/${user_id}`
+export const showRanksUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/ranks/${user_id}`
 
 //Relationship(Follow & Unfollow)
 export const followsUrl: string = `${DEFAULT_API_LOCALHOST}/relationships`

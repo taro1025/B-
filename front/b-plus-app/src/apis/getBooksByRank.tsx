@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { getBooksUrl } from '../urls/index';
+import { showRanksUrl } from '../urls/index';
 
 
 
-export const getBooks = (isbn: string) => {
-  return axios.get(encodeURI(getBooksUrl(isbn)))
+export const getBooksByRank = (userId: string) => {
+  return axios.get(encodeURI(showRanksUrl(userId)))
     .then(response => {
       return response.data
     }

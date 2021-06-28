@@ -25,6 +25,17 @@ module Api
       def index
       end
 
+      def show
+        user = User.find(params[:id])
+        s = user.ranks.where(rank_id: 5)
+        a = user.ranks.where(rank_id: 4)
+        b = user.ranks.where(rank_id: 3)
+        c = user.ranks.where(rank_id: 2)
+        d = user.ranks.where(rank_id: 1)
+        sum = s.length + a.length + b.length + c.length + d.length
+        render json: {s: s, a: a, b: b, c: c, d: d, sum: sum}, status: :ok
+      end
+
     end
   end
 end
