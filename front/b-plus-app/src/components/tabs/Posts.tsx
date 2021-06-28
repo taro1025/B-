@@ -83,7 +83,7 @@ const WhiteHeartIcon = styled(FavoriteIcon)`
 `
 
 
-export const Posts = (props: { posts?: Array<BookProps> }) => {
+export const Posts = (props: { posts?: BookProps[] }) => {
   console.log(dummy_posts)
 
   return (

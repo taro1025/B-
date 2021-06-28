@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { searchBooksUrl } from '../urls/index';
+import { getBooksUrl } from '../urls/index';
 
 
 
-export const searchBooks = (word: string) => {
-  return axios.get(encodeURI(searchBooksUrl(word)))
+export const getBooks = (isbn: string) => {
+  return axios.get(encodeURI(getBooksUrl(isbn)))
     .then(response => {
       console.log("成功", response.data)
       return response.data

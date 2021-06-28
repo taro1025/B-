@@ -10,6 +10,7 @@ export const createPost = (impression: string, book_isbn: string) => {
       book_isbn: book_isbn
     }, { withCredentials: true })
     .then(res => {
+      console.log("感想が作れているか", res)
       return res.data
     })
     .catch((e) => console.log("投稿失敗", e))

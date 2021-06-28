@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect, useContext } from "react"
+import { UserId } from "../App"
 import { bookStateProps } from "../interfaces"
 import { useParams } from 'react-router-dom'
 import styled from "styled-components"
@@ -6,6 +7,8 @@ import styled from "styled-components"
 import { Detail } from "../components/tabs/Detail"
 import { Posts } from "../components/tabs/Posts"
 import { MyPosts } from "../components/tabs/MyPosts"
+import { BookProps } from "../interfaces"
+import { getPosts, getMyPosts } from "../apis/getPosts"
 
 //to use for Tab
 import Paper from '@material-ui/core/Paper';
@@ -36,13 +39,31 @@ export const DetailBook = (props: bookStateProps) => {
   const classes = useStyles(props);
 
   const params = useParams<{ id: string }>()
-  //const book = props.books[params.id]
 
+  //タブの切り替えに使う
   const [value, setValue] = useState(0)
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
 
+
+  const userId = useContext(UserId)
+  const [myPosts, setMyPosts] = useState<[] | undefined>()
+  const [posts, setPosts] = useState<[] | undefined>()
+  useEffect(() => {
+    if (userId) {
+      getMyPosts(params.id, String(userId))
+        .then((res) => {
+          setMyPosts(res.posts)
+
+        })
+    } else { console.log("ログインしてください") }
+    getPosts(params.id)
+      .then((res) => {
+        setPosts(res.posts)
+      })
+
+  }, [])
   return (
 
     <Paper>
@@ -62,10 +83,14 @@ export const DetailBook = (props: bookStateProps) => {
         <Detail />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Posts />
+        <Posts
+          posts={posts ? posts : undefined}
+        />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <MyPosts />
+        <Posts
+          posts={myPosts ? myPosts : undefined}
+        />
       </TabPanel>
 
     </Paper>
