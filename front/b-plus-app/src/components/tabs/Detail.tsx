@@ -22,7 +22,6 @@ export const Detail = () => {
     getBooks(params.id)
       .then((res) => {
         setBook(res.Items[0].Item)
-        console.log(book)
       })
   }, [])
   return (

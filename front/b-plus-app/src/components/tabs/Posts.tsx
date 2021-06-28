@@ -1,10 +1,12 @@
 import styled from "styled-components"
+import { useState, useEffect } from "react"
 import { dummy_posts } from "../../dummyData"
 import cat from "../../cat.jpeg"
 import dummyImage from "../../dummyImage.jpeg"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SmsIcon from '@material-ui/icons/Sms';
 import { BookProps } from "../../interfaces"
+import { getBooks } from "../../apis/getBooks"
 
 const PostWrapper = styled.div`
   padding-bottom: 60px;
@@ -85,6 +87,35 @@ const WhiteHeartIcon = styled(FavoriteIcon)`
 
 export const Posts = (props: { posts?: BookProps[] }) => {
   console.log(dummy_posts)
+  const books = []
+
+  function sleep(waitSec: any) {
+    //楽天の仕様上1秒毎にリクエストを送ります。
+    return new Promise(function (resolve: any) {
+
+      setTimeout(function () { resolve() }, waitSec);
+
+    });
+  }
+
+  async function getBookImgEveryOneSecond() {
+    if (props.posts) {
+      for (const post of props.posts) {
+        await getBooks(post.book_isbn)
+          .then((res) => {
+
+            books.push(res.Items[0].Item.mediumImageUrl)
+
+          })
+          .catch(res => console.log("失敗"))
+        await sleep(1000)
+      }
+    }
+  }
+
+  useEffect(() => {
+    getBookImgEveryOneSecond()
+  }, [])
 
   return (
     <>
