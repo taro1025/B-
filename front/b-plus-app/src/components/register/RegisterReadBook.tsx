@@ -1,14 +1,24 @@
-import { useState } from "react"
-import { DialogContent, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import Button from '@material-ui/core/Button';
-import styled from "styled-components"
+import { useState, useEffect } from "react"
 import { useContext } from 'react'
 import { User } from "../../App"
 import { Isbn } from "../tabs/Detail"
 import { registerReadBook } from "../../apis/registerReadBook"
 import { createPost } from "../../apis/createPost"
 
+import { DialogContent, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import styled from "styled-components"
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      width: '3.5rem',
+      height: '1.5rem'
+    },
+  },
+}));
 //ベタがきでregisterReadBookにページ数を指定しているけど
 //APIを導入にしたら本の情報からページ数をとって入れるように。
 
@@ -38,27 +48,37 @@ const DialogTitleColored = styled(DialogTitle)`
   background-color: #065fe3;
 `
 
+const PageWrapper = styled.div`
+  padding-top: 2rem;
+`
+
+const PageSpan = styled.span`
+  line-height: 1.5rem;s
+`
+
 export const RegisterReadBook = (
   props: {
     setReadBookDialog: React.Dispatch<React.SetStateAction<boolean>>
     isReadBookDialog: true
   }
 ) => {
+  const classes = useStyles();
 
+  //ダイアログ
   const setDialog = props.setReadBookDialog
   const isOpen = props.isReadBookDialog
   const handleCloseDialog = () => {
     setDialog(false)
   }
 
+
+  //登録するためのやつ
   const contextUser: any = useContext(User)
   const contextIsbn: any = useContext(Isbn)
 
-  console.log("isbn", contextIsbn)
-
   const handleReadBook = () => {
     if (contextUser.user && contextIsbn) {
-      registerReadBook(contextIsbn, contextUser.user.id, 212)
+      registerReadBook(contextIsbn, contextUser.user.id, Number(page))
         .then(res => {
           console.log(contextIsbn, text)
           createPost(text, contextIsbn)
@@ -68,7 +88,9 @@ export const RegisterReadBook = (
     }
   }
 
+  //感想を書くためのstate
   const [text, setText] = useState("")
+  const [page, setPage] = useState<string | undefined>()
   const checkText = (targetValue: string) => {
     if (targetValue.length > 220) {
       return
@@ -98,6 +120,16 @@ export const RegisterReadBook = (
             onChange={e => checkText(e.target.value)}
           />
           <p>{text.length}/220</p>
+          <PageWrapper>
+            <PageSpan>ページ数(任意)：</PageSpan>
+            <TextField
+              className={classes.root}
+              id="outlined-basic" label="" variant="outlined"
+              onChange={e => setPage(e.target.value)}
+            />
+            {console.log(page)}
+          </PageWrapper>
+
           <DialogActions>
 
             <Button
