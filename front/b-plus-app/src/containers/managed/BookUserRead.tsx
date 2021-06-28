@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import SyncIcon from '@material-ui/icons/Sync';
 import { Hierarchy } from "../../components/Hierarchy"
 
-
 const Ul = styled.ul`
   display: flex;
   flex-wrap: wrap;

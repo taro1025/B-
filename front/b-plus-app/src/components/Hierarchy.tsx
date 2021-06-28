@@ -2,6 +2,11 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import styled from 'styled-components';
 import dummyImage from "../dummyImage.jpeg"
 import { NoDecoLink } from "./NoDecoLink";
+import { getBooksByRank } from "../apis/getBooksByRank"
+import { getBooks } from "../apis/getBooks"
+import { useEffect, useState, useContext } from "react"
+import { UserId } from "../App"
+
 
 const HierarchyWrapper = styled.div`
   display: flex;
@@ -93,6 +98,31 @@ export const Hierarchy = () => {
       <Li><NoDecoLink to={`/book/9999999`}><Img src={dummyImage} /></NoDecoLink></Li>
     )
   }
+
+  interface RankI {
+    s?: any | undefined;
+    a?: any;
+    b?: any;
+    c?: any;
+    d?: any;
+    sumLength: number;
+  }
+  const [books, setBooks] = useState<RankI>()
+  const userId = useContext(UserId)
+  useEffect(() => {
+    getBooksByRank(String(userId))
+      .then((res: any) => {
+        console.log("id", userId)
+        setBooks({
+          s: res.s,
+          a: res.a,
+          b: res.b,
+          c: res.c,
+          d: res.d,
+          sumLength: res.sum
+        })
+      })
+  }, [])
   return (
     <HierarchyWrapper>
       <JumpWrapper>
@@ -111,8 +141,14 @@ export const Hierarchy = () => {
           <Ul>
 
             {
-              dummy_books.map((book: any) => {
-                return book
+              books &&
+              books!.s &&
+              books!.s.map((book: any) => {
+                console.log(book.book_isbn)
+
+                return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
+
+
               })
             }
           </Ul>
@@ -122,8 +158,13 @@ export const Hierarchy = () => {
           <Ul>
 
             {
-              dummy_books.map((book: any) => {
-                return book
+              books &&
+              books.a.map((book: any) => {
+                console.log(book.book_isbn)
+
+                return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
+
+
               })
             }
           </Ul>
@@ -133,8 +174,13 @@ export const Hierarchy = () => {
           <Ul>
 
             {
-              dummy_books.map((book: any) => {
-                return book
+              books &&
+              books.b.map((book: any) => {
+                console.log(book.book_isbn)
+
+                return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
+
+
               })
             }
           </Ul>
@@ -144,8 +190,13 @@ export const Hierarchy = () => {
           <Ul>
 
             {
-              dummy_books.map((book: any) => {
-                return book
+              books &&
+              books.c.map((book: any) => {
+                console.log(book.book_isbn)
+
+                return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
+
+
               })
             }
           </Ul>
@@ -154,8 +205,13 @@ export const Hierarchy = () => {
           <Ul>
 
             {
-              dummy_books.map((book: any) => {
-                return book
+              books &&
+              books.d.map((book: any) => {
+                console.log(book.book_isbn)
+
+                return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
+
+
               })
             }
           </Ul>

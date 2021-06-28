@@ -1,14 +1,28 @@
-import { useState } from "react"
-import { DialogContent, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import Button from '@material-ui/core/Button';
-import styled from "styled-components"
+import { useState, useEffect } from "react"
 import { useContext } from 'react'
 import { User } from "../../App"
 import { Isbn } from "../tabs/Detail"
 import { registerReadBook } from "../../apis/registerReadBook"
 import { createPost } from "../../apis/createPost"
+import { createRank } from "../../apis/createRank"
 
+import { DialogContent, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import styled from "styled-components"
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { makeStyles } from '@material-ui/core/styles';
+import { getBooks } from "../../apis/getBooks"
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      width: '3.5rem',
+      height: '1.5rem'
+    },
+  },
+}));
 //ベタがきでregisterReadBookにページ数を指定しているけど
 //APIを導入にしたら本の情報からページ数をとって入れるように。
 
@@ -38,43 +52,70 @@ const DialogTitleColored = styled(DialogTitle)`
   background-color: #065fe3;
 `
 
+const PageWrapper = styled.div`
+  padding-top: 2rem;
+`
+
+const PageSpan = styled.span`
+  line-height: 1.5rem;s
+`
+
 export const RegisterReadBook = (
   props: {
     setReadBookDialog: React.Dispatch<React.SetStateAction<boolean>>
     isReadBookDialog: true
   }
 ) => {
+  const classes = useStyles();
 
+  //ダイアログ
   const setDialog = props.setReadBookDialog
   const isOpen = props.isReadBookDialog
   const handleCloseDialog = () => {
     setDialog(false)
   }
 
+
+  //登録するためのやつ
   const contextUser: any = useContext(User)
   const contextIsbn: any = useContext(Isbn)
 
-  console.log("isbn", contextIsbn)
-
-  const handleReadBook = () => {
+  const handleReadBook = async () => {
     if (contextUser.user && contextIsbn) {
-      registerReadBook(contextIsbn, contextUser.user.id, 212)
+      let url: string
+      await getBooks(contextIsbn)
+        .then(res => url = res.Items[0].Item.largeImageUrl)
+      await registerReadBook(contextIsbn, contextUser.user.id, Number(state.page))
         .then(res => {
-          console.log(contextIsbn, text)
-          createPost(text, contextIsbn)
+          createPost(state.text, contextIsbn)
+          state.rank &&
+            createRank(
+              contextUser.user.id,
+              state.rank,
+              contextIsbn,
+              url
+            )
         })
+
     } else {
       console.log("ログインが必要")
     }
   }
 
-  const [text, setText] = useState("")
+
+  interface PostI {
+    text: string;
+    page?: string | undefined;
+    rank?: any;
+  }
+  const [state, setState] = useState<PostI>({ text: "" })
   const checkText = (targetValue: string) => {
     if (targetValue.length > 220) {
       return
     }
-    setText(targetValue)
+    setState({ ...state, text: targetValue })
   }
+
   return (
     <Dialog
       fullScreen
@@ -94,10 +135,38 @@ export const RegisterReadBook = (
             rowsMin={15}
             cols={45}
             placeholder="感想を書く(任意)"
-            value={text}
+            value={state.text}
             onChange={e => checkText(e.target.value)}
           />
-          <p>{text.length}/220</p>
+          <p>{state.text.length}/220</p>
+          <PageWrapper>
+            <PageSpan>ページ数(任意)：</PageSpan>
+            <TextField
+              className={classes.root}
+              id="outlined-basic" label="" variant="outlined"
+              onChange={e => setState({ ...state, page: e.target.value })}
+            />
+          </PageWrapper>
+
+          <PageWrapper>
+            <PageSpan>評価(任意)：</PageSpan>
+
+            <FormControl variant="outlined" className={classes.root}>
+              <Select
+                native
+                value={state.rank}
+                onChange={e => setState({ ...state, rank: e.target.value })}
+              >
+                <option aria-label="None" value="" />
+                <option value={5}>S</option>
+                <option value={4}>A</option>
+                <option value={3}>B</option>
+                <option value={2}>C</option>
+                <option value={1}>D</option>
+              </Select>
+            </FormControl>
+          </PageWrapper>
+
           <DialogActions>
 
             <Button

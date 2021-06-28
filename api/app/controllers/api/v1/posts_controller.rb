@@ -2,7 +2,7 @@ module Api
   module V1
     class PostsController < ApplicationController
       before_action :current_user, only: [:create, :destroy, :update, :timeline]
-
+      before_action :correct_user, only: [:show]
       def create
         post = @current_user.posts.new(user_name: @current_user.name, book_isbn: params[:book_isbn], impression: params[:impression])
         if post.save
@@ -32,7 +32,21 @@ module Api
       end
 
       def index
+        posts = Post.where(book_isbn: params[:book_isbn])
+        if posts && params[:book_isbn]
+          render json: { posts: posts}, status: :ok
+        else
+          render json: {}, status: :internal_server_error
+        end
+      end
 
+      def show
+        posts = @user.posts.where(book_isbn: params[:book_isbn])
+        if posts && params[:book_isbn]
+          render json: { posts: posts}, status: :ok
+        else
+          render json: {}, status: :internal_server_error
+        end
       end
 
       def timeline

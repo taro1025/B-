@@ -4,11 +4,7 @@ import { searchBooksUrl } from '../urls/index';
 
 
 export const searchBooks = (word: string) => {
-  return axios.get(searchBooksUrl, {
-    params: {
-      q: word
-    }
-  })
+  return axios.get(encodeURI(searchBooksUrl(word)))
     .then(response => {
       console.log("成功", response.data)
       return response.data

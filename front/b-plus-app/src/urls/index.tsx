@@ -56,7 +56,8 @@ export const deleteBookUserFavoritesUrl = (user_id: string): string => `${DEFAUL
 
 //Post
 export const createPostsUrl: string = `${DEFAULT_API_LOCALHOST}/posts`
-//export const showPostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
+export const indexPostsUrl: string = `${DEFAULT_API_LOCALHOST}/posts`
+export const showPostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
 export const updatePostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
 export const deletePostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
 //Timeline
@@ -76,10 +77,16 @@ export const deleteCommentsUrl = (user_id: string): string => `${DEFAULT_API_LOC
 //Rank
 export const createRanksUrl: string = `${DEFAULT_API_LOCALHOST}/ranks`
 export const deleteRanksUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/ranks/${user_id}`
+export const showRanksUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/ranks/${user_id}`
 
 //Relationship(Follow & Unfollow)
 export const followsUrl: string = `${DEFAULT_API_LOCALHOST}/relationships`
 export const unfollowsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/relationships/${user_id}`
-
+export const isFollowUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/is_follow/${user_id}`
 //google
-export const searchBooksUrl: string = 'https://www.googleapis.com/books/v1/volumes'
+//export const searchBooksUrl: string = 'https://www.googleapis.com/books/v1/volumes'
+
+//楽天　※urlエンコードする必要あり
+const APP_ID = process.env.REACT_APP_RAKUTEN_ID;
+export const searchBooksUrl = (title: string): string => `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=${process.env.REACT_APP_RAKUTEN_ID}&title=${title}`
+export const getBooksUrl = (isbn: string): string => `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=${APP_ID}&isbn=${isbn}`

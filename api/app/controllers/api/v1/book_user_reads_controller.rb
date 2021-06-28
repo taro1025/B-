@@ -9,7 +9,7 @@ module Api
                   book_isbn: params[:book_isbn], page: params[:page])
         if read_book.save
           #update_amount
-          render json: {}, status: :ok
+          render json: {book: read_book}, status: :ok
         else
           render json: {
             message: "読んだ本の登録に失敗しました。再度、登録をお試しください。"

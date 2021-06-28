@@ -10,7 +10,7 @@ export const Search = (props: bookStateProps) => {
 
   const [word, setWord] = useState<string>("")
   let books = props.books
-  //const setBooks = props.setBooks
+  const setBooks = props.setBooks
 
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -18,8 +18,8 @@ export const Search = (props: bookStateProps) => {
     console.log("これから検索")
     searchBooks(word)
       .then(res => {
-        //setBooks(res.items)
-        //console.log(books)
+        setBooks(res.Items)
+        console.log(books)
       })
   }
 
@@ -42,30 +42,30 @@ export const Search = (props: bookStateProps) => {
       </form>
 
       {
-        // books && (
-        // <div>
-        //   {books.map((item: any, i: number) => {
-        //     console.log("item", item)
-        //     return (
-        //
-        //       < div key={item.id} > <NoDecoLink to={`/book/${item[0].isbn}`}><img src={packagelock}></img></NoDecoLink></div>
-        //     )
-        //   })}
-        // </div>
-        // )
-      }
-      {
-        dummy_books && (
+        books && (
           <div>
-            {dummy_books.map((item: any, i: number) => {
-              console.log("item", item)
+            {books.map((book: any, i: number) => {
+              console.log("book", book)
               return (
 
-                < div key={item.id} > <NoDecoLink to={`/book/${item[0].isbn}`}><img src={packagelock}></img></NoDecoLink></div>
+                < div key={book.id} > <NoDecoLink to={`/book/${book.Item.isbn}`}><img src={book.Item.mediumImageUrl}></img></NoDecoLink></div>
               )
             })}
           </div>
         )
+      }
+      {
+        //dummy_books && (
+        //  <div>
+        //    {dummy_books.map((item: any, i: number) => {
+        //      console.log("item", item)
+        //      return (
+
+        //        < div key={item.id} > <NoDecoLink to={`/book/${item[0].isbn}`}><img src={packagelock}></img></NoDecoLink></div>
+        //      )
+        //    })}
+        //  </div>
+        //)
       }
     </div >
   )
