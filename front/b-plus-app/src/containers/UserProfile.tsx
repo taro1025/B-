@@ -8,6 +8,7 @@ import { follow, unfollow } from "../apis/follow"
 import { useContext } from "react"
 import { UserId } from "../App"
 import Button from '@material-ui/core/Button';
+import { isFollow } from "../apis/isFollow"
 
 const ProfileWrapper = styled.div`
   padding-bottom: 1rem;
@@ -43,7 +44,7 @@ export const UserProfile = () => {
   const params = useParams<{ id: string }>()
   const myId = useContext(UserId)
   const [user, setUser] = useState<ShowUserInterface>();
-  const [isFollow, setFollowButton] = useState<true | false>(false)
+  const [followButton, setFollowButton] = useState<true | false>()
   const handleFollow = () => {
     follow(params.id)
       .then((res) => {
@@ -57,12 +58,12 @@ export const UserProfile = () => {
       })
   }
 
-  //useEffect(() => {
-  //  getUserProfile(params.id)
-  //    .then((res) => {
-  //      setUser(res.user)
-  //    })
-  //})
+  useEffect(() => {
+    isFollow(params.id, String(myId))
+      .then(res => setFollowButton(res.isFollow))
+      .catch(e => console.log(e))
+
+  })
   return (
     <>
       <ProfileWrapper>
@@ -70,9 +71,9 @@ export const UserProfile = () => {
         <ProfileSpan>倫太郎</ProfileSpan>
         {
           myId != Number(params.id) && (
-            isFollow ?
+            followButton ?
               <Button variant="contained" color="primary" onClick={() => handleUnfollow()}>
-                フォローしました
+                フォローしています
             </Button>
               :
               <Button variant="outlined" color="primary" onClick={() => handleFollow()}>

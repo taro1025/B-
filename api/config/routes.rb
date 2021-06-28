@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :ranks
       resources :likes, only: [:create, :destroy]
       resources :relationships, only: [:create, :destroy]
+      get '/is_follow/:id', to: 'relationships#is_follow'
       get '/notification', to: 'notifications#get_notification'
     end
   end

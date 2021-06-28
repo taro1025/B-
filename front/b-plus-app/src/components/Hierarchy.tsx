@@ -100,18 +100,19 @@ export const Hierarchy = () => {
   }
 
   interface RankI {
-    s: any;
-    a: any;
-    b: any;
-    c: any;
-    d: any;
+    s?: any | undefined;
+    a?: any;
+    b?: any;
+    c?: any;
+    d?: any;
     sumLength: number;
   }
   const [books, setBooks] = useState<RankI>()
   const userId = useContext(UserId)
   useEffect(() => {
     getBooksByRank(String(userId))
-      .then(res => {
+      .then((res: any) => {
+        console.log("id", userId)
         setBooks({
           s: res.s,
           a: res.a,
@@ -141,7 +142,8 @@ export const Hierarchy = () => {
 
             {
               books &&
-              books.s.map((book: any) => {
+              books!.s &&
+              books!.s.map((book: any) => {
                 console.log(book.book_isbn)
 
                 return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>

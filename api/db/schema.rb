@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_151615) do
+ActiveRecord::Schema.define(version: 2021_06_28_171042) do
 
   create_table "admin_users", charset: "utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -103,6 +103,8 @@ ActiveRecord::Schema.define(version: 2021_06_28_151615) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "book_isbn"
     t.string "user_name"
+    t.string "url"
+    t.string "medium_url"
   end
 
   create_table "ranks", charset: "utf8mb4", force: :cascade do |t|
@@ -112,6 +114,7 @@ ActiveRecord::Schema.define(version: 2021_06_28_151615) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "book_isbn"
     t.string "url"
+    t.string "medium_url"
   end
 
   create_table "relationships", charset: "utf8mb4", force: :cascade do |t|
@@ -130,6 +133,7 @@ ActiveRecord::Schema.define(version: 2021_06_28_151615) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "image"
   end
 
 end

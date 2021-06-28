@@ -5,6 +5,7 @@ import cat from "../../cat.jpeg"
 import dummyImage from "../../dummyImage.jpeg"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SmsIcon from '@material-ui/icons/Sms';
+import { NoDecoLink } from "../../components/NoDecoLink";
 import { BookProps } from "../../interfaces"
 import { getBooks } from "../../apis/getBooks"
 
@@ -137,7 +138,7 @@ export const Posts = (props: { posts?: BookProps[] }) => {
                 <Post>
                   <Profile>
                     <div><ProfileImg src={cat} /></div>
-                    <ProfileSpan>{post.user_name}</ProfileSpan>
+                    <ProfileSpan><NoDecoLink to={`/user/${post.user_id}`}>{post.user_name}</NoDecoLink></ProfileSpan>
                   </Profile>
                   <Text>{post.impression}</Text>
                   <BookWrapper>
