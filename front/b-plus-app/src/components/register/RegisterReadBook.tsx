@@ -4,12 +4,15 @@ import { User } from "../../App"
 import { Isbn } from "../tabs/Detail"
 import { registerReadBook } from "../../apis/registerReadBook"
 import { createPost } from "../../apis/createPost"
+import { createRank } from "../../apis/createRank"
 
 import { DialogContent, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import styled from "styled-components"
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,25 +81,30 @@ export const RegisterReadBook = (
 
   const handleReadBook = () => {
     if (contextUser.user && contextIsbn) {
-      registerReadBook(contextIsbn, contextUser.user.id, Number(page))
+      registerReadBook(contextIsbn, contextUser.user.id, Number(state.page))
         .then(res => {
-          console.log(contextIsbn, text)
-          createPost(text, contextIsbn)
+          createPost(state.text, contextIsbn)
+          state.rank && createRank(contextUser.user.id, state.rank, contextIsbn).then((res) => console.log("rankおk", res))
         })
     } else {
       console.log("ログインが必要")
     }
   }
 
-  //感想を書くためのstate
-  const [text, setText] = useState("")
-  const [page, setPage] = useState<string | undefined>()
+
+  interface PostI {
+    text: string;
+    page?: string | undefined;
+    rank?: any;
+  }
+  const [state, setState] = useState<PostI>({ text: "" })
   const checkText = (targetValue: string) => {
     if (targetValue.length > 220) {
       return
     }
-    setText(targetValue)
+    setState({ ...state, text: targetValue })
   }
+
   return (
     <Dialog
       fullScreen
@@ -116,18 +124,36 @@ export const RegisterReadBook = (
             rowsMin={15}
             cols={45}
             placeholder="感想を書く(任意)"
-            value={text}
+            value={state.text}
             onChange={e => checkText(e.target.value)}
           />
-          <p>{text.length}/220</p>
+          <p>{state.text.length}/220</p>
           <PageWrapper>
             <PageSpan>ページ数(任意)：</PageSpan>
             <TextField
               className={classes.root}
               id="outlined-basic" label="" variant="outlined"
-              onChange={e => setPage(e.target.value)}
+              onChange={e => setState({ ...state, page: e.target.value })}
             />
-            {console.log(page)}
+          </PageWrapper>
+
+          <PageWrapper>
+            <PageSpan>評価(任意)：</PageSpan>
+
+            <FormControl variant="outlined" className={classes.root}>
+              <Select
+                native
+                value={state.rank}
+                onChange={e => setState({ ...state, rank: e.target.value })}
+              >
+                <option aria-label="None" value="" />
+                <option value={5}>S</option>
+                <option value={4}>A</option>
+                <option value={3}>B</option>
+                <option value={2}>C</option>
+                <option value={1}>D</option>
+              </Select>
+            </FormControl>
           </PageWrapper>
 
           <DialogActions>

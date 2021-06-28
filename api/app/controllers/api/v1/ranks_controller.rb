@@ -7,7 +7,7 @@ module Api
       def create
         rank = @user.ranks.new(book_isbn: params[:book_isbn], rank_id: params[:rank_id].to_i)
         if rank.save
-          render json: {}, status: :ok
+          render json: { rank: rank.rank_id}, status: :ok
         else
           render json: {}, status: :internal_server_error
         end

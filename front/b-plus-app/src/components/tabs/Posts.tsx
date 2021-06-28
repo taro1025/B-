@@ -95,6 +95,9 @@ export const Posts = (props: { posts?: BookProps[] }) => {
     });
   }
 
+  //以下のやり方だと、同じ本が連続してても画像urlを取得しているので
+  //同じ本が続くときは飛ばすように改善したい。
+
   interface fetchBooksForPost {
     url: string;
     title: string;
@@ -138,8 +141,8 @@ export const Posts = (props: { posts?: BookProps[] }) => {
                   </Profile>
                   <Text>{post.impression}</Text>
                   <BookWrapper>
-                    <BookImage src={books && books[i].url} />
-                    <BookTitle>{books && books[i].title}</BookTitle>
+                    <BookImage src={books && books[i] && books[i].url} />
+                    <BookTitle>{books && books[i] && books[i].title}</BookTitle>
                     <Rank>S</Rank>
                   </BookWrapper>
                   <ActionWrapper>
