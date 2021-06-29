@@ -67,6 +67,8 @@ export const timelineUrl = `${DEFAULT_API_LOCALHOST}/timeline`
 //Like
 export const createLikesUrl: string = `${DEFAULT_API_LOCALHOST}/likes`
 export const deleteLikesUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/likes/${user_id}`
+export const indexLikesUrl: string = `${DEFAULT_API_LOCALHOST}/likes`
+export const checkLikesUrl: string = `${DEFAULT_API_LOCALHOST}/check_like`
 
 //Comment
 export const createCommentsUrl: string = `${DEFAULT_API_LOCALHOST}/comments`

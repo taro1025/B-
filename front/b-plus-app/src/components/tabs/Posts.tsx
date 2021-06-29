@@ -1,5 +1,6 @@
 import styled from "styled-components"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
+import { UserId } from "../../App"
 import { dummy_posts } from "../../dummyData"
 import cat from "../../cat.jpeg"
 import dummyImage from "../../dummyImage.jpeg"
@@ -8,13 +9,14 @@ import SmsIcon from '@material-ui/icons/Sms';
 import { NoDecoLink } from "../../components/NoDecoLink";
 import { BookProps } from "../../interfaces"
 import { getBooks } from "../../apis/getBooks"
+import { createLike, deleteLike, indexLike } from "../../apis/like"
 
 const PostWrapper = styled.div`
   padding-bottom: 60px;
 `
 const Post = styled.div`
   border: 0.1px solid black;
-`
+h`
 
 const Profile = styled.div`
   padding: .5rem 0 1rem .6rem;
@@ -103,6 +105,7 @@ export const Posts = (props: { posts?: BookProps[] }) => {
     url: string;
     title: string;
   }
+
   const [books, setBooks] = useState<fetchBooksForPost[]>()
   let booksForPost: fetchBooksForPost[] = []
 
@@ -123,9 +126,21 @@ export const Posts = (props: { posts?: BookProps[] }) => {
     setBooks(booksForPost)
   }
 
+  const [myLikes, setMyLikes] = useState<any>()
+  const userId = useContext(UserId)
   useEffect(() => {
     getBookImgEveryOneSecond()
+    indexLike(String(userId))
+      .then(res => setMyLikes(res.likes))
+      .catch(e => console.log("mylikesのセットに失敗"))
   }, [])
+
+  const like = (postId: number) => {
+    createLike(postId)
+  }
+  const disLike = (postId: number) => {
+    deleteLike(String(postId))
+  }
 
   return (
     <>
@@ -150,9 +165,20 @@ export const Posts = (props: { posts?: BookProps[] }) => {
                     <CommentButton>
                       <SmsIcon />
                     </CommentButton>
-                    <LikeButton>
-                      <WhiteHeartIcon />
-                    </LikeButton>
+                    {
+                      myLikes &&
+                        myLikes.includes(post.id) ?
+
+                        <button>いいねずみ</button>
+                        :
+                        <LikeButton
+                          onClick={() => like(post.id)}
+                        >
+                          <WhiteHeartIcon />
+                        </LikeButton>
+
+
+                    }
                   </ActionWrapper>
                 </Post>
 
