@@ -1,5 +1,6 @@
 import { getNotice, checkedNotice } from "../apis/notification"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { Notice } from "../App"
 import styled from "styled-components"
 import cat from "../cat.jpeg"
 
@@ -61,12 +62,14 @@ const ProfileImg = styled.img`
 export const Notification = () => {
   const [notices, setNotice] = useState<[] | undefined>()
 
+  const notice = useContext(Notice)
   useEffect(() => {
     getNotice()
       .then((res) => {
         setNotice(res.notices)
       })
     checkedNotice()
+      .then(res => notice.setIsNotice(false))
   }, [])
 
   console.log("notice", notices)

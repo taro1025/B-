@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext, useEffect } from "react"
+import { Notice } from "../App"
 import styled from "styled-components"
 import { NoDecoLink } from "../components/NoDecoLink";
 import { UserId } from "../App";
@@ -19,15 +20,15 @@ const BN = styled(BottomNavigation)`
 `
 
 
-export const Footer: React.FC = () => {
+export const Footer = () => {
   const userId: number | undefined = useContext(UserId)
   console.log("fotter", userId)
 
-  const [isNotice, setIsNotice] = useState<boolean>(false)
+  const notice: any = useContext(Notice)
 
   useEffect(() => {
     checkNotice()
-      .then(res => setIsNotice(res.isNotice))
+      .then(res => notice.setIsNotice(res.isNotice))
       .catch(e => console.log(e))
   }, [])
   return (
@@ -41,7 +42,7 @@ export const Footer: React.FC = () => {
           component={NoDecoLink} to={userId ? `/book_manager/${userId}` : "/login"} />
         <BottomNavigationAction label="search" icon={<Search />} component={NoDecoLink} to="/search" />
         {
-          isNotice ?
+          notice.isNotice ?
             <BottomNavigationAction label="notification" icon={<NotificationsActive />} component={NoDecoLink} to="/notification" />
             :
             <BottomNavigationAction label="notification" icon={<Notifications />} component={NoDecoLink} to="/notification" />
