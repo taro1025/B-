@@ -51,8 +51,15 @@ module Api
 
       def timeline
         timeline = @current_user.get_timeline
+        comments = []
+        timeline.each do |post|
+          if comment = Comment.where(post_id: post.id)
+            comments << comment
+          end
+        end
         render json: {
-          timeline: timeline
+          timeline: timeline,
+          comments: comments
         }, stauts: :ok
       end
 
