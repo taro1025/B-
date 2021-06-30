@@ -29,12 +29,14 @@ export const TopPage = (props: { user: IState | undefined }) => {
 
   const [timeline, setTimeline] = useState<[] | undefined>()
   const [comments, setComments] = useState<any>()
+  const [ranks, setRanks] = useState<any>()
   useEffect(() => {
     if (userId) {
       getTimeline()
         .then((res) => {
           setTimeline(res.timeline)
           setComments(res.comments)
+          setRanks(res.ranks)
           console.log("timeline", res.timeline)
         })
         .catch((e) => console.log(e))
@@ -59,6 +61,7 @@ export const TopPage = (props: { user: IState | undefined }) => {
         <Posts
           posts={timeline}
           comments={comments && comments}
+          ranks={ranks && ranks}
           setComments={setComments}
         />
       }

@@ -7,11 +7,13 @@ import dummyImage from "../../dummyImage.jpeg"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SmsIcon from '@material-ui/icons/Sms';
 import { NoDecoLink } from "../../components/NoDecoLink";
-import { BookProps } from "../../interfaces"
+import { Rank } from "../Rank"
+import { BookProps, RankProps } from "../../interfaces"
 import { getBooks } from "../../apis/getBooks"
 import { createLike, deleteLike, indexLike } from "../../apis/like"
 import { createComment } from "../../apis/comment"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import { getRank } from "../../apis/rank"
 
 const PostWrapper = styled.div`
   padding-bottom: 60px;
@@ -59,9 +61,6 @@ const BookTitle = styled.span`
   font-size: .7rem;
 `
 
-const Rank = styled.span`
-  font-style: italic;
-`
 
 const ActionWrapper = styled.div`
   display: flex;
@@ -110,7 +109,12 @@ const GrayHeartIcon = styled(FavoriteIcon)`
 `
 
 export const Posts = (
-  props: { posts?: BookProps[], comments?: any, setComments?: React.Dispatch<any> }
+  props: {
+    posts?: BookProps[],
+    comments?: any,
+    ranks?: RankProps[],
+    setComments?: React.Dispatch<any>,
+  }
 ) => {
   //楽天の仕様のため1秒毎にリクエストを送ります。
   function sleep(waitSec: any) {
@@ -149,6 +153,19 @@ export const Posts = (
     setBooks(booksForPost)
   }
 
+  //ランク関係
+  //const [ranks, setRanks] = useState<any>()
+  //const rankEffect = () => {
+  //  if (props.posts) {
+  //    let ranksTmp: any[] = []
+  //    props.posts.map((post) => {
+  //      getRank(post.user_id, post.book_isbn)
+  //        .then(res => ranksTmp.push(res.rank))
+  //    })
+  //    return ranksTmp
+  //  }
+  //}
+
   //いいね関係
 
   const [myLikes, setMyLikes] = useState<any>()
@@ -158,6 +175,9 @@ export const Posts = (
     indexLike(String(userId))
       .then(res => setMyLikes(res.likes))
       .catch(e => console.log("mylikesのセットに失敗"))
+    //ランクを取得
+    //setRanks(rankEffect())
+    //console.log(ranks)
   }, [])
 
   const like = (postId: number) => {
@@ -189,6 +209,7 @@ export const Posts = (
     }
   }
 
+  console.log("ランク取れた?", props.ranks)
   return (
     <>
       <PostWrapper>
@@ -206,7 +227,7 @@ export const Posts = (
                   <BookWrapper>
                     <BookImage src={books && books[i] && books[i].url} />
                     <BookTitle>{books && books[i] && books[i].title}</BookTitle>
-                    <Rank>S</Rank>
+                    <Rank rank={props.ranks && props!.ranks![i].rank_id} />
                   </BookWrapper>
                   <ActionWrapper>
                     <CommentButton type="submit" onClick={() => {
@@ -269,7 +290,7 @@ export const Posts = (
                   <BookWrapper>
                     <BookImage src={dummyImage} />
                     <BookTitle>20題で得た知見nnn</BookTitle>
-                    <Rank>S</Rank>
+
                   </BookWrapper>
                   <ActionWrapper>
                     <CommentButton>

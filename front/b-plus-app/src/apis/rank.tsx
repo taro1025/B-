@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createRanksUrl } from '../urls/index';
+import { createRanksUrl, getRanksUrl } from '../urls/index';
 
 
 export const createRank = (user_id: number, rank: any, isbn: string, url: string) => {
@@ -14,4 +14,18 @@ export const createRank = (user_id: number, rank: any, isbn: string, url: string
       return res.data
     })
     .catch((e) => console.log("ランクづけ失敗", e))
+};
+
+export const getRank = (userId: number, isbn: string) => {
+  return axios.get(getRanksUrl,
+    {
+      params: {
+        id: userId,
+        book_isbn: isbn
+      }
+    })
+    .then(res => {
+      return res.data
+    })
+    .catch((e) => console.log("ランク取得しっぱい", e))
 };

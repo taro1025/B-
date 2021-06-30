@@ -4,7 +4,7 @@ import { User } from "../../App"
 import { Isbn } from "../tabs/Detail"
 import { registerReadBook } from "../../apis/registerReadBook"
 import { createPost } from "../../apis/createPost"
-import { createRank } from "../../apis/createRank"
+import { createRank } from "../../apis/rank"
 
 import { DialogContent, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';

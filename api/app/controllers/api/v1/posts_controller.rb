@@ -52,14 +52,22 @@ module Api
       def timeline
         timeline = @current_user.get_timeline
         comments = []
+        ranks = []
         timeline.each do |post|
           if comment = Comment.where(post_id: post.id)
             comments << comment
           end
+          if rank = Rank.find_by(book_isbn: post.book_isbn, user_id: post.user_id)
+            ranks << rank
+          else
+            ranks << []
+          end
         end
+
         render json: {
           timeline: timeline,
-          comments: comments
+          comments: comments,
+          ranks: ranks
         }, stauts: :ok
       end
 

@@ -36,6 +36,15 @@ module Api
         render json: {s: s, a: a, b: b, c: c, d: d, sum: sum}, status: :ok
       end
 
+      def get_rank
+        user = User.find(params[:id])
+        if rank = user.ranks.find_by(book_isbn: params[:book_isbn])
+          render json: {rank: rank}, status: :ok
+        else
+          render json: {}, status: :internal_server_error
+        end
+      end
+
     end
   end
 end

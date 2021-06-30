@@ -41,6 +41,16 @@ export interface BookProps {
   updated_at: string;
 }
 
+export interface RankProps {
+  id: number;
+  rank_id?: number;
+  created_at: string;
+  updated_at: string;
+  book_isbn: string;
+  medium_url?: string;
+  url?: string;
+}
+
 export interface GraphInterface {
   today: {
     page: number;
