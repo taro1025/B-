@@ -15,6 +15,9 @@ const DEFAULT_API_LOCALHOST: string = 'http://127.0.0.1:3000/api/v1';
 
 //Notification
 export const notificationsUrl = `${DEFAULT_API_LOCALHOST}/notification`
+export const checkNoticeUrl = `${DEFAULT_API_LOCALHOST}/check_notice`
+export const checkedNoticeUrl = `${DEFAULT_API_LOCALHOST}/checked_notice`
+
 
 //Login
 export const loginUrl: string = `${DEFAULT_API_LOCALHOST}/login`

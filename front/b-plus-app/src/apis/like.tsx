@@ -31,7 +31,8 @@ export const deleteLike = (postId: string) => {
 export const indexLike = (userId: string) => {
   return axios.get(indexLikesUrl,
     {
-      params: { id: userId }
+      params: { id: userId },
+      withCredentials: true
     })
     .then(res => {
       console.log("いいね 一覧げt", res)

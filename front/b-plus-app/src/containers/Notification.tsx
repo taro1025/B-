@@ -1,4 +1,4 @@
-import { getNotice } from "../apis/getNotice"
+import { getNotice, checkedNotice } from "../apis/notification"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 import cat from "../cat.jpeg"
@@ -66,6 +66,7 @@ export const Notification = () => {
       .then((res) => {
         setNotice(res.notices)
       })
+    checkedNotice()
   }, [])
 
   console.log("notice", notices)

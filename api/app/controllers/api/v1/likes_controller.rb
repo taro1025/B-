@@ -5,7 +5,7 @@ module Api
 
       def create
         post = Post.find(params[:post_id])
-        like = post.likes.new(user_id: @current_user.id)
+        like = @current_user.likes.new(post_id: params[:post_id]) #post.likes.new(user_id: @current_user.id)
         if like.save
           post.create_notification_like!(@current_user)
           render json: {likes: post.likes }, status: :ok
@@ -32,6 +32,7 @@ module Api
           likes.each do |like|
             liked_posts << like.post_id
           end
+          puts "userid#{params[:id]}, liked.id#{liked_posts}"
           render json: { likes: liked_posts}, status: :ok
         end
       end
