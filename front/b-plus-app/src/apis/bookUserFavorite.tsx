@@ -1,5 +1,12 @@
 import axios from "axios";
-import { createBookUserFavoritesUrl, showBookUserFavoritesUrl, editBookUserFavoritesUrl } from "../urls/index"
+import {
+  createBookUserFavoritesUrl,
+  showBookUserFavoritesUrl,
+  editBookUserFavoritesUrl,
+  deleteBookUserFavoritesUrl
+} from "../urls/index"
+
+
 
 export const registerFavoriteBook = (
   book_isbn: string, userId: number,
@@ -45,4 +52,14 @@ export const editBookUserFavorite = (idFavoriteBook: number, summary: string, de
       return res.data
     })
     .catch((e) => console.log("編集失敗", e))
+};
+
+
+export const deleteBookUserFavorite = (idFavoriteBook: number) => {
+  return axios.delete(deleteBookUserFavoritesUrl(String(idFavoriteBook)), { withCredentials: true })
+    .then(res => {
+      console.log(res)
+      return res.data
+    })
+    .catch((e) => console.log("削除失敗", e))
 };

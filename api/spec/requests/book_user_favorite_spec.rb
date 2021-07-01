@@ -20,7 +20,7 @@ RSpec.describe "BookUserFavorites", type: :request do
       }.to change{ @user.book_user_favorites.count }.by(+1)
 
       expect{
-        delete "/api/v1/book_user_favorites/#{@user.id}" , params: { book_isbn: "978-4-00-310101-8"}
+        delete "/api/v1/book_user_favorites/#{@user.book_user_favorites.last.id}"
       }.to change{ @user.book_user_favorites.count }.by(-1)
     end
 
@@ -36,7 +36,7 @@ RSpec.describe "BookUserFavorites", type: :request do
         post "/api/v1/book_user_favorites", params: { id: @user.id, book_isbn: "1234567890"}
       }.to change{ @user.book_user_favorites.count }.by(1)
       expect{ #登録してない本を消そうとする
-        delete "/api/v1/book_user_favorites/#{@user.id}" , params: { book_isbn: "2"}
+        delete "/api/v1/book_user_favorites/#{3.1}"
       }.to change{ @user.book_user_favorites.count }.by(0)
     end
   end

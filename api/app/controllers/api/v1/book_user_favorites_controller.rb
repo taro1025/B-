@@ -21,12 +21,19 @@ module Api
       end
 
       def destroy
-        if book_user_favorite = @current_user.book_user_favorites.find_by(book_isbn: params[:book_isbn])
+        if book_user_favorite = @current_user.book_user_favorites.find_by(id: params[:id])
           book_user_favorite.delete
           render json: {}, status: :ok
         else
           render json: {}, status: :internal_server_error
         end
+
+        #if book_user_favorite = @current_user.book_user_favorites.find_by(book_isbn: params[:book_isbn])
+        #  book_user_favorite.delete
+        #  render json: {}, status: :ok
+        #else
+        #  render json: {}, status: :internal_server_error
+        #end
       end
 
       def show

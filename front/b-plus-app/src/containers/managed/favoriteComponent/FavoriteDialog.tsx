@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { ShareFavorite } from "../../../components/ShareFavorite"
-import { editBookUserFavorite } from "../../../apis/bookUserFavorite"
+import { editBookUserFavorite, deleteBookUserFavorite } from "../../../apis/bookUserFavorite"
 import Button from '@material-ui/core/Button';
 
 const Dialog = styled.div`
@@ -86,6 +86,10 @@ export const FavoriteDialog = (props: Props) => {
     setEdit(true)
   };
 
+  const handleDelete = () => {
+    deleteBookUserFavorite(props.favoriteId)
+  }
+
   const handleCloseEdit = () => {
     setEdit(false)
   }
@@ -140,7 +144,7 @@ export const FavoriteDialog = (props: Props) => {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>編集</MenuItem>
-                <MenuItem onClick={handleClose}>削除</MenuItem>
+                <MenuItem onClick={handleDelete}>削除</MenuItem>
               </Menu>
             </DialogTitleColored>
 

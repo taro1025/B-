@@ -1,6 +1,5 @@
 import { DialogContent, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import Button, { ButtonProps } from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import styled from "styled-components"
 import { makeStyles } from '@material-ui/core/styles';
