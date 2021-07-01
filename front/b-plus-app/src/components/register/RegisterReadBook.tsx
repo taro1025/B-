@@ -1,6 +1,6 @@
 import { useState, useContext } from "react"
 import { User } from "../../App"
-import { Isbn } from "../tabs/Detail"
+import { Isbn } from "../detailTabs/Detail"
 import { registerReadBook } from "../../apis/bookUserRead"
 import { createPost } from "../../apis/posts"
 import { createRank } from "../../apis/rank"

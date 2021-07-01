@@ -6,7 +6,7 @@ import cat from "../../cat.jpeg"
 import dummyImage from "../../dummyImage.jpeg"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SmsIcon from '@material-ui/icons/Sms';
-import { NoDecoLink } from "../../components/NoDecoLink";
+import { NoDecoLink } from "../NoDecoLink";
 import { Rank } from "../Rank"
 import { BookProps, RankProps } from "../../interfaces"
 import { getBooks } from "../../apis/getBooks"

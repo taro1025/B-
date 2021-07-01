@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createBookUserFavoritesUrl } from "../urls/index"
+import { createBookUserFavoritesUrl, showBookUserFavoritesUrl } from "../urls/index"
 
 export const registerFavoriteBook = (
   book_isbn: string, userId: number,
@@ -20,4 +20,13 @@ export const registerFavoriteBook = (
       return res.data
     })
     .catch((e) => console.log("人生の本、登録失敗", e))
+};
+
+export const fetchBookUserFavorite = (userId: number) => {
+  return axios.get(showBookUserFavoritesUrl(String(userId)), { withCredentials: true })
+    .then(res => {
+      console.log(res)
+      return res.data
+    })
+    .catch((e) => console.log("失敗", e))
 };

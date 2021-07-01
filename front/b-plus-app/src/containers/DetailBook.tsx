@@ -4,9 +4,9 @@ import { bookStateProps } from "../interfaces"
 import { useParams } from 'react-router-dom'
 import styled from "styled-components"
 
-import { Detail } from "../components/tabs/Detail"
-import { Posts } from "../components/tabs/Posts"
-import { MyPosts } from "../components/tabs/MyPosts"
+import { Detail } from "../components/detailTabs/Detail"
+import { Posts } from "../components/detailTabs/Posts"
+import { MyPosts } from "../components/detailTabs/MyPosts"
 import { BookProps } from "../interfaces"
 import { getPosts, getMyPosts } from "../apis/posts"
 

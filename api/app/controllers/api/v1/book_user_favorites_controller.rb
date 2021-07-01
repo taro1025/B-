@@ -29,7 +29,13 @@ module Api
         end
       end
 
-      def index
+      def show
+        user = User.find(params[:id])
+        if books = user.book_user_favorites
+          render json: {books: books}, status: :ok
+        else
+          render json: {}, status: :ok
+        end
       end
     end
   end

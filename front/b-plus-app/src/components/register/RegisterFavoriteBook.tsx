@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react"
 import styled from "styled-components"
 
 import { User } from "../../App"
-import { Isbn } from "../tabs/Detail"
+import { Isbn } from "../detailTabs/Detail"
 
 import { registerFavoriteBook } from "../../apis/bookUserFavorite"
 
@@ -109,7 +109,7 @@ export const RegisterFavoriteBook = (props: {
               className={classes.root}
               id="outlined-basic" label="" variant="outlined"
               placeholder="タイトル(任意)"
-            //onChange={e => setState({ ...state, page: e.target.value })}
+              onChange={e => setState({ ...state, summary: e.target.value })}
             />
           </PageWrapper>
           <Tes

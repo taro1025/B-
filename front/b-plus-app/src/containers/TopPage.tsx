@@ -4,7 +4,7 @@ import { logout } from "../apis/session"
 import { IState } from '../interfaces'
 import { getTimeline } from "../apis/getTimeline"
 import { useEffect, useState } from "react";
-import { Posts } from "../components/tabs/Posts"
+import { Posts } from "../components/detailTabs/Posts"
 
 interface Props {
   user: {
