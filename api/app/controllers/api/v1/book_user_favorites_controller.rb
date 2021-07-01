@@ -1,7 +1,7 @@
 module Api
   module V1
     class BookUserFavoritesController < ApplicationController
-      before_action :current_user, only: [:create, :destroy]
+      before_action :current_user, only: [:create, :destroy, :edit]
 
       def create
         favorite_book = @current_user.book_user_favorites.new(
@@ -37,6 +37,14 @@ module Api
           render json: {}, status: :ok
         end
       end
+
+      def edit
+        favorite_book = @current_user.book_user_favorites.find(params[:id])
+        favorite_book.update_attribute(:description_summary, params[:summary]) if params[:summary]
+        favorite_book.update_attribute(:description, params[:description]) if params[:description]
+        render json: { edited: favorite_book}, status: :ok
+      end
+
     end
   end
 end

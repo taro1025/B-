@@ -57,6 +57,7 @@ export const createBookUserFavoritesUrl: string = `${DEFAULT_API_LOCALHOST}/book
 export const showBookUserFavoritesUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_favorites/${user_id}`
 export const updateBookUserFavoritesUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_favorites/${user_id}`
 export const deleteBookUserFavoritesUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_favorites/${user_id}`
+export const editBookUserFavoritesUrl = (idFavoriteBook: string): string => `${DEFAULT_API_LOCALHOST}/book_user_favorites/${idFavoriteBook}/edit`
 
 //Post
 export const createPostsUrl: string = `${DEFAULT_API_LOCALHOST}/posts`

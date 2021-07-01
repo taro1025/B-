@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createBookUserFavoritesUrl, showBookUserFavoritesUrl } from "../urls/index"
+import { createBookUserFavoritesUrl, showBookUserFavoritesUrl, editBookUserFavoritesUrl } from "../urls/index"
 
 export const registerFavoriteBook = (
   book_isbn: string, userId: number,
@@ -29,4 +29,20 @@ export const fetchBookUserFavorite = (userId: number) => {
       return res.data
     })
     .catch((e) => console.log("失敗", e))
+};
+
+export const editBookUserFavorite = (idFavoriteBook: number, summary: string, description: string) => {
+  return axios.get(editBookUserFavoritesUrl(String(idFavoriteBook)),
+    {
+      params: {
+        summary: summary,
+        description: description
+      },
+      withCredentials: true
+    })
+    .then(res => {
+      console.log(res)
+      return res.data
+    })
+    .catch((e) => console.log("編集失敗", e))
 };

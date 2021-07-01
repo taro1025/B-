@@ -3,10 +3,16 @@ import { fetchBookUserFavorite } from "../../apis/bookUserFavorite"
 import { useParams } from "react-router-dom"
 import { dummyBookUserFavorite } from "../../dummyData"
 import dummyImage from "../../dummyImage.jpeg"
-import styled from "styled-components"
 import { NoDecoLink } from "../../components/NoDecoLink";
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { FavoriteDialog } from "./favoriteComponent/FavoriteDialog"
+
+import styled from "styled-components"
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 const BookImage = styled.img`
   height: 4.2rem;
@@ -33,6 +39,8 @@ export const BookUserFavorite = (props: { posts?: Array<BookProps> }) => {
         .catch(e => console.log(e))
     }
   }, [])
+
+
   return (
     <>
 
@@ -51,6 +59,7 @@ export const BookUserFavorite = (props: { posts?: Array<BookProps> }) => {
       {
         isNumber.number != undefined &&
         <FavoriteDialog
+          favoriteId={favoriteBooks[isNumber.number].id}
           descriptionSummary={favoriteBooks[isNumber.number].description_summary}
           description={favoriteBooks[isNumber.number].description}
           setDialogNumber={setDialogNumber}
