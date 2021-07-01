@@ -112,7 +112,6 @@ export const Hierarchy = () => {
   useEffect(() => {
     getBooksByRank(String(userId))
       .then((res: any) => {
-        console.log("id", userId)
         setBooks({
           s: res.s,
           a: res.a,
@@ -144,7 +143,6 @@ export const Hierarchy = () => {
               books &&
               books!.s &&
               books!.s.map((book: any) => {
-                console.log(book.book_isbn)
 
                 return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
 
@@ -160,7 +158,6 @@ export const Hierarchy = () => {
             {
               books &&
               books.a.map((book: any) => {
-                console.log(book.book_isbn)
 
                 return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
 
@@ -176,7 +173,6 @@ export const Hierarchy = () => {
             {
               books &&
               books.b.map((book: any) => {
-                console.log(book.book_isbn)
 
                 return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
 
@@ -192,7 +188,6 @@ export const Hierarchy = () => {
             {
               books &&
               books.c.map((book: any) => {
-                console.log(book.book_isbn)
 
                 return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
 
@@ -207,7 +202,6 @@ export const Hierarchy = () => {
             {
               books &&
               books.d.map((book: any) => {
-                console.log(book.book_isbn)
 
                 return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
 

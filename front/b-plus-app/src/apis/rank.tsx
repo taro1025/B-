@@ -2,13 +2,14 @@ import axios from 'axios';
 import { createRanksUrl, getRanksUrl } from '../urls/index';
 
 
-export const createRank = (user_id: number, rank: any, isbn: string, url: string) => {
+export const createRank = (user_id: number, rank: any, isbn: string, url: string, mediumUrl: string) => {
   return axios.post(createRanksUrl,
     {
       id: user_id,
       rank_id: rank,
       book_isbn: isbn,
-      url: url
+      url: url,
+      medium_url: mediumUrl
     }, { withCredentials: true })
     .then(res => {
       return res.data

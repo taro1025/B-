@@ -5,7 +5,6 @@ const Italic = styled.span`
 `
 
 export const Rank = (props: { rank?: number }) => {
-  console.log("ランク", props.rank)
   return (
     <>
       {

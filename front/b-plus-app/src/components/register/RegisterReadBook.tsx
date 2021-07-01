@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useContext } from 'react'
 import { User } from "../../App"
 import { Isbn } from "../tabs/Detail"
-import { registerReadBook } from "../../apis/registerReadBook"
+import { registerReadBook } from "../../apis/bookUserRead"
 import { createPost } from "../../apis/createPost"
 import { createRank } from "../../apis/rank"
 
@@ -82,9 +82,13 @@ export const RegisterReadBook = (
 
   const handleReadBook = async () => {
     if (contextUser.user && contextIsbn) {
-      let url: string
+      let url: { large: string, medium: string } = { large: "", medium: "" }
       await getBooks(contextIsbn)
-        .then(res => url = res.Items[0].Item.largeImageUrl)
+        .then(res => {
+          console.log(res)
+          url.large = res.Items[0].Item.largeImageUrl
+          url.medium = res.Items[0].Item.mediumImageUrl
+        })
       await registerReadBook(contextIsbn, contextUser.user.id, Number(state.page))
         .then(res => {
           createPost(state.text, contextIsbn)
@@ -93,7 +97,8 @@ export const RegisterReadBook = (
               contextUser.user.id,
               state.rank,
               contextIsbn,
-              url
+              url.large,
+              url.medium
             )
         })
 

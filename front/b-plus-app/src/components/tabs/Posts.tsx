@@ -225,7 +225,9 @@ export const Posts = (
                   </Profile>
                   <Text>{post.impression}</Text>
                   <BookWrapper>
-                    <BookImage src={books && books[i] && books[i].url} />
+                    <BookImage src={props.ranks && props.ranks[i] && props!.ranks[i].medium_url} />
+                    {//{books && books[i] && books[i].url} />
+                    }
                     <BookTitle>{books && books[i] && books[i].title}</BookTitle>
                     <Rank rank={props.ranks && props!.ranks![i].rank_id} />
                   </BookWrapper>
