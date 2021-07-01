@@ -2,11 +2,13 @@ import { createBookWantToReadsUrl } from "../urls/index";
 import axios from 'axios';
 
 
-export const registerWantToBook = (book_isbn: string, user_id: string) => {
+export const registerWantToBook = (book_isbn: string, user_id: string, medium: string, large: string) => {
   return axios.post(createBookWantToReadsUrl,
     {
       book_isbn: book_isbn,
-      id: user_id
+      id: user_id,
+      medium_url: medium,
+      url: large
     }, { withCredentials: true })
     .then(res => {
       console.log("成功")

@@ -4,7 +4,7 @@ module Api
       before_action :current_user, only: [:create, :destroy]
       before_action :correct_user, only: [:show]
       def create
-        if @current_user.book_want_to_reads.create(book_isbn: params[:book_isbn])
+        if @current_user.book_want_to_reads.create(book_isbn: params[:book_isbn], medium_url: params[:medium_url], url: params[:url])
           render json: {}, status: :ok
         else
           render json: {

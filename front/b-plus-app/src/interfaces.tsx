@@ -41,6 +41,15 @@ export interface BookProps {
   updated_at: string;
 }
 
+export interface BookWantToRead {
+  book_isbn: string;
+  url?: string;
+  medium_url?: string;
+  user_id: number;
+  id: number;
+  created_at: string;
+  updated_at: string;
+}
 export interface RankProps {
   id: number;
   rank_id?: number;

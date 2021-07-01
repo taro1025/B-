@@ -33,7 +33,7 @@ export const Detail = () => {
         <h2>{book && book!.title}</h2>
       </div>
       <Isbn.Provider value={params.id}>
-        <DonutButton isbn={params.id}></DonutButton>
+        <DonutButton book={book}></DonutButton>
       </Isbn.Provider>
     </>
   )

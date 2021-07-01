@@ -5,6 +5,7 @@ import { User } from "../App"
 import { useState } from "react"
 import { RegisterReadBook } from "./register/RegisterReadBook"
 import { RegisterFavoriteBook } from "./register/RegisterFavoriteBook"
+import { BookWantToRead } from "../interfaces"
 //メ　モ
 //本当はドーナツ型のボタンにしたかったのだけどやり方が分からなかった。
 const Wrapper = styled.div`
@@ -29,13 +30,16 @@ const Button = styled.button`
 `
 
 
-export const DonutButton = (props: { isbn: string }) => {
+export const DonutButton = (props: { book: any }) => {
 
   const context: any = useContext(User)
   //console.log("userrr", user.user.id)
   const handleWantToBook = () => {
     if (context.user) {
-      registerWantToBook(props.isbn, context.user.id)
+      registerWantToBook(
+        props.book.isbn, context.user.id,
+        props.book.mediumImageUrl, props.book.largeImageUrl
+      )
     } else {
       console.log("ログインが必要")
     }
