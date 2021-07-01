@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import dummyImage from "../dummyImage.jpeg"
 import { NoDecoLink } from "./NoDecoLink";
 import { getBooksByRank } from "../apis/getBooksByRank"
-import { getBooks } from "../apis/getBooks"
-import { useEffect, useState, useContext } from "react"
-import { UserId } from "../App"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
 
 const HierarchyWrapper = styled.div`
@@ -108,9 +107,10 @@ export const Hierarchy = () => {
     sumLength: number;
   }
   const [books, setBooks] = useState<RankI>()
-  const userId = useContext(UserId)
+
+  const params: any = useParams()
   useEffect(() => {
-    getBooksByRank(String(userId))
+    getBooksByRank(String(params.id))
       .then((res: any) => {
         setBooks({
           s: res.s,

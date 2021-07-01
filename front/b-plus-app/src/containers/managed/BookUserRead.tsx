@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { fetchBookUserRead, getIndexBooks } from "../../apis/bookUserRead";
+import { getIndexBooks } from "../../apis/bookUserRead";
 import styled from 'styled-components';
 import { NoDecoLink } from "../../components/NoDecoLink";
 import dummyImage from "../../dummyImage.jpeg"
