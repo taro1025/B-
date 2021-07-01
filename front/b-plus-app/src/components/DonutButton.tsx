@@ -46,9 +46,8 @@ export const DonutButton = (props: { book: any }) => {
   }
 
 
-
   const [isReadBookDialog, setReadBookDialog] = useState(false)
-  const [isFavoriteDialog, setFavoriteDialog] = useState(false)
+  const [isFavoriteBookDialog, setFavoriteBookDialog] = useState(false)
 
   return (
     <>
@@ -56,11 +55,11 @@ export const DonutButton = (props: { book: any }) => {
         <Ul>
           <Button onClick={() => setReadBookDialog(true)}>読んだ本に登録</Button>
           <Button onClick={() => handleWantToBook()}>読みたい本に登録</Button>
-          <Button>人生の本に登録</Button>
+          <Button onClick={() => setFavoriteBookDialog(true)}>人生の本に登録</Button>
         </Ul>
       </Wrapper>
       {isReadBookDialog && <RegisterReadBook setReadBookDialog={setReadBookDialog} isReadBookDialog={isReadBookDialog} />}
-      {isFavoriteDialog && <RegisterFavoriteBook />}
+      {isFavoriteBookDialog && <RegisterFavoriteBook book={props.book} setFavoriteBookDialog={setFavoriteBookDialog} isFavoriteBookDialog={isFavoriteBookDialog} />}
     </>
   );
 };

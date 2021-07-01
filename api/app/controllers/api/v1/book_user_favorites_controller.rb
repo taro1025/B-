@@ -7,7 +7,9 @@ module Api
         favorite_book = @current_user.book_user_favorites.new(
                     book_isbn: params[:book_isbn],
                     description_summary: params[:description_summary],
-                    description: params[:description])
+                    description: params[:description],
+                    medium_url: params[:medium_url],
+                    url: params[:url])
 
         if favorite_book.save
           render json: {}, status: :ok
