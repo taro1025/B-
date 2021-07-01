@@ -1,10 +1,10 @@
 module Api
   module V1
     class BookUserFavoritesController < ApplicationController
-      before_action :correct_user, only: [:create, :destroy]
+      before_action :current_user, only: [:create, :destroy]
 
       def create
-        favorite_book = @user.book_user_favorites.new(
+        favorite_book = @current_user.book_user_favorites.new(
                     book_isbn: params[:book_isbn],
                     description_summary: params[:description_summary],
                     description: params[:description])
@@ -19,7 +19,7 @@ module Api
       end
 
       def destroy
-        if book_user_favorite = @user.book_user_favorites.find_by(book_isbn: params[:book_isbn])
+        if book_user_favorite = @current_user.book_user_favorites.find_by(book_isbn: params[:book_isbn])
           book_user_favorite.delete
           render json: {}, status: :ok
         else
