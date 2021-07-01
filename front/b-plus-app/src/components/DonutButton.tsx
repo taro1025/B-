@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { registerWantToBook } from "../apis/registerWantToBook"
+import { registerWantToBook } from "../apis/bookWantToRead"
 import { useContext } from 'react'
 import { User } from "../App"
 import { useState } from "react"

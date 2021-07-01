@@ -18,7 +18,7 @@ import { Notification } from "./containers/Notification"
 
 import { IState } from "./interfaces"
 
-import { checkLoginStatus } from "./apis/checkLoginStatus"
+import { checkLoginStatus } from "./apis/session"
 
 
 export const User = React.createContext({})

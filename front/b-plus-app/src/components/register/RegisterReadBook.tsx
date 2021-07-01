@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { User } from "../../App"
 import { Isbn } from "../tabs/Detail"
 import { registerReadBook } from "../../apis/bookUserRead"
-import { createPost } from "../../apis/createPost"
+import { createPost } from "../../apis/posts"
 import { createRank } from "../../apis/rank"
 
 import { DialogContent, Dialog, DialogTitle, DialogActions } from '@material-ui/core';

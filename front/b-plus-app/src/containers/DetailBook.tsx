@@ -8,7 +8,7 @@ import { Detail } from "../components/tabs/Detail"
 import { Posts } from "../components/tabs/Posts"
 import { MyPosts } from "../components/tabs/MyPosts"
 import { BookProps } from "../interfaces"
-import { getPosts, getMyPosts } from "../apis/getPosts"
+import { getPosts, getMyPosts } from "../apis/posts"
 
 //to use for Tab
 import Paper from '@material-ui/core/Paper';

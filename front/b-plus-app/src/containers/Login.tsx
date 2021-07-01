@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 //import { NoDecoLink } from '../components/NoDecoLink';
 
 import { createUser } from "../apis/createUser"
-import { login } from '../apis/login';
+import { login } from '../apis/session';
 import { loginProps } from "../interfaces"
 
 

@@ -1,6 +1,6 @@
 import { NoDecoLink } from "../components/NoDecoLink";
 
-import { logout } from "../apis/logout"
+import { logout } from "../apis/session"
 import { IState } from '../interfaces'
 import { getTimeline } from "../apis/getTimeline"
 import { useEffect, useState } from "react";
