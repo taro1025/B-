@@ -1,10 +1,11 @@
 import styled from "styled-components"
-import { registerWantToBook } from "../apis/registerWantToBook"
+import { registerWantToBook } from "../apis/bookWantToRead"
 import { useContext } from 'react'
 import { User } from "../App"
 import { useState } from "react"
 import { RegisterReadBook } from "./register/RegisterReadBook"
 import { RegisterFavoriteBook } from "./register/RegisterFavoriteBook"
+import { BookWantToRead } from "../interfaces"
 //メ　モ
 //本当はドーナツ型のボタンにしたかったのだけどやり方が分からなかった。
 const Wrapper = styled.div`
@@ -29,22 +30,24 @@ const Button = styled.button`
 `
 
 
-export const DonutButton = (props: { isbn: string }) => {
+export const DonutButton = (props: { book: any }) => {
 
   const context: any = useContext(User)
   //console.log("userrr", user.user.id)
   const handleWantToBook = () => {
     if (context.user) {
-      registerWantToBook(props.isbn, context.user.id)
+      registerWantToBook(
+        props.book.isbn, context.user.id,
+        props.book.mediumImageUrl, props.book.largeImageUrl
+      )
     } else {
       console.log("ログインが必要")
     }
   }
 
 
-
   const [isReadBookDialog, setReadBookDialog] = useState(false)
-  const [isFavoriteDialog, setFavoriteDialog] = useState(false)
+  const [isFavoriteBookDialog, setFavoriteBookDialog] = useState(false)
 
   return (
     <>
@@ -52,11 +55,11 @@ export const DonutButton = (props: { isbn: string }) => {
         <Ul>
           <Button onClick={() => setReadBookDialog(true)}>読んだ本に登録</Button>
           <Button onClick={() => handleWantToBook()}>読みたい本に登録</Button>
-          <Button>人生の本に登録</Button>
+          <Button onClick={() => setFavoriteBookDialog(true)}>人生の本に登録</Button>
         </Ul>
       </Wrapper>
       {isReadBookDialog && <RegisterReadBook setReadBookDialog={setReadBookDialog} isReadBookDialog={isReadBookDialog} />}
-      {isFavoriteDialog && <RegisterFavoriteBook />}
+      {isFavoriteBookDialog && <RegisterFavoriteBook book={props.book} setFavoriteBookDialog={setFavoriteBookDialog} isFavoriteBookDialog={isFavoriteBookDialog} />}
     </>
   );
 };

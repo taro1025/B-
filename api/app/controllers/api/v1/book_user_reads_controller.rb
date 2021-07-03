@@ -26,6 +26,16 @@ module Api
         end
       end
 
+      #ユーザーの読んだ本を返す
+      def index
+        user = User.find(params[:id])
+        if ranks = user.ranks
+          render json: {booksUserRead: ranks},status: :ok
+        else
+          render json: {}, status: :internal_server_error
+        end
+      end
+
       def show
 
         if books = @user.book_user_reads

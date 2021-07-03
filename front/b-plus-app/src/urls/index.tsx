@@ -15,6 +15,9 @@ const DEFAULT_API_LOCALHOST: string = 'http://127.0.0.1:3000/api/v1';
 
 //Notification
 export const notificationsUrl = `${DEFAULT_API_LOCALHOST}/notification`
+export const checkNoticeUrl = `${DEFAULT_API_LOCALHOST}/check_notice`
+export const checkedNoticeUrl = `${DEFAULT_API_LOCALHOST}/checked_notice`
+
 
 //Login
 export const loginUrl: string = `${DEFAULT_API_LOCALHOST}/login`
@@ -40,6 +43,7 @@ export const deleteBookWantToReadsUrl = (user_id: string): string => `${DEFAULT_
 
 //Book User Read
 export const createBookUserReadsUrl: string = `${DEFAULT_API_LOCALHOST}/book_user_reads`
+export const indexBookUserReadsUrl: string = `${DEFAULT_API_LOCALHOST}/book_user_reads`
 export const showBookUserReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_reads/${user_id}`
 export const updateBookUserReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_reads/${user_id}`
 export const deleteBookUserReadsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_reads/${user_id}`
@@ -50,9 +54,10 @@ export const getMonthDataUrl = (user_id: string): string => `${DEFAULT_API_LOCAL
 
 //Book User Favorite
 export const createBookUserFavoritesUrl: string = `${DEFAULT_API_LOCALHOST}/book_user_favorites`
-//export const showBookUserFavoritesUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_favorites/${user_id}`
+export const showBookUserFavoritesUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_favorites/${user_id}`
 export const updateBookUserFavoritesUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_favorites/${user_id}`
-export const deleteBookUserFavoritesUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/book_user_favorites/${user_id}`
+export const deleteBookUserFavoritesUrl = (idFavoriteBook: string): string => `${DEFAULT_API_LOCALHOST}/book_user_favorites/${idFavoriteBook}`
+export const editBookUserFavoritesUrl = (idFavoriteBook: string): string => `${DEFAULT_API_LOCALHOST}/book_user_favorites/${idFavoriteBook}/edit`
 
 //Post
 export const createPostsUrl: string = `${DEFAULT_API_LOCALHOST}/posts`
@@ -67,6 +72,8 @@ export const timelineUrl = `${DEFAULT_API_LOCALHOST}/timeline`
 //Like
 export const createLikesUrl: string = `${DEFAULT_API_LOCALHOST}/likes`
 export const deleteLikesUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/likes/${user_id}`
+export const indexLikesUrl: string = `${DEFAULT_API_LOCALHOST}/likes`
+export const checkLikesUrl: string = `${DEFAULT_API_LOCALHOST}/check_like`
 
 //Comment
 export const createCommentsUrl: string = `${DEFAULT_API_LOCALHOST}/comments`
@@ -78,6 +85,7 @@ export const deleteCommentsUrl = (user_id: string): string => `${DEFAULT_API_LOC
 export const createRanksUrl: string = `${DEFAULT_API_LOCALHOST}/ranks`
 export const deleteRanksUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/ranks/${user_id}`
 export const showRanksUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/ranks/${user_id}`
+export const getRanksUrl: string = `${DEFAULT_API_LOCALHOST}/get_rank`
 
 //Relationship(Follow & Unfollow)
 export const followsUrl: string = `${DEFAULT_API_LOCALHOST}/relationships`

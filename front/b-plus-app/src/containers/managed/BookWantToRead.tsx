@@ -1,9 +1,10 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { fetchBookWantToRead } from "../../apis/fetchBookWantToRead";
+import { fetchBookWantToRead } from "../../apis/bookWantToRead";
 import styled from 'styled-components';
 import { NoDecoLink } from "../../components/NoDecoLink";
 import dummyImage from "../../dummyImage.jpeg"
+import { IndexBooks } from "../../components/IndexBooks";
 
 const Ul = styled.ul`
   display: flex;
@@ -24,7 +25,7 @@ const Img = styled.img`
 //ダミーデータを使用のためコメントアウトしてる
 export const BookWantToRead = () => {
 
-  //const [books, setBooks] = useState<any>()
+  const [books, setBooks] = useState<any>()
 
   const params: any = useParams()
 
@@ -39,27 +40,13 @@ export const BookWantToRead = () => {
     if (params.id) {
       fetchBookWantToRead(params.id)
         .then(res => {
-          //console.log("response", res.books)
-          //setBooks(res.books)
+          console.log("response", res.books)
+          setBooks(res.books)
         })
     }
   }, [])
 
   return (
-    <Ul>
-      {
-        dummy_books.map((book: any) => {
-          return book
-        })
-      }
-      {
-        //books &&
-        //
-        //books!.map((item: any) => {
-        //  console.log("アイテム", item)
-        //  return <p>{item.book_isbn}</p>
-        //})
-      }
-    </Ul>
+    <IndexBooks books={books} />
   )
 }

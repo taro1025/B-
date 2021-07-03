@@ -19,10 +19,14 @@ Rails.application.routes.draw do
       get '/timeline', to: 'posts#timeline'
       resources :comments
       resources :ranks
-      resources :likes, only: [:create, :destroy]
+      get '/get_rank', to: 'ranks#get_rank'
+      resources :likes, only: [:create, :destroy, :index]
+      get '/check_like', to: 'likes#check'
       resources :relationships, only: [:create, :destroy]
       get '/is_follow/:id', to: 'relationships#is_follow'
       get '/notification', to: 'notifications#get_notification'
+      get '/check_notice', to: 'notifications#check'
+      get '/checked_notice', to: 'notifications#checked'
     end
   end
 end

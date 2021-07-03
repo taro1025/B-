@@ -1,10 +1,10 @@
 import { NoDecoLink } from "../components/NoDecoLink";
 
-import { logout } from "../apis/logout"
+import { logout } from "../apis/session"
 import { IState } from '../interfaces'
 import { getTimeline } from "../apis/getTimeline"
 import { useEffect, useState } from "react";
-import { Posts } from "../components/tabs/Posts"
+import { Posts } from "../components/detailTabs/Posts"
 
 interface Props {
   user: {
@@ -28,11 +28,15 @@ export const TopPage = (props: { user: IState | undefined }) => {
   }
 
   const [timeline, setTimeline] = useState<[] | undefined>()
+  const [comments, setComments] = useState<any>()
+  const [ranks, setRanks] = useState<any>()
   useEffect(() => {
     if (userId) {
       getTimeline()
         .then((res) => {
           setTimeline(res.timeline)
+          setComments(res.comments)
+          setRanks(res.ranks)
           console.log("timeline", res.timeline)
         })
         .catch((e) => console.log(e))
@@ -56,6 +60,9 @@ export const TopPage = (props: { user: IState | undefined }) => {
         timeline &&
         <Posts
           posts={timeline}
+          comments={comments && comments}
+          ranks={ranks && ranks}
+          setComments={setComments}
         />
       }
 

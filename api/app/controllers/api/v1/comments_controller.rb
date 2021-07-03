@@ -2,12 +2,12 @@
 module Api
   module V1
     class CommentsController < ApplicationController
-      before_action :correct_user, only: [:create, :destroy, :update]
+      before_action :correct_user, only: [:destroy, :update]
       before_action :current_user, only: [:create, :destroy, :update]
 
       def create
         post = Post.find(params[:post_id])
-        comment = post.comments.new(comment: params[:comment], user_id: params[:id])
+        comment = post.comments.new(comment: params[:comment], user_id: @current_user.id)
         if comment.save
           post.save_notification_comment!(@current_user, comment.id)
           render json: { comment: comment }, status: :ok
@@ -36,6 +36,7 @@ module Api
       end
 
       def index
+
       end
 
     end

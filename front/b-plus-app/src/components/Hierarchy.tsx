@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import dummyImage from "../dummyImage.jpeg"
 import { NoDecoLink } from "./NoDecoLink";
 import { getBooksByRank } from "../apis/getBooksByRank"
-import { getBooks } from "../apis/getBooks"
-import { useEffect, useState, useContext } from "react"
-import { UserId } from "../App"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
 
 const HierarchyWrapper = styled.div`
@@ -108,11 +107,11 @@ export const Hierarchy = () => {
     sumLength: number;
   }
   const [books, setBooks] = useState<RankI>()
-  const userId = useContext(UserId)
+
+  const params: any = useParams()
   useEffect(() => {
-    getBooksByRank(String(userId))
+    getBooksByRank(String(params.id))
       .then((res: any) => {
-        console.log("id", userId)
         setBooks({
           s: res.s,
           a: res.a,
@@ -144,7 +143,6 @@ export const Hierarchy = () => {
               books &&
               books!.s &&
               books!.s.map((book: any) => {
-                console.log(book.book_isbn)
 
                 return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
 
@@ -160,7 +158,6 @@ export const Hierarchy = () => {
             {
               books &&
               books.a.map((book: any) => {
-                console.log(book.book_isbn)
 
                 return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
 
@@ -176,7 +173,6 @@ export const Hierarchy = () => {
             {
               books &&
               books.b.map((book: any) => {
-                console.log(book.book_isbn)
 
                 return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
 
@@ -192,7 +188,6 @@ export const Hierarchy = () => {
             {
               books &&
               books.c.map((book: any) => {
-                console.log(book.book_isbn)
 
                 return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
 
@@ -207,7 +202,6 @@ export const Hierarchy = () => {
             {
               books &&
               books.d.map((book: any) => {
-                console.log(book.book_isbn)
 
                 return <Li><NoDecoLink to={`/book/${book.book_isbn}`}><Img src={book.url && book.url} /></NoDecoLink></Li>
 

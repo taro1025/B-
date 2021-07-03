@@ -18,18 +18,20 @@ import { Notification } from "./containers/Notification"
 
 import { IState } from "./interfaces"
 
-import { checkLoginStatus } from "./apis/checkLoginStatus"
+import { checkLoginStatus } from "./apis/session"
 
 
 export const User = React.createContext({})
 export const UserId = React.createContext<number | undefined>(undefined)
-
+export const Notice = React.createContext<any>({})
 
 const App: React.FC = () => {
 
   const [loggedInStatus, setLoggedInStatus] = useState(false)
   const [user, setUser] = useState<IState | undefined>()
   const [books, setBooks] = useState<any>()
+  const [isNotice, setIsNotice] = useState<boolean>(false)
+
 
   const loginAction = (props: any, data: any) => {
     //set State of Login
@@ -47,79 +49,81 @@ const App: React.FC = () => {
   return (
     <Router>
       <UserId.Provider value={user ? user.id : undefined}>
-        <Layout>
-          <Switch>
+        <Notice.Provider value={{ isNotice: isNotice, setIsNotice: setIsNotice }}>
+          <Layout>
+            <Switch>
 
-            <Route exact path="/">
-              <TopPage
-                user={user}
-              //setUser={setUser}
-              ></TopPage>
-            </Route>
+              <Route exact path="/">
+                <TopPage
+                  user={user}
+                //setUser={setUser}
+                ></TopPage>
+              </Route>
 
-            <Route exact path="/book_manager/:id">
-              <User.Provider value={{ user }}>
-                <BookManager
-                  log={0}
-                  readBook={1}
-                  favoriteBook={2}
-                  bookWantToRead={3}
-                />
-              </User.Provider>
-            </Route>
-
-            <Route
-              exact
-              path="/search"
-              render={props =>
-                <Search
-                  {...props}
-                  books={books}
-                  setBooks={setBooks}
-                />
-              }
-            />
-
-
-            <Route
-              exact
-              path="/book/:id"
-              render={props =>
+              <Route exact path="/book_manager/:id">
                 <User.Provider value={{ user }}>
-                  <DetailBook
+                  <BookManager
+                    log={0}
+                    readBook={1}
+                    favoriteBook={2}
+                    bookWantToRead={3}
+                  />
+                </User.Provider>
+              </Route>
+
+              <Route
+                exact
+                path="/search"
+                render={props =>
+                  <Search
                     {...props}
                     books={books}
                     setBooks={setBooks}
                   />
-                </User.Provider>
-              }
-            />
-
-            <Route
-              exact
-              path="/login"
-              render={props =>
-                <Login
-                  {...props}
-                  loginAction={loginAction}
-                  loggedInStatus={loggedInStatus}
-                />
-              }
-            />
+                }
+              />
 
 
+              <Route
+                exact
+                path="/book/:id"
+                render={props =>
+                  <User.Provider value={{ user }}>
+                    <DetailBook
+                      {...props}
+                      books={books}
+                      setBooks={setBooks}
+                    />
+                  </User.Provider>
+                }
+              />
+
+              <Route
+                exact
+                path="/login"
+                render={props =>
+                  <Login
+                    {...props}
+                    loginAction={loginAction}
+                    loggedInStatus={loggedInStatus}
+                  />
+                }
+              />
 
 
-            <Route exact path="/user/:id">
-              <UserProfile />
-            </Route>
 
-            <Route exact path="/notification">
-              <Notification />
-            </Route>
 
-          </Switch>
-        </Layout >
+              <Route exact path="/user/:id">
+                <UserProfile />
+              </Route>
+
+              <Route exact path="/notification">
+                <Notification />
+              </Route>
+
+            </Switch>
+          </Layout >
+        </Notice.Provider>
       </UserId.Provider>
     </Router >
   );
