@@ -8,6 +8,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import SmsIcon from '@material-ui/icons/Sms';
 import { NoDecoLink } from "../NoDecoLink";
 import { Rank } from "../Rank"
+import { Comments } from "./Comments"
 import { BookProps, RankProps } from "../../interfaces"
 import { getBooks } from "../../apis/getBooks"
 import { createLike, deleteLike, indexLike } from "../../apis/like"
@@ -267,12 +268,7 @@ export const Posts = (
 
                   {
                     props.comments &&
-                    props.comments[i].map((comment: any) => {
-                      return (
-                        //comment.post_id === post.id &&
-                        <p>{comment.comment}</p>
-                      )
-                    })
+                    <Comments comments={props.comments[i]} />
 
                   }
                 </Post>
