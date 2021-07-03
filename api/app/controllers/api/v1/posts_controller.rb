@@ -51,25 +51,33 @@ module Api
 
       def timeline
         timeline = @current_user.get_timeline
-        comments = []
-        ranks = []
-        timeline.each do |post|
-          if comment = Comment.where(post_id: post.id)
-            comments << comment
-          end
-          if rank = Rank.find_by(book_isbn: post.book_isbn, user_id: post.user_id)
-            ranks << rank
-          else
-            ranks << []
-          end
-        end
+        get_post_set(timeline)
 
         render json: {
           timeline: timeline,
-          comments: comments,
-          ranks: ranks
+          comments: @comments,
+          ranks: @ranks
         }, stauts: :ok
       end
+
+
+      private
+
+        #ポストを引数に受け取りグローバル変数でそのポストのランク、コメントを返す
+        def get_post_set(posts)
+          @comments = []
+          @ranks = []
+          posts.each do |post|
+            if comment = Comment.where(post_id: post.id)
+              @comments << comment
+            end
+            if rank = Rank.find_by(book_isbn: post.book_isbn, user_id: post.user_id)
+              @ranks << rank
+            else
+              @ranks << []
+            end
+          end
+        end
 
     end
   end

@@ -6,12 +6,6 @@ import { NoDecoLink } from "../../components/NoDecoLink";
 import dummyImage from "../../dummyImage.jpeg"
 import { IndexBooks } from "../../components/IndexBooks";
 
-const Ul = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-
-`
 
 const Li = styled.li`
   flex-basis: 33.3%;

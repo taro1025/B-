@@ -41,7 +41,7 @@ module Api
         if books = @user.book_user_reads
           render json: {books: books}, status: :ok
         else
-          render json: {message:"読みたい本に登録されている本はありません。"}, status: :internal_server_error
+          render json: {message:"読んだ本に登録されている本はありません。"}, status: :internal_server_error
         end
       end
 

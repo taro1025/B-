@@ -9,21 +9,6 @@ import SyncIcon from '@material-ui/icons/Sync';
 import { Hierarchy } from "../../components/Hierarchy"
 import { IndexBooks } from "../../components/IndexBooks"
 
-const Ul = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-
-`
-
-const Li = styled.li`
-  flex-basis: 33.3%;
-`
-
-const Img = styled.img`
-  width: 100%;
-  border: 1px solid #fff;
-`
 
 const MyIconButton = styled(IconButton)`
   padding:initial;

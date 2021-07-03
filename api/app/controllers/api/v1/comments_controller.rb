@@ -7,7 +7,7 @@ module Api
 
       def create
         post = Post.find(params[:post_id])
-        comment = post.comments.new(comment: params[:comment], user_id: @current_user.id)
+        comment = post.comments.new(user_name: @current_user.name, user_id: @current_user.id, comment: params[:comment])
         if comment.save
           post.save_notification_comment!(@current_user, comment.id)
           render json: { comment: comment }, status: :ok

@@ -101,6 +101,7 @@ export const RegisterReadBook = (
               url.medium
             )
         })
+      handleCloseDialog()
 
     } else {
       console.log("ログインが必要")
