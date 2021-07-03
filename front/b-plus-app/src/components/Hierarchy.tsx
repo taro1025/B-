@@ -90,6 +90,7 @@ const Img = styled.img`
 `
 
 const Section = styled.section`
+  width: 92vw;
 `
 
 //実際には、ランクごとに本を取得して表示させる。
@@ -140,7 +141,7 @@ export const Hierarchy = () => {
       </JumpWrapper>
       <BooksWrapper>
         <p>S</p>
-        <section id="s">
+        <Section id="s">
           <Ul>
 
             {
@@ -154,9 +155,9 @@ export const Hierarchy = () => {
               })
             }
           </Ul>
-        </section>
+        </Section>
               A
-      <section id="a">
+      <Section id="a">
           <Ul>
 
             {
@@ -169,9 +170,9 @@ export const Hierarchy = () => {
               })
             }
           </Ul>
-        </section>
+        </Section>
               B
-      <section id="b">
+      <Section id="b">
           <Ul>
 
             {
@@ -184,9 +185,9 @@ export const Hierarchy = () => {
               })
             }
           </Ul>
-        </section>
+        </Section>
         C
-        <section id="c">
+        <Section id="c">
           <Ul>
 
             {
@@ -199,9 +200,9 @@ export const Hierarchy = () => {
               })
             }
           </Ul>
-        </section>
+        </Section>
         D
-        <section id="d">
+        <Section id="d">
           <Ul>
 
             {
@@ -214,7 +215,7 @@ export const Hierarchy = () => {
               })
             }
           </Ul>
-        </section>
+        </Section>
       </BooksWrapper>
     </HierarchyWrapper>
   )
