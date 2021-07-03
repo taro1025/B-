@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { IndexBooks } from "../components/IndexBooks"
 import TextField from '@material-ui/core/TextField';
 import { searchBooks } from "../apis/searchBooks"
 import { NoDecoLink } from "../components/NoDecoLink";
@@ -43,15 +44,16 @@ export const Search = (props: bookStateProps) => {
 
       {
         books && (
-          <div>
-            {books.map((book: any, i: number) => {
-              console.log("book", book)
-              return (
-
-                < div key={book.id} > <NoDecoLink to={`/book/${book.Item.isbn}`}><img src={book.Item.mediumImageUrl}></img></NoDecoLink></div>
-              )
-            })}
-          </div>
+          <IndexBooks books={books} isRakuten={true} />
+          //   <div>
+          //     {books.map((book: any, i: number) => {
+          //       console.log("book", book)
+          //       return (
+          //
+          //         < div key={book.id} > <NoDecoLink to={`/book/${book.Item.isbn}`}><img src={book.Item.largeImageUrl}></img></NoDecoLink></div>
+          //       )
+          //     })}
+          //   </div>
         )
       }
       {

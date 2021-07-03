@@ -69,7 +69,7 @@ export const BookUserRead = () => {
         isHierarchy ?
           <Hierarchy />
           :
-          <IndexBooks books={books} />
+          <IndexBooks books={books} isRakuten={false} />
       }
 
     </div>

@@ -47,6 +47,6 @@ export const BookWantToRead = () => {
   }, [])
 
   return (
-    <IndexBooks books={books} />
+    <IndexBooks books={books} isRakuten={false} />
   )
 }
