@@ -38,7 +38,7 @@ export const IndexBooks = (props: { books: any, isRakuten: boolean }) => {
         props.isRakuten ?
           props.books!.map((book: any) => {
             console.log("", book)
-            return <Li><NoDecoLink to={`/book/${book.isbn}`}><Img src={book.Item.largeImageUrl} /></NoDecoLink></Li>
+            return <Li><NoDecoLink to={`/book/${book.Item.isbn}`}><Img src={book.Item.largeImageUrl} /></NoDecoLink></Li>
           })
           :
           props.books &&

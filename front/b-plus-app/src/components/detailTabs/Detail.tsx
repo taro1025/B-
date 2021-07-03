@@ -9,6 +9,11 @@ const ImageWrapper = styled.div`
   padding: 1rem 0;
   text-align: center;
 `
+
+const Title = styled.h2`
+  text-align: center;
+  font-size: .7rem;
+`
 export const Isbn = React.createContext({})
 
 export const Detail = () => {
@@ -21,6 +26,7 @@ export const Detail = () => {
   useEffect(() => {
     getBooks(params.id)
       .then((res) => {
+        console.log("res", res)
         setBook(res.Items[0].Item)
       })
   }, [])
@@ -30,7 +36,7 @@ export const Detail = () => {
       }
       <ImageWrapper><img src={book && book!.largeImageUrl}></img></ImageWrapper>
       <div>
-        <h2>{book && book!.title}</h2>
+        <Title>{book && book!.title}</Title>
       </div>
       <Isbn.Provider value={params.id}>
         <DonutButton book={book}></DonutButton>

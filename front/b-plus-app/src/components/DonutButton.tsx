@@ -9,14 +9,11 @@ import { BookWantToRead } from "../interfaces"
 //メ　モ
 //本当はドーナツ型のボタンにしたかったのだけどやり方が分からなかった。
 const Wrapper = styled.div`
-
+  padding-top: 1rem;
 `
 
 const Ul = styled.ul`
  display: flex;
- //width: 100%;
- //justify-content: space-between;
- border: solid 1px red;
 `
 
 const Button = styled.button`
@@ -26,7 +23,6 @@ const Button = styled.button`
   text-align: center;
   line-height: 60px;
   height: 60px;
-  border: solid 0.5px black;
 `
 
 
