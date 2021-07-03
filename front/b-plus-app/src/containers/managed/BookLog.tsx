@@ -143,6 +143,7 @@ export const BookLog = () => {
 
 const Wrapper = styled.div`
   padding-top: 1rem;
+  padding-bottom: 60px;
 `
 const MonthWrapper = styled.div`
   display: flex;

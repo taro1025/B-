@@ -74,6 +74,7 @@ const BooksWrapper = styled.div`
   padding-bottom: 60px;
 `
 const Ul = styled.ul`
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -86,6 +87,9 @@ const Li = styled.li`
 const Img = styled.img`
   width: 100%;
   border: 1px solid #fff;
+`
+
+const Section = styled.section`
 `
 
 //実際には、ランクごとに本を取得して表示させる。
@@ -135,7 +139,7 @@ export const Hierarchy = () => {
         <JumpBar />
       </JumpWrapper>
       <BooksWrapper>
-        <p>Sだお</p>
+        <p>S</p>
         <section id="s">
           <Ul>
 
@@ -151,7 +155,7 @@ export const Hierarchy = () => {
             }
           </Ul>
         </section>
-              Aだお
+              A
       <section id="a">
           <Ul>
 
@@ -166,7 +170,7 @@ export const Hierarchy = () => {
             }
           </Ul>
         </section>
-              Bだお
+              B
       <section id="b">
           <Ul>
 
@@ -181,8 +185,8 @@ export const Hierarchy = () => {
             }
           </Ul>
         </section>
-              Cだお
-      <section id="c">
+        C
+        <section id="c">
           <Ul>
 
             {
@@ -196,6 +200,7 @@ export const Hierarchy = () => {
             }
           </Ul>
         </section>
+        D
         <section id="d">
           <Ul>
 

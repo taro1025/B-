@@ -40,7 +40,6 @@ export const login = (params: LoginInterface, props: loginProps) => {
     { withCredentials: true })
     .then(res => {
       if (res.data.logged_in) {
-        console.log("ログインしたときのpropsとresdata", props, res.data)
         props.loginAction(props, res.data)
       }
       return res.data
