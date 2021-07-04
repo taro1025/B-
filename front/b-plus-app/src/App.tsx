@@ -67,6 +67,7 @@ const App: React.FC = () => {
                     readBook={1}
                     favoriteBook={2}
                     bookWantToRead={3}
+                    isProfile={true}
                   />
                 </User.Provider>
               </Route>

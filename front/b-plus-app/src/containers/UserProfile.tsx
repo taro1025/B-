@@ -88,6 +88,7 @@ export const UserProfile = () => {
         readBook={0}
         favoriteBook={1}
         bookWantToRead={2}
+        isProfile={false}
       />
     </>
   );

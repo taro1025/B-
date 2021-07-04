@@ -11,6 +11,7 @@ import { BookLog } from "./managed/BookLog"
 import { BookUserRead } from "./managed/BookUserRead"
 import { BookWantToRead } from "./managed/BookWantToRead"
 import { BookUserFavorite } from "./managed/BookUserFavorite"
+import { MyProfile } from "./managed/MyProfile"
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -27,6 +28,7 @@ interface Props {
   readBook: 0 | 1 | 2 | 3;
   favoriteBook: 0 | 1 | 2 | 3;
   bookWantToRead: 0 | 1 | 2 | 3;
+  isProfile: boolean;
 }
 
 export const BookManager = (props: Props) => {
@@ -54,6 +56,10 @@ export const BookManager = (props: Props) => {
         <Tab label={que[1]} {...allyProps(props.readBook)}></Tab>
         <Tab label={que[2]} {...allyProps(props.favoriteBook)}></Tab>
         <Tab label={que[3]} {...allyProps(props.bookWantToRead)}></Tab>
+        {
+          props.isProfile &&
+          <Tab label={"設定"} {...allyProps(4)}></Tab>
+        }
       </Tabs>
 
       <TabPanel value={value} index={props.log}>
@@ -68,6 +74,14 @@ export const BookManager = (props: Props) => {
       <TabPanel value={value} index={props.bookWantToRead}>
         <BookWantToRead />
       </TabPanel>
+
+      {
+        props.isProfile &&
+        <TabPanel value={value} index={4}>
+          <MyProfile />
+        </TabPanel>
+      }
+
 
     </Paper>
   )
