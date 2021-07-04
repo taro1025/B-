@@ -30,6 +30,7 @@ export const TopPage = (props: { user: IState | undefined }) => {
   const [timeline, setTimeline] = useState<[] | undefined>()
   const [comments, setComments] = useState<any>()
   const [ranks, setRanks] = useState<any>()
+  const [users, setUsers] = useState<any>()
   useEffect(() => {
     if (userId) {
       getTimeline()
@@ -37,7 +38,8 @@ export const TopPage = (props: { user: IState | undefined }) => {
           setTimeline(res.timeline)
           setComments(res.comments)
           setRanks(res.ranks)
-          console.log("timeline", res.timeline)
+          setUsers(res.users)
+          console.log("トップのレス", res)
         })
         .catch((e) => console.log(e))
     }
@@ -62,6 +64,7 @@ export const TopPage = (props: { user: IState | undefined }) => {
           posts={timeline}
           comments={comments && comments}
           ranks={ranks && ranks}
+          users={users}
           setComments={setComments}
         />
       }

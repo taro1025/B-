@@ -44,10 +44,11 @@ interface ShowUserInterface {
 }
 
 export const UserProfile = () => {
-  const params = useParams<{ id: string }>()
-  const myId = useContext(UserId)
+  const params = useParams<{ id: string }>() //このIDはページに表示されてるユーザーのID
+
   const context: any = useContext(User)
   const user: any = context.user
+
   const [followButton, setFollowButton] = useState<true | false>()
   const handleFollow = () => {
     follow(params.id)
@@ -63,19 +64,21 @@ export const UserProfile = () => {
   }
 
   useEffect(() => {
-    isFollow(params.id, String(myId))
-      .then(res => setFollowButton(res.isFollow))
-      .catch(e => console.log(e))
-
+    if (user) {
+      isFollow(params.id, String(user.id))
+        .then(res => setFollowButton(res.isFollow))
+        .catch(e => console.log(e))
+    }
   })
-  console.log("user", user)
+
   return (
     <>
       <ProfileWrapper>
         <ProfileImg src={user ? user.image && user.image.url : cat} />
         <ProfileSpan>倫太郎</ProfileSpan>
         {
-          myId != Number(params.id) && (
+          user &&
+          user.id != Number(params.id) && (
             followButton ?
               <Button variant="contained" color="primary" onClick={() => handleUnfollow()}>
                 フォローしています

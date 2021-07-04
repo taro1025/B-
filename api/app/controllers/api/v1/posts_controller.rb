@@ -56,7 +56,8 @@ module Api
         render json: {
           timeline: timeline,
           comments: @comments,
-          ranks: @ranks
+          ranks: @ranks,
+          users: @users
         }, stauts: :ok
       end
 
@@ -67,6 +68,8 @@ module Api
         def get_post_set(posts)
           @comments = []
           @ranks = []
+          @users = {}
+          ids = []
           posts.each do |post|
             if comment = Comment.where(post_id: post.id)
               @comments << comment
@@ -75,6 +78,11 @@ module Api
               @ranks << rank
             else
               @ranks << []
+            end
+            unless ids.include?(post.user_id)
+              ids << post.user_id
+              user = User.find(post.user_id)
+              @users["#{post.user_id}"] = user
             end
           end
         end

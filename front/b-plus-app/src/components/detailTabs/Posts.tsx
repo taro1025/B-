@@ -15,6 +15,7 @@ import { createLike, deleteLike, indexLike } from "../../apis/like"
 import { createComment } from "../../apis/comment"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { getRank } from "../../apis/rank"
+import { usersIndexUrl } from "../../urls"
 
 const PostWrapper = styled.div`
   padding-bottom: 60px;
@@ -114,6 +115,7 @@ export const Posts = (
     posts?: BookProps[],
     comments?: any,
     ranks?: RankProps[],
+    users?: any,
     setComments?: React.Dispatch<any>,
   }
 ) => {
@@ -221,14 +223,19 @@ export const Posts = (
                 post.impression &&
                 <Post>
                   <Profile>
-                    <div><ProfileImg src={cat} /></div>
+                    {
+
+                    }
+                    <div>
+                      <ProfileImg
+                        src={props.users[post.user_id].image.url ? props.users[post.user_id].image.url : cat} />
+                    </div>
                     <ProfileSpan><NoDecoLink to={`/user/${post.user_id}`}>{post.user_name}</NoDecoLink></ProfileSpan>
                   </Profile>
                   <Text>{post.impression}</Text>
                   <BookWrapper>
                     <BookImage src={props.ranks && props.ranks[i] && props!.ranks[i].medium_url} />
-                    {//{books && books[i] && books[i].url} />
-                    }
+
                     <BookTitle>{books && books[i] && books[i].title}</BookTitle>
                     <Rank rank={props.ranks && props!.ranks![i].rank_id} />
                   </BookWrapper>
