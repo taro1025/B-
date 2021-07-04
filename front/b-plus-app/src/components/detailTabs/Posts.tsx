@@ -228,7 +228,7 @@ export const Posts = (
                     }
                     <div>
                       <ProfileImg
-                        src={props.users[post.user_id].image.url ? props.users[post.user_id].image.url : cat} />
+                        src={props.users ? props.users[post.user_id]?.image.url && props.users[post.user_id].image.url : cat} />
                     </div>
                     <ProfileSpan><NoDecoLink to={`/user/${post.user_id}`}>{post.user_name}</NoDecoLink></ProfileSpan>
                   </Profile>

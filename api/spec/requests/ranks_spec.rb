@@ -39,12 +39,12 @@ RSpec.describe "Ranks", type: :request do
   end
 
   describe "create 0~6" do
-    it "valid 1~5, invalid 0,6" do
+    it "valid 0~5, invalid 6" do
      #Login
       post "/api/v1/login", params: { session: { email: @user.email,password: @user.password}}
 
       post "/api/v1/ranks", params: { id: @user.id, book_isbn: "1234567890", rank_id: 0}
-      expect(response).to have_http_status(500)
+      expect(response).to have_http_status(:success)
 
       post "/api/v1/ranks", params: { id: @user.id, book_isbn: "1234567891", rank_id: 1}
       expect(response).to have_http_status(:success)#1

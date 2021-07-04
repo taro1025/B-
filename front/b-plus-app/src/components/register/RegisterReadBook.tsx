@@ -92,14 +92,14 @@ export const RegisterReadBook = (
       await registerReadBook(contextIsbn, contextUser.user.id, Number(state.page))
         .then(res => {
           createPost(state.text, contextIsbn)
-          state.rank &&
-            createRank(
-              contextUser.user.id,
-              state.rank,
-              contextIsbn,
-              url.large,
-              url.medium
-            )
+          //state.rank &&
+          createRank(
+            contextUser.user.id,
+            state.rank,
+            contextIsbn,
+            url.large,
+            url.medium
+          )
         })
       handleCloseDialog()
 
@@ -163,7 +163,7 @@ export const RegisterReadBook = (
                 value={state.rank}
                 onChange={e => setState({ ...state, rank: e.target.value })}
               >
-                <option aria-label="None" value="" />
+                <option aria-label="None" value={0} />
                 <option value={5}>S</option>
                 <option value={4}>A</option>
                 <option value={3}>B</option>

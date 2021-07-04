@@ -12,6 +12,7 @@ export const createRank = (user_id: number, rank: any, isbn: string, url: string
       medium_url: mediumUrl
     }, { withCredentials: true })
     .then(res => {
+      console.log("rrank es", res)
       return res.data
     })
     .catch((e) => console.log("ランクづけ失敗", e))
