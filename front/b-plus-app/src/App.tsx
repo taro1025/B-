@@ -115,7 +115,9 @@ const App: React.FC = () => {
 
 
               <Route exact path="/user/:id">
-                <UserProfile />
+                <User.Provider value={{ user }}>
+                  <UserProfile />
+                </User.Provider>
               </Route>
 
               <Route exact path="/notification">

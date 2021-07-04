@@ -1,11 +1,11 @@
 import { getUserProfile } from "../apis/getUserProfile"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { User } from "../App"
 import { useParams } from "react-router-dom"
 import cat from "../cat.jpeg"
 import styled from "styled-components"
 import { BookManager } from "./BookManager"
 import { follow, unfollow } from "../apis/follow"
-import { useContext } from "react"
 import { UserId } from "../App"
 import Button from '@material-ui/core/Button';
 import { isFollow } from "../apis/isFollow"
@@ -34,16 +34,20 @@ const Biography = styled.p`
 `
 
 interface ShowUserInterface {
-  user: {
-    name: string;
-    biography?: string;
+
+  name: string;
+  biography?: string;
+  image?: {
+    url: string;
   }
+
 }
 
 export const UserProfile = () => {
   const params = useParams<{ id: string }>()
   const myId = useContext(UserId)
-  const [user, setUser] = useState<ShowUserInterface>();
+  const context: any = useContext(User)
+  const user: any = context.user
   const [followButton, setFollowButton] = useState<true | false>()
   const handleFollow = () => {
     follow(params.id)
@@ -64,10 +68,11 @@ export const UserProfile = () => {
       .catch(e => console.log(e))
 
   })
+  console.log("user", user)
   return (
     <>
       <ProfileWrapper>
-        <ProfileImg src={cat} />
+        <ProfileImg src={user ? user.image && user.image.url : cat} />
         <ProfileSpan>倫太郎</ProfileSpan>
         {
           myId != Number(params.id) && (

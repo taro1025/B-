@@ -1,6 +1,5 @@
 import axios from 'axios';
-//import { string } from 'yargs';
-import { createUserUrl } from '../urls/index';
+import { createUserUrl, updateUserUrl } from '../urls/index';
 
 interface User {
   name: string,
@@ -24,4 +23,13 @@ export const createUser = (params: User) => {
       return res.data
     })
     .catch((e) => console.log("login失敗", e))
+};
+
+
+export const updateUser = (userId: number, data: FormData) => {
+  return axios.patch(updateUserUrl(String(userId)), data, { withCredentials: true })
+    .then(res => {
+      return res.data
+    })
+    .catch((e) => console.log("編集失敗", e))
 };

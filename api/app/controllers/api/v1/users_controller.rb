@@ -1,6 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      before_action :current_user, only: [:update]
       def index
         render json: {}, status: :ok
       end
@@ -24,6 +25,16 @@ module Api
 
       def edit
         render json: {}, status: :ok
+      end
+
+      def update
+        @current_user.update_attribute(:image, params[:image])
+        @current_user.update_attribute(:name, params[:name])
+        if @current_user
+          render json: {message: "success"}, status: :ok
+        else
+          render json: {message: "miss update"}, status: :internal_server_error
+        end
       end
 
       private
