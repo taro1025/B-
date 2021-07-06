@@ -115,17 +115,19 @@ export const Hierarchy = () => {
 
   const params: any = useParams()
   useEffect(() => {
-    getBooksByRank(String(params.id))
-      .then((res: any) => {
-        setBooks({
-          s: res.s,
-          a: res.a,
-          b: res.b,
-          c: res.c,
-          d: res.d,
-          sumLength: res.sum
+    if (params.id) {
+      getBooksByRank(String(params.id))
+        .then((res: any) => {
+          setBooks({
+            s: res.s,
+            a: res.a,
+            b: res.b,
+            c: res.c,
+            d: res.d,
+            sumLength: res.sum
+          })
         })
-      })
+    }
   }, [])
   return (
     <HierarchyWrapper>

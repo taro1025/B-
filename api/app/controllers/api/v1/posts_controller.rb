@@ -71,8 +71,12 @@ module Api
           @users = {}
           ids = []
           posts.each do |post|
-            if comment = Comment.where(post_id: post.id)
-              @comments << comment
+            if comments = Comment.where(post_id: post.id)
+              users = []
+              comments.each do |comment|
+                users << User.find(comment.user_id)
+              end
+              @comments << { comment: comments, users: users}
             end
             if rank = Rank.find_by(book_isbn: post.book_isbn, user_id: post.user_id)
               @ranks << rank

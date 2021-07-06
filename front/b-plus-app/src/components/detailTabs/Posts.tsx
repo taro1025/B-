@@ -275,7 +275,7 @@ export const Posts = (
 
                   {
                     props.comments &&
-                    <Comments comments={props.comments[i]} />
+                    <Comments commentSet={props.comments[i]} />
 
                   }
                 </Post>
