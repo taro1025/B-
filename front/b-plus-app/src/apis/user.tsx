@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createUserUrl, updateUserUrl } from '../urls/index';
+import { createUserUrl, updateUserUrl, showUserUrl } from '../urls/index';
 
 interface User {
   name: string,
@@ -32,4 +32,13 @@ export const updateUser = (userId: number, data: FormData) => {
       return res.data
     })
     .catch((e) => console.log("編集失敗", e))
+};
+
+
+export const showUser = (userId: string) => {
+  return axios.get(showUserUrl(userId))
+    .then(res => {
+      return res.data
+    })
+    .catch((e) => console.log("ユーザーの取得失敗", e))
 };

@@ -9,6 +9,7 @@ import { follow, unfollow } from "../apis/follow"
 import { UserId } from "../App"
 import Button from '@material-ui/core/Button';
 import { isFollow } from "../apis/isFollow"
+import { showUser } from "../apis/user"
 
 const ProfileWrapper = styled.div`
   padding-bottom: 1rem;
@@ -47,7 +48,7 @@ export const UserProfile = () => {
   const params = useParams<{ id: string }>() //このIDはページに表示されてるユーザーのID
 
   const context: any = useContext(User)
-  const user: any = context.user
+  const currentUser: any = context.user
 
   const [followButton, setFollowButton] = useState<true | false>()
   const handleFollow = () => {
@@ -63,41 +64,57 @@ export const UserProfile = () => {
       })
   }
 
+  const [user, setUser] = useState<any>()
+
   useEffect(() => {
-    if (user) {
-      isFollow(params.id, String(user.id))
-        .then(res => setFollowButton(res.isFollow))
+    if (currentUser) {
+      isFollow(params.id, String(currentUser.id))
+        .then(res => {
+          console.log("res", res)
+          setFollowButton(res.isFollow)
+        })
+        .catch(e => console.log(e))
+      showUser(params.id)
+        .then(res => {
+          setUser(res.user)
+        })
         .catch(e => console.log(e))
     }
-  })
+  }, [])
 
   return (
     <>
-      <ProfileWrapper>
-        <ProfileImg src={user ? user.image && user.image.url : cat} />
-        <ProfileSpan>倫太郎</ProfileSpan>
-        {
-          user &&
-          user.id != Number(params.id) && (
-            followButton ?
-              <Button variant="contained" color="primary" onClick={() => handleUnfollow()}>
-                フォローしています
+      {
+        user &&
+        <>
+          <ProfileWrapper>
+            <ProfileImg src={user ? user.image && user.image.url : cat} />
+            <ProfileSpan>{user.name}</ProfileSpan>
+            {
+
+              user.id != Number(params.id) && (
+                followButton ?
+                  <Button variant="contained" color="primary" onClick={() => handleUnfollow()}>
+                    フォローしています
             </Button>
-              :
-              <Button variant="outlined" color="primary" onClick={() => handleFollow()}>
-                フォロー
+                  :
+                  <Button variant="outlined" color="primary" onClick={() => handleFollow()}>
+                    フォロー
             </Button>
-          )
-        }
-        <Biography>プロフィール見ていただきありがとうございます！私は現在無職童貞の21歳です。アンチには拳で抵抗するで。</Biography>
-      </ProfileWrapper>
-      <BookManager
-        log={3}
-        readBook={0}
-        favoriteBook={1}
-        bookWantToRead={2}
-        isProfile={false}
-      />
+              )
+            }
+            <Biography>{user.description && user.description}</Biography>
+          </ProfileWrapper>
+          <BookManager
+            log={3}
+            readBook={0}
+            favoriteBook={1}
+            bookWantToRead={2}
+            isProfile={false}
+          />
+        </>
+      }
+
     </>
   );
 }
