@@ -1,17 +1,11 @@
 import { NoDecoLink } from "../components/NoDecoLink";
-
 import { logout } from "../apis/session"
 import { IState } from '../interfaces'
-import { getTimeline } from "../apis/getTimeline"
+import { getTimeline } from "../apis/posts"
 import { useEffect, useState } from "react";
 import { Posts } from "../components/detailTabs/Posts"
 
-interface Props {
-  user: {
-    name: string;
-    id: number;
-  };
-}
+
 
 export const TopPage = (props: { user: IState | undefined }) => {
   let userId: number | undefined

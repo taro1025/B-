@@ -1,4 +1,4 @@
-import react, { useState } from "react"
+import { useState } from "react"
 
 //to use for Tab
 import Paper from '@material-ui/core/Paper';
@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+//タブの順番
 interface Props {
   log: 0 | 1 | 2 | 3;
   readBook: 0 | 1 | 2 | 3;
@@ -36,6 +37,8 @@ export const BookManager = (props: Props) => {
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
+
+  //タブの順番に合わせてラベル名を入れてる
   const que = []
   que[props.log] = "記録"
   que[props.readBook] = "読んだ本"

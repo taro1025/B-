@@ -7,9 +7,6 @@ import { updateUser } from "../../apis/user"
 const Input = styled.input`
   display: "none"
 `
-//const Input = styled("input")({
-//  display: "none"
-//})
 
 export const MyProfile = () => {
   const context: any = useContext(User)

@@ -1,4 +1,3 @@
-import dummyImage from "../dummyImage.jpeg"
 import { NoDecoLink } from "./NoDecoLink";
 import styled from 'styled-components';
 
@@ -21,19 +20,9 @@ const Img = styled.img`
 
 export const IndexBooks = (props: { books: any, isRakuten: boolean }) => {
 
-  const dummy_books: any = []
-  for (let i = 0; i < 20; i++) {
-    dummy_books.push(
-      <Li><NoDecoLink to={`/book/9999999`}><Img src={dummyImage} /></NoDecoLink></Li>
-    )
-  }
+
   return (
     <Ul>
-      {
-        //dummy_books.map((book: any) => {
-        //  return book
-        //})
-      }
       {
         props.isRakuten ?
           props.books!.map((book: any) => {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { Notice } from "../App"
 import styled from "styled-components"
 import { NoDecoLink } from "../components/NoDecoLink";

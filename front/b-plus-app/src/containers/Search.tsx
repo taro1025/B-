@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { IndexBooks } from "../components/IndexBooks"
 import TextField from '@material-ui/core/TextField';
 import { searchBooks } from "../apis/searchBooks"
-import { NoDecoLink } from "../components/NoDecoLink";
 import { bookStateProps } from "../interfaces"
-import packagelock from "../package-lock.jpeg" //ダミー画像
-import { dummy_books } from "../dummyData"
 
 export const Search = (props: bookStateProps) => {
 
@@ -16,7 +13,6 @@ export const Search = (props: bookStateProps) => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    console.log("これから検索")
     searchBooks(word)
       .then(res => {
         setBooks(res.Items)
@@ -43,32 +39,10 @@ export const Search = (props: bookStateProps) => {
       </form>
 
       {
-        books && (
-          <IndexBooks books={books} isRakuten={true} />
-          //   <div>
-          //     {books.map((book: any, i: number) => {
-          //       console.log("book", book)
-          //       return (
-          //
-          //         < div key={book.id} > <NoDecoLink to={`/book/${book.Item.isbn}`}><img src={book.Item.largeImageUrl}></img></NoDecoLink></div>
-          //       )
-          //     })}
-          //   </div>
-        )
+        books &&
+        <IndexBooks books={books} isRakuten={true} />
       }
-      {
-        //dummy_books && (
-        //  <div>
-        //    {dummy_books.map((item: any, i: number) => {
-        //      console.log("item", item)
-        //      return (
 
-        //        < div key={item.id} > <NoDecoLink to={`/book/${item[0].isbn}`}><img src={packagelock}></img></NoDecoLink></div>
-        //      )
-        //    })}
-        //  </div>
-        //)
-      }
     </div >
   )
 }

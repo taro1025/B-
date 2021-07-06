@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createRanksUrl, getRanksUrl } from '../urls/index';
+import { createRanksUrl, getRanksUrl, showRanksUrl } from '../urls/index';
 
 
 export const createRank = (user_id: number, rank: any, isbn: string, url: string, mediumUrl: string) => {
@@ -31,3 +31,14 @@ export const getRank = (userId: number, isbn: string) => {
     })
     .catch((e) => console.log("ランク取得しっぱい", e))
 };
+
+export const getBooksByRank = (userId: string) => {
+  return axios.get(encodeURI(showRanksUrl(userId)))
+    .then(response => {
+      return response.data
+    }
+    )
+    .catch(error => {
+      console.log("検索失敗", error)
+    })
+}

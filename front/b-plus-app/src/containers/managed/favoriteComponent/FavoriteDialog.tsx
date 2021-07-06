@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { DialogContent, DialogTitle, DialogActions } from '@material-ui/core';
+import { DialogContent, DialogTitle } from '@material-ui/core';
 import dummyImage from "../../../dummyImage.jpeg"
 import React from "react"
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -73,19 +73,20 @@ interface Props {
 }
 
 export const FavoriteDialog = (props: Props) => {
+  //編集、削除のモーダルを開く、閉じるのに使う
   const [anchorEl, setAnchorEl] = React.useState<any>(null);
-
   const handleClick = (event: any) => {
-    console.log("deteruyo", anchorEl)
     setAnchorEl(event.currentTarget);
   };
 
+  //↑で「編集」を押下された時, 編集のモーダルを開く
   const [isEdit, setEdit] = React.useState<boolean>(false)
   const handleClose = () => {
     setAnchorEl(null);
     setEdit(true)
   };
 
+  //↑で「削除」を押下された時、
   const handleDelete = () => {
     deleteBookUserFavorite(props.favoriteId)
   }

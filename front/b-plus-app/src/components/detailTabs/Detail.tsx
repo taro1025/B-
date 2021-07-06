@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import React, { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
-import packagelock from "../../package-lock.jpeg"
 import { DonutButton } from "../DonutButton"
 import { getBooks } from "../../apis/getBooks"
 

@@ -2,8 +2,6 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { getIndexBooks } from "../../apis/bookUserRead";
 import styled from 'styled-components';
-import { NoDecoLink } from "../../components/NoDecoLink";
-import dummyImage from "../../dummyImage.jpeg"
 import IconButton from '@material-ui/core/IconButton';
 import SyncIcon from '@material-ui/icons/Sync';
 import { Hierarchy } from "../../components/Hierarchy"
@@ -18,8 +16,6 @@ const MyIconButton = styled(IconButton)`
 
 
 
-//ダミーデータを使用のためコメントアウトしてる
-//画面切り替えボタンのMuiBoxのpaddingを無くしたい.
 export const BookUserRead = () => {
 
 

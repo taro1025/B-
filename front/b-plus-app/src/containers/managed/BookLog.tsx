@@ -1,10 +1,8 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { Bar } from 'react-chartjs-2';
 import styled from "styled-components"
-import { User } from "../../App";
-import { getGraphData } from "../../apis/getGraphData"
-import { getMonthData } from "../../apis/getMonthData"
+import { getMonthData, getGraphData } from "../../apis/graphData"
 import { GraphInterface, MonthInterface } from "../../interfaces"
 
 export const BookLog = () => {
@@ -94,11 +92,11 @@ export const BookLog = () => {
     if (typeof params.id === 'undefined') {
       return
     } else {
-      getGraphData(params.id)//context.user.id)
+      getGraphData(params.id)
         .then((res) =>
           setGraphData(res)
         )
-      getMonthData(params.id)//context.user.id)
+      getMonthData(params.id)
         .then((res) => {
           setMonthData(res)
         })
@@ -106,7 +104,6 @@ export const BookLog = () => {
   }, [])
   const month = new Date();
 
-  //const thisLastDay = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
   const todayNum: number = new Date().getDate()
   const lastLastDay = new Date(month.getFullYear(), month.getMonth(), 0).getDate();
   return (
@@ -147,7 +144,6 @@ const Wrapper = styled.div`
 `
 const MonthWrapper = styled.div`
   display: flex;
-  //justify-content: center;
 `
 
 const Strong = styled.span`

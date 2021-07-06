@@ -1,4 +1,3 @@
-import { getUserProfile } from "../apis/getUserProfile"
 import { useEffect, useState, useContext } from "react"
 import { User } from "../App"
 import { useParams } from "react-router-dom"
@@ -6,9 +5,8 @@ import cat from "../cat.jpeg"
 import styled from "styled-components"
 import { BookManager } from "./BookManager"
 import { follow, unfollow } from "../apis/follow"
-import { UserId } from "../App"
 import Button from '@material-ui/core/Button';
-import { isFollow } from "../apis/isFollow"
+import { isFollow } from "../apis/follow"
 import { showUser } from "../apis/user"
 
 const ProfileWrapper = styled.div`

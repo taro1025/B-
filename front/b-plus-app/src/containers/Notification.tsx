@@ -39,14 +39,6 @@ const ActionMessage = styled.p`
   padding-top: .8rem;
 `
 
-//const ImpressionWrapper = styled.div`
-//  margin-top: .5rem;
-//
-//`
-//
-//const Impression = styled.span`
-//　color: #808080;
-//`
 
 const ImgWrapper = styled.div`
   //display: flex;

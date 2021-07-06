@@ -6,8 +6,6 @@ import styled from "styled-components"
 
 import { Detail } from "../components/detailTabs/Detail"
 import { Posts } from "../components/detailTabs/Posts"
-import { MyPosts } from "../components/detailTabs/MyPosts"
-import { BookProps } from "../interfaces"
 import { getPosts, getMyPosts } from "../apis/posts"
 
 //to use for Tab
@@ -27,11 +25,6 @@ const useStyles = makeStyles(theme => ({
 //　メ　モ
 //reloadするとstateの値が消えてしまうのでエラーになる
 //そこを余裕が出た時localstrageとか使って改善したい
-
-
-const Image = styled.img`
-
-`
 
 
 export const DetailBook = (props: bookStateProps) => {

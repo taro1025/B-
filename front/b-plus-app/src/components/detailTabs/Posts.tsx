@@ -1,21 +1,16 @@
 import styled from "styled-components"
-import react, { useState, useEffect, useContext, createContext } from "react"
+import { useState, useEffect, useContext } from "react"
 import { UserId } from "../../App"
-import { dummy_posts } from "../../dummyData"
 import cat from "../../cat.jpeg"
-import dummyImage from "../../dummyImage.jpeg"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SmsIcon from '@material-ui/icons/Sms';
 import { NoDecoLink } from "../NoDecoLink";
 import { Rank } from "../Rank"
 import { Comments } from "./Comments"
 import { BookProps, RankProps } from "../../interfaces"
-import { getBooks } from "../../apis/getBooks"
 import { createLike, deleteLike, indexLike } from "../../apis/like"
 import { createComment } from "../../apis/comment"
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import { getRank } from "../../apis/rank"
-import { usersIndexUrl } from "../../urls"
+
 
 const PostWrapper = styled.div`
   padding-bottom: 60px;
@@ -119,68 +114,16 @@ export const Posts = (
     setComments?: React.Dispatch<any>,
   }
 ) => {
-  //楽天の仕様のため1秒毎にリクエストを送ります。
-  function sleep(waitSec: any) {
-    return new Promise(function (resolve: any) {
 
-      setTimeout(function () { resolve() }, waitSec);
-
-    });
-  }
-
-  //以下のやり方だと、同じ本が連続してても画像urlを取得しているので
-  //同じ本が続くときは飛ばすように改善したい。
-
-  interface fetchBooksForPost {
-    url: string;
-    title: string;
-  }
-
-  const [books, setBooks] = useState<fetchBooksForPost[]>()
-  let booksForPost: fetchBooksForPost[] = []
-
-  async function getBookImgEveryOneSecond() {
-    if (props.posts) {
-      for (const post of props.posts) {
-        await getBooks(post.book_isbn)
-          .then((res) => {
-            booksForPost.push({
-              url: res.Items[0].Item.mediumImageUrl,
-              title: res.Items[0].Item.title
-            })
-          })
-          .catch(res => console.log("失敗"))
-        await sleep(1000)
-      }
-    }
-    setBooks(booksForPost)
-  }
-
-  //ランク関係
-  //const [ranks, setRanks] = useState<any>()
-  //const rankEffect = () => {
-  //  if (props.posts) {
-  //    let ranksTmp: any[] = []
-  //    props.posts.map((post) => {
-  //      getRank(post.user_id, post.book_isbn)
-  //        .then(res => ranksTmp.push(res.rank))
-  //    })
-  //    return ranksTmp
-  //  }
-  //}
 
   //いいね関係
 
   const [myLikes, setMyLikes] = useState<any>()
   const userId = useContext(UserId)
   useEffect(() => {
-    getBookImgEveryOneSecond()
     indexLike(String(userId))
       .then(res => setMyLikes(res.likes))
       .catch(e => console.log("mylikesのセットに失敗"))
-    //ランクを取得
-    //setRanks(rankEffect())
-    //console.log(ranks)
   }, [])
 
   const like = (postId: number) => {
@@ -217,99 +160,114 @@ export const Posts = (
     <>
       <PostWrapper>
         {
-          props.posts ?
-            props.posts.map((post: any, i: number) => {
-              return (
-                post.impression &&
-                <Post>
-                  <Profile>
-                    {
+          props.posts &&
+          props.posts.map((post: any, i: number) => {
+            return (
+              post.impression &&
+              <Post>
+                <Profile>
+                  {
 
-                    }
-                    <div>
-                      <ProfileImg
-                        src={props.users ? props.users[post.user_id]?.image.url && props.users[post.user_id].image.url : cat} />
+                  }
+                  <div>
+                    <ProfileImg
+                      src={props.users ? props.users[post.user_id]?.image.url && props.users[post.user_id].image.url : cat} />
+                  </div>
+                  <ProfileSpan><NoDecoLink to={`/user/${post.user_id}`}>{post.user_name}</NoDecoLink></ProfileSpan>
+                </Profile>
+                <Text>{post.impression}</Text>
+                <BookWrapper>
+                  <BookImage src={props.ranks && props.ranks[i] && props!.ranks[i].medium_url} />
+
+                  <BookTitle>仮本のタイトル</BookTitle>
+                  <Rank rank={props.ranks && props!.ranks![i].rank_id} />
+                </BookWrapper>
+                <ActionWrapper>
+                  <CommentButton type="submit" onClick={() => {
+                    isText[i] = !isText[i]
+                    setTextfield([...isText])
+                  }}>
+                    <SmsIcon />
+                  </CommentButton>
+                  {
+                    myLikes &&
+                      myLikes.includes(post.id) ?
+
+                      <LikedButton
+                        onClick={() => disLike(post.id)}
+                      >
+                        <WhiteHeartIcon />
+                      </LikedButton>
+                      :
+                      <LikeButton
+                        onClick={() => like(post.id)}
+                      >
+                        <GrayHeartIcon />
+                      </LikeButton>
+
+
+                  }
+                </ActionWrapper>
+                {
+                  isText[i] && (
+                    <div><CommentArea value={text} onChange={(e) => setText(e.target.value)} />
+                      <button onClick={() => commentSubmit(post.id, i)}>送信　</button>
                     </div>
-                    <ProfileSpan><NoDecoLink to={`/user/${post.user_id}`}>{post.user_name}</NoDecoLink></ProfileSpan>
-                  </Profile>
-                  <Text>{post.impression}</Text>
-                  <BookWrapper>
-                    <BookImage src={props.ranks && props.ranks[i] && props!.ranks[i].medium_url} />
+                  )
+                }
 
-                    <BookTitle>{books && books[i] && books[i].title}</BookTitle>
-                    <Rank rank={props.ranks && props!.ranks![i].rank_id} />
-                  </BookWrapper>
-                  <ActionWrapper>
-                    <CommentButton type="submit" onClick={() => {
-                      isText[i] = !isText[i]
-                      setTextfield([...isText])
-                    }}>
-                      <SmsIcon />
-                    </CommentButton>
-                    {
-                      myLikes &&
-                        myLikes.includes(post.id) ?
+                {
+                  props.comments &&
+                  <Comments commentSet={props.comments[i]} />
 
-                        <LikedButton
-                          onClick={() => disLike(post.id)}
-                        >
-                          <WhiteHeartIcon />
-                        </LikedButton>
-                        :
-                        <LikeButton
-                          onClick={() => like(post.id)}
-                        >
-                          <GrayHeartIcon />
-                        </LikeButton>
+                }
+              </Post>
 
+            )
+          })
 
-                    }
-                  </ActionWrapper>
-                  {
-                    isText[i] && (
-                      <div><CommentArea value={text} onChange={(e) => setText(e.target.value)} />
-                        <button onClick={() => commentSubmit(post.id, i)}>送信　</button>
-                      </div>
-                    )
-                  }
-
-                  {
-                    props.comments &&
-                    <Comments commentSet={props.comments[i]} />
-
-                  }
-                </Post>
-
-              )
-            })
-            :
-            dummy_posts.map((post: any) => {
-
-              return (
-                <Post>
-                  <Profile>
-                    <div><ProfileImg src={cat} /></div>
-                    <ProfileSpan>{post[0].user_name}</ProfileSpan>
-                  </Profile>
-                  <Text>{post[0].impression}</Text>
-                  <BookWrapper>
-                    <BookImage src={dummyImage} />
-                    <BookTitle>20題で得た知見nnn</BookTitle>
-
-                  </BookWrapper>
-                  <ActionWrapper>
-                    <CommentButton>
-                      <SmsIcon />
-                    </CommentButton>
-                    <LikeButton>
-                      <WhiteHeartIcon />
-                    </LikeButton>
-                  </ActionWrapper>
-                </Post>
-              )
-            })
         }
       </PostWrapper>
     </>
   )
 }
+
+//結局使わなかったけど、、せっかく作ったので保存しときたい関数
+//毎秒ごとにAPIリクエストを送リマス
+//楽天の仕様のため1秒毎にリクエストを送ります。
+
+//以下のやり方だと、同じ本が連続してても画像urlを取得しているので
+//同じ本が続くときは飛ばすように改善したい。
+
+//interface fetchBooksForPost {
+//  url: string;
+//  title: string;
+//}
+//
+//const [books, setBooks] = useState<fetchBooksForPost[]>()
+//let booksForPost: fetchBooksForPost[] = []
+
+//function sleep(waitSec: any) {
+//  return new Promise(function (resolve: any) {
+//
+//    setTimeout(function () { resolve() }, waitSec);
+//
+//  });
+//}
+
+  //async function getBookImgEveryOneSecond() {
+  //  if (props.posts) {
+  //    for (const post of props.posts) {
+  //      await getBooks(post.book_isbn)
+  //        .then((res) => {
+  //          booksForPost.push({
+  //            url: res.Items[0].Item.mediumImageUrl,
+  //            title: res.Items[0].Item.title
+  //          })
+  //        })
+  //        .catch(res => console.log("失敗"))
+  //      await sleep(1000)
+  //    }
+  //  }
+  //  setBooks(booksForPost)
+  //}

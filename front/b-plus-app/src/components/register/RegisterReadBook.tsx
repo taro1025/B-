@@ -23,18 +23,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-//ベタがきでregisterReadBookにページ数を指定しているけど
-//APIを導入にしたら本の情報からページ数をとって入れるように。
 
-const OverWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vh;
-  border: solid 2px red;
-  z-index: 9999999;
-`
+
 
 const CloseButton = styled.button`
   font-size: 1.2rem;
@@ -92,7 +82,6 @@ export const RegisterReadBook = (
       await registerReadBook(contextIsbn, contextUser.user.id, Number(state.page))
         .then(res => {
           createPost(state.text, contextIsbn)
-          //state.rank &&
           createRank(
             contextUser.user.id,
             state.rank,

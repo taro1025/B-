@@ -1,8 +1,7 @@
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import styled from 'styled-components';
-import dummyImage from "../dummyImage.jpeg"
 import { NoDecoLink } from "./NoDecoLink";
-import { getBooksByRank } from "../apis/getBooksByRank"
+import { getBooksByRank } from "../apis/rank"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
@@ -96,12 +95,6 @@ const Section = styled.section`
 //実際には、ランクごとに本を取得して表示させる。
 
 export const Hierarchy = () => {
-  const dummy_books: any = []
-  for (let i = 0; i < 20; i++) {
-    dummy_books.push(
-      <Li><NoDecoLink to={`/book/9999999`}><Img src={dummyImage} /></NoDecoLink></Li>
-    )
-  }
 
   interface RankI {
     s?: any | undefined;

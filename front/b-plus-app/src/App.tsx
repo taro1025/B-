@@ -4,7 +4,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
 } from "react-router-dom";
 
 import { Layout } from "./containers/Layout"
@@ -57,7 +56,6 @@ const App: React.FC = () => {
               <Route exact path="/">
                 <TopPage
                   user={user}
-                //setUser={setUser}
                 ></TopPage>
               </Route>
 
