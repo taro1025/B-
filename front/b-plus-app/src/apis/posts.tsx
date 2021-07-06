@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { indexPostsUrl, showPostsUrl, createPostsUrl } from "../urls/index";
+import { indexPostsUrl, showPostsUrl, createPostsUrl, getPostsUrl } from "../urls/index";
 
 
 
@@ -38,4 +38,13 @@ export const getMyPosts = (isbn: string, userId: string) => {
       return res.data
     })
     .catch((e) => console.log("自分の感想の取得失敗", e))
+};
+
+
+export const getPost = (postId: number) => {
+  return axios.get(getPostsUrl(String(postId)))
+    .then(res => {
+      return res.data
+    })
+    .catch((e) => console.log("感想の取得失敗", e))
 };

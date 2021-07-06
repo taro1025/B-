@@ -15,6 +15,7 @@ import { DetailBook } from "./containers/DetailBook"
 import { BookManager } from "./containers/BookManager"
 import { UserProfile } from "./containers/UserProfile"
 import { Notification } from "./containers/Notification"
+import { Post } from "./containers/Post"
 
 import { IState } from "./interfaces"
 
@@ -123,6 +124,11 @@ const App: React.FC = () => {
               <Route exact path="/notification">
                 <Notification />
               </Route>
+
+              <Route exact path="/posts/:id">
+                <Post />
+              </Route>
+
 
             </Switch>
           </Layout >

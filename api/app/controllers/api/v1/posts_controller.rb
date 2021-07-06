@@ -40,6 +40,7 @@ module Api
         end
       end
 
+      #isbnによる本の取得
       def show
         posts = @user.posts.where(book_isbn: params[:book_isbn])
         if posts && params[:book_isbn]
@@ -48,6 +49,18 @@ module Api
           render json: {}, status: :internal_server_error
         end
       end
+
+      #post.idによる本の取得
+      def get_post
+        post = Post.find(params[:id])
+        if post
+          render json: { post: post}, status: :ok
+        else
+          render json: {}, status: :internal_server_error
+        end
+      end
+
+
 
       def timeline
         timeline = @current_user.get_timeline

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get '/month_data/:id', to: 'book_user_reads#get_month_data'
       resources :book_user_favorites
       resources :posts
+      get '/get_post/:id', to: 'posts#get_post'
       get '/timeline', to: 'posts#timeline'
       resources :comments
       resources :ranks

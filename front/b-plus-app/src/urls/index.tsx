@@ -63,6 +63,7 @@ export const editBookUserFavoritesUrl = (idFavoriteBook: string): string => `${D
 export const createPostsUrl: string = `${DEFAULT_API_LOCALHOST}/posts`
 export const indexPostsUrl: string = `${DEFAULT_API_LOCALHOST}/posts`
 export const showPostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
+export const getPostsUrl = (post_id: string): string => `${DEFAULT_API_LOCALHOST}/get_post/${post_id}`
 export const updatePostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
 export const deletePostsUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST}/posts/${user_id}`
 //Timeline
