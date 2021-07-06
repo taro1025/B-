@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from "react"
 import { Notice } from "../App"
 import styled from "styled-components"
 import cat from "../cat.jpeg"
+import { NoDecoLink } from "../components/NoDecoLink";
 
 const NoticeWrapper = styled.div`
   //padding-top: .5rem;
@@ -79,37 +80,42 @@ export const Notification = () => {
         {
           notices &&
           notices!.map((notice: any) => {
-
+            console.log("通知　", notices)
             switch (notice.notice.action) {
               case 'follow':
                 return (
                   <NoticeCard>
-                    <CardWrapper>
-                      <ImgWrapper><ProfileImg src={cat} /></ImgWrapper>
-                      <TextWrapper>
-                        <Name>{notice.name}</Name>
-                        <ActionWrapper><ActionMessage>あなたをフォローしました</ActionMessage></ActionWrapper>
-                      </TextWrapper>
-
-                    </CardWrapper>
+                    <NoDecoLink to={`user/${notice.notice.visitor_id}`}>
+                      <CardWrapper>
+                        <ImgWrapper><ProfileImg src={cat} /></ImgWrapper>
+                        <TextWrapper>
+                          <Name>{notice.name}</Name>
+                          <ActionWrapper><ActionMessage>あなたをフォローしました</ActionMessage></ActionWrapper>
+                        </TextWrapper>
+                      </CardWrapper>
+                    </NoDecoLink>
                   </NoticeCard>
                 )
               case 'like':
                 return (
                   <NoticeCard>
-                    <CardWrapper>
-                      <Name>{notice.name}</Name>
-                      <ActionWrapper><ActionMessage>あなたのの投稿にいいねしました。</ActionMessage></ActionWrapper>
-                    </CardWrapper>
+                    <NoDecoLink to={`posts/${notice.notice.post_id}`}>
+                      <CardWrapper>
+                        <Name>{notice.name}</Name>
+                        <ActionWrapper><ActionMessage>あなたの投稿にいいねしました。</ActionMessage></ActionWrapper>
+                      </CardWrapper>
+                    </NoDecoLink>
                   </NoticeCard>
                 )
               case 'comment':
                 return (
                   <NoticeCard>
-                    <CardWrapper>
-                      <Name>{notice.name}</Name>
-                      <ActionWrapper><ActionMessage>あなたの投稿にコメントしました。</ActionMessage></ActionWrapper>
-                    </CardWrapper>
+                    <NoDecoLink to={`posts/${notice.notice.post_id}`}>
+                      <CardWrapper>
+                        <Name>{notice.name}</Name>
+                        <ActionWrapper><ActionMessage>あなたの投稿にコメントしました。</ActionMessage></ActionWrapper>
+                      </CardWrapper>
+                    </NoDecoLink>
                   </NoticeCard>
                 )
               default:
