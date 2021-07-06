@@ -52,9 +52,15 @@ module Api
 
       #post.idによる本の取得
       def get_post
-        post = Post.find(params[:id])
+        post = Post.where(id: params[:id])
+        get_post_set(post)
         if post
-          render json: { post: post}, status: :ok
+          render json: {
+            post: post,
+            comments: @comments,
+            ranks: @ranks,
+            users: @users
+            }, status: :ok
         else
           render json: {}, status: :internal_server_error
         end
