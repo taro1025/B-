@@ -21,8 +21,8 @@ resource "aws_ecs_task_definition" "service" {
       essential = true
       portMappings = [
         {
-          containerPort = 3001
-          hostPort      = 3001
+          containerPort = 3000
+          hostPort      = 3000
         }
       ]
       environment = [

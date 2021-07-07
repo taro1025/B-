@@ -15,7 +15,7 @@ services:
       context: ./api/
       dockerfile: Dockerfile.prod
     ports:               #変更(追加)
-      - 3001:3001
+      - 3000:3000
     #本番環境ではオフ！
     depends_on:
       - db
