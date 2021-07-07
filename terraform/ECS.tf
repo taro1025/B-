@@ -19,12 +19,12 @@ resource "aws_ecs_task_definition" "service" {
       #cpu       = 10
       memory    = 128
       essential = true
-      portMappings = [
-        {
-          containerPort = 3000
-          hostPort      = 3000
-        }
-      ]
+      #portMappings = [
+      #  {
+      #    containerPort = 3000
+      #    hostPort      = 3000
+      #  }
+      #]
       environment = [
         {
           name = "APP_DATABASE_PASSWORD"

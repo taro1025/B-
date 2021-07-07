@@ -21,4 +21,4 @@ RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
 
-CMD bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma/production.rb  -e production"
+CMD bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma/production.rb -p 3000 -e production"
