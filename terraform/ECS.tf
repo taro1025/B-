@@ -62,12 +62,18 @@ resource "aws_ecs_task_definition" "service" {
           hostPort      = 80
         }
       ]
+
       environment = [
         {
           name = "REACT_APP_RAKUTEN_ID"
           value = "${var.REACT_APP_RAKUTEN_ID}"
         }
       ]
+      volumesFrom = [
+      {
+        sourceContainer = "api"
+      }
+    ]
     } #,
     #{
     #  name      = "nginx"

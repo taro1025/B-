@@ -1,0 +1,50 @@
+FROM ruby:3.0 as backend
+
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && apt-get update -qq \
+  && apt-get install -y nodejs yarn
+WORKDIR /app
+COPY ./api /app
+RUN bundle config --local set path 'vendor/bundle' \
+  && bundle install \
+  && mkdir -p tmp/sockets \
+  && mkdir -p tmp/pids
+
+# 以下の記述があることでnginxから見ることができる
+#VOLUME /app/public
+#VOLUME /app/tmp
+
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
+
+#CMD bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma/production.rb -e production"
+RUN rm -f tmp/pids/server.pid && bundle exec puma -C config/puma/production.rb -e production
+
+FROM node:14.17-alpine as build
+WORKDIR /usr/src/app
+
+COPY ./front /usr/src/app
+RUN rm -r -f b-plus-app/build && cd b-plus-app \
+  && npm i && npm run build
+
+
+FROM nginx:1.15.8
+
+RUN rm -f /etc/nginx/conf.d/* && rm -r -f /usr/share/nginx/html
+#RUN rm -r -f /usr/share/nginx/html
+
+
+#nginxからフロントにアクセスできるよう
+COPY --from=build /usr/src/app/b-plus-app/build/  /var/www/
+COPY ./prod_conf/ /etc/nginx/conf.d/
+
+#nginxからバックエンド
+COPY --from=backend /app /app
+#COPY --from=backend /app/public /app/public
+
+# ビルド完了後にNginxを起動
+CMD /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf

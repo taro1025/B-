@@ -2,23 +2,29 @@ version: '3.8'
 
 services:
 
-  #front:
-  #  build:
-  #    context: ./front/
-  #    dockerfile: Dockerfile
-  #  ports:
-  #    - 8000:8000 #3000を8000に(migi)
-#
 
   api: #rubyね
     build:
       context: ./api/
       dockerfile: Dockerfile.prod
+    volumes:
+      - socket:/app/tmp
+      - public:/app/public
     ports:               #変更(追加)
       - 3000:3000
     #本番環境ではオフ！
     depends_on:
       - db
+
+  #app:
+  #  build:
+  #    context: ./
+  #    dockerfile: Dockerfile.prod
+  #  ports:
+  #    - 80:80
+  #  depends_on:
+  #    - db
+
 
   db:
     image: mysql:5.7
@@ -35,6 +41,9 @@ services:
     build:
       context: ./front/
       dockerfile: Dockerfile.prod
+    volumes:
+      - socket:/app/tmp
+      - public:/app/public
     ports:
       - 80:80
     depends_on:
@@ -42,7 +51,5 @@ services:
       #- front
 
 volumes:
-  public-data:
-  tmp-data:
-  log-data:
-  db-data:
+  public:
+  socket:
