@@ -4,7 +4,7 @@ threads threads_count, threads_count
 #environment ENV.fetch("RAILS_ENV") { "development" }
 plugin :tmp_restart
 
-port '3000', '0.0.0.0'
+
 app_root = File.expand_path("../../..", __FILE__)
 #puts app_root
 bind "unix://#{app_root}/tmp/sockets/puma.sock"
