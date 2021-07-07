@@ -1,5 +1,5 @@
 class ChangeBookIdToIsbnBookUserRead < ActiveRecord::Migration[6.1]
   def change
-    add_column :book_user_reads, :book_isbn, :string
+    #add_column :book_user_reads, :book_isbn, :string
   end
 end
