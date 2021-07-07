@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.hosts << "127.0.0.1:8000" << 'localhost:8000' << '172.26.0.1' << '127.0.0.1' << 'localhost' << 'example-1506320326.ap-northeast-1.elb.amazonaws.com'
   # Code is not reloaded between requests.
   config.cache_classes = true
 
