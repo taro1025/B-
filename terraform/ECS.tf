@@ -28,11 +28,11 @@ resource "aws_ecs_task_definition" "service" {
       mountPoints = [
         {
           sourceVolume = "tmp"
-          containerPath = "/app/tmp"
+          containerPath = "/app/tmp/"
         },
         {
           sourceVolume = "tmp"
-          containerPath = "/app/public"
+          containerPath = "/app/public/"
         }
       ]
       environment = [
@@ -72,16 +72,7 @@ resource "aws_ecs_task_definition" "service" {
           hostPort      = 80
         }
       ]
-      mountPoints = [
-        {
-          sourceVolume = "tmp"
-          containerPath = "/app/tmp"
-        },
-        {
-          sourceVolume = "tmp"
-          containerPath = "/app/public"
-        }
-      ]
+
       environment = [
         {
           name = "REACT_APP_RAKUTEN_ID"
