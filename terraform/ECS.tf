@@ -25,6 +25,16 @@ resource "aws_ecs_task_definition" "service" {
           hostPort      = 3000
         }
       ]
+      mountPoints = [
+        {
+          sourceVolume = "tmp"
+          containerPath = "/app/tmp"
+        },
+        {
+          sourceVolume = "tmp"
+          containerPath = "/app/public"
+        }
+      ]
       environment = [
         {
           name = "APP_DATABASE_PASSWORD"
@@ -62,7 +72,16 @@ resource "aws_ecs_task_definition" "service" {
           hostPort      = 80
         }
       ]
-
+      mountPoints = [
+        {
+          sourceVolume = "tmp"
+          containerPath = "/app/tmp"
+        },
+        {
+          sourceVolume = "tmp"
+          containerPath = "/app/public"
+        }
+      ]
       environment = [
         {
           name = "REACT_APP_RAKUTEN_ID"
@@ -96,7 +115,7 @@ resource "aws_ecs_task_definition" "service" {
   ])
 
   volume {
-    name      = "service-storage"
+    name      = "tmp"
     #host_path = "/ecs/service-storage"
   }
 }
