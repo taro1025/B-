@@ -13,7 +13,6 @@ RUN bundle config --local set path 'vendor/bundle' \
   && mkdir -p tmp/pids
 
 # 以下の記述があることでnginxから見ることができる
-RUN chmod -R 777 /app/public && chmod -R 777  /app/tmp
 VOLUME ["/app/public"]
 VOLUME ["/app/tmp"]
 
