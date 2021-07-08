@@ -25,16 +25,16 @@ resource "aws_ecs_task_definition" "service" {
           hostPort      = 3000
         }
       ]
-      mountPoints = [
-        {
-          sourceVolume = "tmp"
-          containerPath = "/app/tmp/"
-        },
-        {
-          sourceVolume = "tmp"
-          containerPath = "/app/public/"
-        }
-      ]
+      #mountPoints = [
+      #  {
+      #    sourceVolume = "tmp"
+      #    containerPath = "/app/tmp/"
+      #  },
+      #  {
+      #    sourceVolume = "tmp"
+      #    containerPath = "/app/public/"
+      #  }
+      #]
       environment = [
         {
           name = "APP_DATABASE_PASSWORD"
@@ -72,7 +72,15 @@ resource "aws_ecs_task_definition" "service" {
           hostPort      = 80
         }
       ]
+      logConfiguration = {
+          logDriver = "awslogs"
+          options = {
+            awslogs-region = "ap-northeast-1"
+            awslogs-group = "/ecs/project/b_plus"
+            awslogs-stream-prefix = "yada"
 
+          }
+        }
       environment = [
         {
           name = "REACT_APP_RAKUTEN_ID"
@@ -80,10 +88,10 @@ resource "aws_ecs_task_definition" "service" {
         }
       ]
       volumesFrom = [
-      {
-        sourceContainer = "api"
-      }
-    ]
+        {
+          sourceContainer = "api"
+        }
+      ]
     } #,
     #{
     #  name      = "nginx"
