@@ -7,9 +7,9 @@ services:
     build:
       context: ./api/
       dockerfile: Dockerfile.prod
-    volumes:
-      - socket:/app/tmp
-      - public:/app/public
+    #volumes:
+    #  - socket:/app/tmp
+    #  - public:/app/public
     ports:               #変更(追加)
       - 3000:3000
     #本番環境ではオフ！
@@ -41,9 +41,9 @@ services:
     build:
       context: ./front/
       dockerfile: Dockerfile.prod
-    volumes:
-      - socket:/app/tmp
-      - public:/app/public
+    #volumes:
+    #  - socket:/app/tmp
+    #  - public:/app/public
     ports:
       - 80:80
     depends_on:
