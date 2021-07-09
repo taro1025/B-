@@ -5,7 +5,8 @@ set -e
 rm -f /app/tmp/pids/server.pid
 # WARNING:createとseedはfargateの初回のみ実行
 # WARNING:タスクを個々に作って実行の方がいいかも
-bundle exec rails db:create RAILS_ENV=production
+
+#bundle exec rails db:create RAILS_ENV=production
 bundle exec rails db:migrate RAILS_ENV=production
 #bundle exec rails db:seed RAILS_ENV=production
 

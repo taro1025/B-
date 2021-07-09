@@ -25,16 +25,16 @@ resource "aws_ecs_task_definition" "service" {
           hostPort      = 3000
         }
       ]
-      mountPoints = [
-        {
-          sourceVolume = "tmp"
-          containerPath = "/app/tmp/"
-        },
-        {
-          sourceVolume = "tmp"
-          containerPath = "/app/public/"
-        }
-      ]
+      #mountPoints = [
+      #  {
+      #    sourceVolume = "tmp"
+      #    containerPath = "/app/tmp/"
+      #  },
+      #  {
+      #    sourceVolume = "tmp"
+      #    containerPath = "/app/public/"
+      #  }
+      #]
       environment = [
         {
           name = "APP_DATABASE_PASSWORD"
