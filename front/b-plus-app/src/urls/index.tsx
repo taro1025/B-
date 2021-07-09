@@ -1,5 +1,5 @@
-const DEFAULT_API_LOCALHOST: string = 'http://127.0.0.1/api/v1';
-//'http://example-1506320326.ap-northeast-1.elb.amazonaws.com:3000/api/v1' //
+const DEFAULT_API_LOCALHOST: string = 'http://example-769847477.ap-northeast-1.elb.amazonaws.com';
+//どうやら、http/://127.....だとリクエストを送ったパソコン自身のローカルホストにいってしまうらしい
 
 //Notiifcation
 //Login
