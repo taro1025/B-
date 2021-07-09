@@ -92,6 +92,12 @@ resource "aws_ecs_task_definition" "service" {
           sourceContainer = "api"
         }
       ]
+      dependsOn = [
+        {
+          containerName = "api"
+          condition = "START"
+        }
+      ]
     } #,
     #{
     #  name      = "nginx"

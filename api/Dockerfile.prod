@@ -13,12 +13,12 @@ RUN bundle config --local set path 'vendor/bundle' \
   && mkdir -p tmp/pids
 
 # 以下の記述があることでnginxから見ることができる
-#VOLUME ["/app/public"]
-#VOLUME ["/app/tmp"]
+VOLUME ["/app/public"]
+VOLUME ["/app/tmp"]
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
 
-CMD bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma/production.rb" #-e production
+CMD bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma/production.rb -e production"
