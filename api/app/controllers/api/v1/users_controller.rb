@@ -7,8 +7,7 @@ module Api
       end
 
       def show
-        user = User.find(params[:id])
-        if user
+        if user = User.find(params[:id])
           render json: {user: user}, status: :ok
         else
           render json: {}, status: :internal_server_error
