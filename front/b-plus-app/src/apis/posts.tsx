@@ -11,11 +11,12 @@ export const getTimeline = () => {
 };
 
 
-export const createPost = (impression: string, book_isbn: string) => {
+export const createPost = (impression: string, book_isbn: string, title: string) => {
   return axios.post(createPostsUrl,
     {
       impression: impression,
-      book_isbn: book_isbn
+      book_isbn: book_isbn,
+      title: title
     }, { withCredentials: true })
     .then(res => {
       return res.data

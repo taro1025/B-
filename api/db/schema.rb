@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_03_160454) do
+ActiveRecord::Schema.define(version: 2021_07_10_082648) do
 
   create_table "book_user_favorites", charset: "utf8mb4", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2021_07_03_160454) do
     t.string "book_isbn"
     t.string "url"
     t.string "medium_url"
+    t.string "title"
   end
 
   create_table "book_user_reads", charset: "utf8mb4", force: :cascade do |t|
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_07_03_160454) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "book_isbn"
     t.integer "page"
+    t.string "title"
   end
 
   create_table "book_want_to_reads", charset: "utf8mb4", force: :cascade do |t|
@@ -38,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_07_03_160454) do
     t.string "book_isbn"
     t.string "url"
     t.string "medium_url"
+    t.string "title"
   end
 
   create_table "comments", charset: "utf8mb4", force: :cascade do |t|
@@ -90,6 +93,7 @@ ActiveRecord::Schema.define(version: 2021_07_03_160454) do
     t.string "book_isbn"
     t.string "url"
     t.string "medium_url"
+    t.string "title"
   end
 
   create_table "relationships", charset: "utf8mb4", force: :cascade do |t|

@@ -179,7 +179,7 @@ export const Posts = (
                 <BookWrapper>
                   <BookImage src={props.ranks && props.ranks[i] && props!.ranks[i].medium_url} />
 
-                  <BookTitle>仮本のタイトル</BookTitle>
+                  <BookTitle>{post.title && post.title}</BookTitle>
                   <Rank rank={props.ranks && props!.ranks![i].rank_id} />
                 </BookWrapper>
                 <ActionWrapper>
