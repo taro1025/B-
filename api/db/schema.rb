@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2021_07_10_082648) do
     t.string "user_name"
     t.string "url"
     t.string "medium_url"
+    t.string "title"
   end
 
   create_table "ranks", charset: "utf8mb4", force: :cascade do |t|

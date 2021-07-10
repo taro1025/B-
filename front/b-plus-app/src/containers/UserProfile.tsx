@@ -62,7 +62,7 @@ export const UserProfile = () => {
       })
   }
 
-  const [user, setUser] = useState<any>()
+  const [otherUser, setOtherUser] = useState<any>()
 
   useEffect(() => {
     if (currentUser) {
@@ -74,7 +74,8 @@ export const UserProfile = () => {
         .catch(e => console.log(e))
       showUser(params.id)
         .then(res => {
-          setUser(res.user)
+          console.log("user", res.user)
+          setOtherUser(res.user)
         })
         .catch(e => console.log(e))
     }
@@ -83,14 +84,14 @@ export const UserProfile = () => {
   return (
     <>
       {
-        user &&
+
         <>
           <ProfileWrapper>
-            <ProfileImg src={user ? user.image && user.image.url : cat} />
-            <ProfileSpan>{user.name}</ProfileSpan>
+            <ProfileImg src={otherUser ? otherUser.image && otherUser.image.url : cat} />
+            <ProfileSpan>{otherUser && otherUser.name}</ProfileSpan>
             {
 
-              user.id != Number(params.id) && (
+              currentUser && currentUser.id != Number(params.id) && (
                 followButton ?
                   <Button variant="contained" color="primary" onClick={() => handleUnfollow()}>
                     フォローしています
@@ -101,7 +102,7 @@ export const UserProfile = () => {
             </Button>
               )
             }
-            <Biography>{user.description && user.description}</Biography>
+            <Biography>{otherUser && otherUser.description}</Biography>
           </ProfileWrapper>
           <BookManager
             log={3}
