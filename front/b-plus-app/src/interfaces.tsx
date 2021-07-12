@@ -18,9 +18,15 @@ export type IState = {
   password_digest: string,
   updated_at: string,
   created_at: string,
-
-
 }
+
+export interface inputValueInterface {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+}
+
 
 export interface loginProps {
   loginAction: (props: any, data: any) => void;
