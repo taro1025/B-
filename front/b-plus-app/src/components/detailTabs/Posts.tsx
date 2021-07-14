@@ -7,7 +7,7 @@ import SmsIcon from '@material-ui/icons/Sms';
 import { NoDecoLink } from "../NoDecoLink";
 import { Rank } from "../Rank"
 import { Comments } from "./Comments"
-import { BookProps, RankProps } from "../../interfaces"
+import { BookProps, RankProps, commentAndUserI, userI, postI } from "../../interfaces"
 import { createLike, deleteLike, indexLike } from "../../apis/like"
 import { createComment } from "../../apis/comment"
 
@@ -105,13 +105,14 @@ const GrayHeartIcon = styled(FavoriteIcon)`
   color: #7c7c7c;
 `
 
+
 export const Posts = (
   props: {
-    posts?: BookProps[],
-    comments?: any,
+    posts?: postI[],
+    comments?: commentAndUserI[],
     ranks?: RankProps[],
-    users?: any,
-    setComments?: React.Dispatch<any>,
+    users?: userI[],
+    setComments?: React.Dispatch<commentAndUserI[]>,
   }
 ) => {
 
@@ -149,19 +150,19 @@ export const Posts = (
   const commentSubmit = (postId: number, i: number) => {
     createComment(postId, text)
     setTextfield(isText.fill(false))
-    props.comments[i].comment.push({ comment: text })
+    props!.comments![i]!.comment.push({ comment: text })
     if (props.setComments) {
-      props.setComments([...props.comments])
+      props.setComments([...props.comments!])
     }
   }
-  console.log("コメント", props.comments)
+  console.log("post", props.posts)
   console.log("ランク取れた?", props.ranks)
   return (
     <>
       <PostWrapper>
         {
           props.posts &&
-          props.posts.map((post: any, i: number) => {
+          props.posts.map((post: postI, i: number) => {
             return (
               post.impression &&
               <Post>
