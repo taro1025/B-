@@ -18,9 +18,15 @@ export type IState = {
   password_digest: string,
   updated_at: string,
   created_at: string,
-
-
 }
+
+export interface inputValueInterface {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+}
+
 
 export interface loginProps {
   loginAction: (props: any, data: any) => void;
@@ -104,4 +110,53 @@ export interface MonthInterface {
     page: number;
     amount_book: number;
   },
+}
+
+export interface userI {
+  id: number;
+  email: string;
+  image: {
+    url?: string;
+  }
+  name: string;
+  password_digest: string;
+  updated_at: string;
+  created_at: string;
+  description?: string;
+}
+
+
+export interface contextUserI {
+  user?: userI
+}
+
+
+export interface commentI {
+  comment: string;
+  id?: number;
+  post_id?: number;
+  updated_at?: string;
+  created_at?: string;
+  user_id?: number;
+  user_name?: string
+}
+
+
+export interface commentAndUserI {
+  comment: commentI[]
+  users: userI[]
+}
+
+export interface postI {
+  title: string;
+  user_name: string;
+  impression?: string;
+
+  book_isbn: string;
+  url?: string;
+  medium_url?: string;
+  user_id: number;
+  id: number;
+  created_at: string;
+  updated_at: string;
 }

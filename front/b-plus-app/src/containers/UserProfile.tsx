@@ -8,6 +8,7 @@ import { follow, unfollow } from "../apis/follow"
 import Button from '@material-ui/core/Button';
 import { isFollow } from "../apis/follow"
 import { showUser } from "../apis/user"
+import { contextUserI, userI } from "../interfaces"
 
 const ProfileWrapper = styled.div`
   padding-bottom: 1rem;
@@ -32,21 +33,13 @@ const Biography = styled.p`
   line-height: 1.5rem;
 `
 
-interface ShowUserInterface {
 
-  name: string;
-  biography?: string;
-  image?: {
-    url: string;
-  }
-
-}
 
 export const UserProfile = () => {
   const params = useParams<{ id: string }>() //このIDはページに表示されてるユーザーのID
 
-  const context: any = useContext(User)
-  const currentUser: any = context.user
+  const context: contextUserI = useContext(User)
+  const currentUser: userI | undefined = context.user
 
   const [followButton, setFollowButton] = useState<true | false>()
   const handleFollow = () => {
@@ -62,19 +55,17 @@ export const UserProfile = () => {
       })
   }
 
-  const [otherUser, setOtherUser] = useState<any>()
+  const [otherUser, setOtherUser] = useState<userI | undefined>()
 
   useEffect(() => {
     if (currentUser) {
       isFollow(params.id, String(currentUser.id))
         .then(res => {
-          console.log("res", res)
           setFollowButton(res.isFollow)
         })
         .catch(e => console.log(e))
       showUser(params.id)
         .then(res => {
-          console.log("user", res.user)
           setOtherUser(res.user)
         })
         .catch(e => console.log(e))

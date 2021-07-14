@@ -1,6 +1,6 @@
 import { NoDecoLink } from "../components/NoDecoLink";
 import { logout } from "../apis/session"
-import { IState } from '../interfaces'
+import { IState, postI, commentAndUserI, RankProps, userI } from '../interfaces'
 import { getTimeline } from "../apis/posts"
 import { useEffect, useState } from "react";
 import { Posts } from "../components/detailTabs/Posts"
@@ -21,10 +21,10 @@ export const TopPage = (props: { user: IState | undefined }) => {
     logout(user_id)
   }
 
-  const [timeline, setTimeline] = useState<[] | undefined>()
-  const [comments, setComments] = useState<any>()
-  const [ranks, setRanks] = useState<any>()
-  const [users, setUsers] = useState<any>()
+  const [timeline, setTimeline] = useState<postI[]>()
+  const [comments, setComments] = useState<commentAndUserI[]>()
+  const [ranks, setRanks] = useState<RankProps[]>()
+  const [users, setUsers] = useState<userI[]>()
   useEffect(() => {
     if (userId) {
       getTimeline()

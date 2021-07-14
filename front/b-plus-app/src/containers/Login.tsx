@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 
 import { createUser } from "../apis/user"
 import { login } from '../apis/session';
-import { loginProps } from "../interfaces"
+import { loginProps, inputValueInterface } from "../interfaces"
 
 
 const FormWrapper = styled.div`
@@ -37,27 +37,28 @@ const InitialButton = styled.button`
 export const Login = (props: loginProps) => {
 
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [name, setName] = useState("")
-  const [passwordConfirmation, setPasswordConfirmation] = useState("")
-  const [isLogin, setDisplay] = useState<boolean>(true)
+  const [state, setState] = useState<inputValueInterface>({ name: "", email: "", password: "", passwordConfirmation: "" })
 
-  const handleSubmit = (event: any): void => {
-    login({
-      email: email,
-      password: password
-    }, props)
-
-    event.preventDefault()
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    setState({ ...state, [event.target.name]: event.target.value })
   }
 
-  const handleSubmitSignUp = (event: any): void => {
+  const [isLogin, setDisplay] = useState<boolean>(true)
+
+  const handleSubmit = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    login({
+      email: state.email,
+      password: state.password
+    }, props)
+    if (typeof event !== undefined) { event!.preventDefault() }
+  }
+
+  const handleSubmitSignUp = (): void => {
     createUser({
-      name: name,
-      email: email,
-      password: password,
-      password_confirmation: passwordConfirmation
+      name: state.name,
+      email: state.email,
+      password: state.password,
+      password_confirmation: state.passwordConfirmation
     })
   }
 
@@ -78,8 +79,8 @@ export const Login = (props: loginProps) => {
                     id="standard-search"
                     label="Email"
                     name="email"
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
+                    value={state.email}
+                    onChange={event => handleInputChange(event)}
                   />
                 </TextFieldWrapper>
                 <TextFieldWrapper>
@@ -89,8 +90,8 @@ export const Login = (props: loginProps) => {
                     type="password"
                     autoComplete="current-password"
                     name="password"
-                    value={password}
-                    onChange={event => setPassword(event.target.value)}
+                    value={state.password}
+                    onChange={event => handleInputChange(event)}
                   />
                 </TextFieldWrapper>
                 <ButtonWrapper>
@@ -115,8 +116,8 @@ export const Login = (props: loginProps) => {
                     id="standard-search"
                     label="Name"
                     name="name"
-                    value={name}
-                    onChange={event => setName(event.target.value)}
+                    value={state.name}
+                    onChange={event => handleInputChange(event)}
                   />
                 </TextFieldWrapper>
                 <TextFieldWrapper>
@@ -125,8 +126,8 @@ export const Login = (props: loginProps) => {
                     id="standard-search"
                     label="Email"
                     name="email"
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
+                    value={state.email}
+                    onChange={event => handleInputChange(event)}
                   />
                 </TextFieldWrapper>
                 <TextFieldWrapper>
@@ -136,8 +137,8 @@ export const Login = (props: loginProps) => {
                     type="password"
                     autoComplete="current-password"
                     name="password"
-                    value={password}
-                    onChange={event => setPassword(event.target.value)}
+                    value={state.password}
+                    onChange={event => handleInputChange(event)}
                   />
                 </TextFieldWrapper>
                 <TextFieldWrapper>
@@ -146,9 +147,9 @@ export const Login = (props: loginProps) => {
                     label="Password Confirm"
                     type="password"
                     autoComplete="current-password"
-                    name="password"
-                    value={passwordConfirmation}
-                    onChange={event => setPasswordConfirmation(event.target.value)}
+                    name="passwordConfirmation"
+                    value={state.passwordConfirmation}
+                    onChange={event => handleInputChange(event)}
                   />
                 </TextFieldWrapper>
                 <ButtonWrapper>
