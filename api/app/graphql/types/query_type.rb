@@ -7,3 +7,10 @@ module Types
     end
   end
 end
+
+#query {
+#  users {
+#    name
+#    id
+#  }
+#}

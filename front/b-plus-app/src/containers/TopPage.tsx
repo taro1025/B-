@@ -4,7 +4,7 @@ import { IState, postI, commentAndUserI, RankProps, userI } from '../interfaces'
 import { getTimeline } from "../apis/posts"
 import { useEffect, useState } from "react";
 import { Posts } from "../components/detailTabs/Posts"
-
+import { allUser } from "../apis/graphQL/user"
 
 
 export const TopPage = (props: { user: IState | undefined }) => {
@@ -26,6 +26,15 @@ export const TopPage = (props: { user: IState | undefined }) => {
   const [ranks, setRanks] = useState<RankProps[]>()
   const [users, setUsers] = useState<userI[]>()
   useEffect(() => {
+    allUser(`
+    query {
+      users {
+        name
+        id
+      }
+    }
+
+    `)
     if (userId) {
       getTimeline()
         .then((res) => {
