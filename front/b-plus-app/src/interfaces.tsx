@@ -111,3 +111,21 @@ export interface MonthInterface {
     amount_book: number;
   },
 }
+
+export interface userI {
+  id: number;
+  email: string;
+  image: {
+    url?: string;
+  }
+  name: string;
+  password_digest: string;
+  updated_at: string;
+  created_at: string;
+  description?: string;
+}
+
+
+export interface contextUserI {
+  user?: userI
+}

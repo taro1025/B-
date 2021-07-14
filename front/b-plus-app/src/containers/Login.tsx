@@ -45,16 +45,15 @@ export const Login = (props: loginProps) => {
 
   const [isLogin, setDisplay] = useState<boolean>(true)
 
-  const handleSubmit = (event: any): void => {
+  const handleSubmit = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     login({
       email: state.email,
       password: state.password
     }, props)
-
-    event.preventDefault()
+    if (typeof event !== undefined) { event!.preventDefault() }
   }
 
-  const handleSubmitSignUp = (event: any): void => {
+  const handleSubmitSignUp = (): void => {
     createUser({
       name: state.name,
       email: state.email,

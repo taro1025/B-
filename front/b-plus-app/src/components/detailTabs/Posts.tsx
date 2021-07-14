@@ -149,12 +149,12 @@ export const Posts = (
   const commentSubmit = (postId: number, i: number) => {
     createComment(postId, text)
     setTextfield(isText.fill(false))
-    props.comments[i].push({ comment: text })
+    props.comments[i].comment.push({ comment: text })
     if (props.setComments) {
       props.setComments([...props.comments])
     }
   }
-
+  console.log("コメント", props.comments)
   console.log("ランク取れた?", props.ranks)
   return (
     <>
