@@ -7,6 +7,7 @@ module Types
     field :book_isbn, String, null: true
     field :page, Integer, null: true
     field :title, String, null: true
+    field :rank_id, Integer, null: true
 
     field :user, UserType, null: true
   end

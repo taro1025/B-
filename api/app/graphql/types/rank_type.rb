@@ -1,7 +1,7 @@
 module Types
   class RankType < Types::BaseObject
     field :id, ID, null: false
-    field :rank_id, Integer, null: false
+    field :rank, Integer, null: false
     field :user_id, Integer, null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
@@ -11,5 +11,6 @@ module Types
     field :title, String, null: true
 
     field :user, UserType, null: true
+    #filed :posts, [PostType], null: true
   end
 end
