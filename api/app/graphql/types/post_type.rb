@@ -10,8 +10,10 @@ module Types
     field :url, String, null: true
     field :medium_url, String, null: true
     field :title, String, null: true
+    field :rank_id, Integer, null: true
 
     field :user, UserType, null: true
     field :comments, [Types::CommentType], null: false
+    field :rank, RankType, null: true
   end
 end

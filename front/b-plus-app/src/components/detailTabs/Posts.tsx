@@ -181,7 +181,7 @@ export const Posts = (
                   <BookImage src={props.ranks && props.ranks[i] && props!.ranks[i].medium_url} />
 
                   <BookTitle>{post.title && post.title}</BookTitle>
-                  <Rank rank={props.ranks && props!.ranks![i].rank_id} />
+                  <Rank rank={props.ranks && props!.ranks![i].rank} />
                 </BookWrapper>
                 <ActionWrapper>
                   <CommentButton type="submit" onClick={() => {

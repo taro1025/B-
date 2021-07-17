@@ -58,7 +58,7 @@ export interface BookWantToRead {
 }
 export interface RankProps {
   id: number;
-  rank_id?: number;
+  rank?: number;
   created_at: string;
   updated_at: string;
   book_isbn: string;
