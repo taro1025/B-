@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_10_082648) do
+ActiveRecord::Schema.define(version: 2021_07_17_095205) do
 
   create_table "book_user_favorites", charset: "utf8mb4", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2021_07_10_082648) do
     t.string "book_isbn"
     t.integer "page"
     t.string "title"
+    t.integer "rank_id"
   end
 
   create_table "book_want_to_reads", charset: "utf8mb4", force: :cascade do |t|
@@ -84,10 +85,11 @@ ActiveRecord::Schema.define(version: 2021_07_10_082648) do
     t.string "url"
     t.string "medium_url"
     t.string "title"
+    t.integer "rank_id"
   end
 
   create_table "ranks", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "rank_id", null: false
+    t.integer "rank", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
