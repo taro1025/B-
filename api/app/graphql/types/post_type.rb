@@ -12,5 +12,6 @@ module Types
     field :title, String, null: true
 
     field :user, UserType, null: true
+    field :comments, [Types::CommentType], null: false
   end
 end
