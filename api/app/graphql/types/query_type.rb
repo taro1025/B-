@@ -6,13 +6,17 @@ module Types
       User.all
     end
 
-    field :post, PostType, null: true do
+    field :timeline, PostType, null: true do
       description "Find a post by ID"
-      argument :id, ID, required: true
+      #argument :id, ID, required: true
     end
 
-    def post(id:)
-      Post.find(id)
+    def timeline
+      if user = context[:current_user]
+        #posts = user.get_timeline
+
+      end
+      "ok"
     end
   end
 end

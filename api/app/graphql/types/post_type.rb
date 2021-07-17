@@ -10,6 +10,7 @@ module Types
     field :url, String, null: true
     field :medium_url, String, null: true
     field :title, String, null: true
+
     field :user, UserType, null: true
   end
 end
