@@ -2,6 +2,8 @@ const DEFAULT_API_LOCALHOST: string = 'http://127.0.0.1:3000/api/v1'//'http://ex
 //どうやら、http/://127.....だとリクエストを送ったパソコン自身のローカルホストにいってしまうらしい
 //ローカル環境用 'http://127.0.0.1/api/v1'
 
+export const DEFAULT_GRAPH_QL_URL = 'http://127.0.0.1:3000/graphql'
+//'http://example-769847477.ap-northeast-1.elb.amazonaws.com/graphql
 
 //Notiifcation
 //Login

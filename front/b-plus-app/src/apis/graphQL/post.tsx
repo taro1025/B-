@@ -1,14 +1,13 @@
 import axios from "axios"
 import { DEFAULT_GRAPH_QL_URL } from "../../urls/index"
 
-export const allUser = (query: any) => {
+export const getTimeline = (query: string) => {
   return axios.post(DEFAULT_GRAPH_QL_URL,
     {
       query: query
-    })
+    }, { withCredentials: true })
     .then(res => {
-      console.log("gラフ", res)
       return res.data
     })
-    .catch((e) => console.log("gラフ失敗", e))
+    .catch((e) => console.log("タイムラインの取得失敗", e))
 };
