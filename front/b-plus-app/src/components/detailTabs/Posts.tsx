@@ -108,7 +108,7 @@ const GrayHeartIcon = styled(FavoriteIcon)`
 
 export const Posts = (
   props: {
-    posts?: postI[],
+    posts?: any,
     comments?: commentAndUserI[],
     ranks?: RankProps[],
     users?: userI[],
@@ -162,7 +162,7 @@ export const Posts = (
       <PostWrapper>
         {
           props.posts &&
-          props.posts.map((post: postI, i: number) => {
+          props.posts.map((post: any, i: number) => {
             return (
               post.impression &&
               <Post>
@@ -172,16 +172,16 @@ export const Posts = (
                   }
                   <div>
                     <ProfileImg
-                      src={props.users ? props.users[post.user_id]?.image.url && props.users[post.user_id].image.url : cat} />
+                      src={post.user.image && post.user.image} />
                   </div>
-                  <ProfileSpan><NoDecoLink to={`/user/${post.user_id}`}>{post.user_name}</NoDecoLink></ProfileSpan>
+                  <ProfileSpan><NoDecoLink to={`/user/${post.user.id}`}>{post.user.name}</NoDecoLink></ProfileSpan>
                 </Profile>
                 <Text>{post.impression}</Text>
                 <BookWrapper>
-                  <BookImage src={props.ranks && props.ranks[i] && props!.ranks[i].medium_url} />
+                  <BookImage src={post.rank.mediumUrl && post.rank.mediumUrl} />
 
                   <BookTitle>{post.title && post.title}</BookTitle>
-                  <Rank rank={props.ranks && props!.ranks![i].rank} />
+                  <Rank rank={post.rank.rank} />
                 </BookWrapper>
                 <ActionWrapper>
                   <CommentButton type="submit" onClick={() => {
@@ -210,16 +210,16 @@ export const Posts = (
                   }
                 </ActionWrapper>
                 {
-                  isText[i] && (
-                    <div><CommentArea value={text} onChange={(e) => setText(e.target.value)} />
-                      <button onClick={() => commentSubmit(post.id, i)}>送信　</button>
-                    </div>
-                  )
+                  //isText[i] && (
+                  //  <div><CommentArea value={text} onChange={(e) => setText(e.target.value)} />
+                  //    <button onClick={() => commentSubmit(post.id, i)}>送信　</button>
+                  //  </div>
+                  //)
                 }
 
                 {
-                  props.comments &&
-                  <Comments commentSet={props.comments[i]} />
+                  //props.comments &&
+                  //<Comments commentSet={props.comments[i]} />
 
                 }
               </Post>

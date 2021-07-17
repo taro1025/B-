@@ -7,7 +7,8 @@ export const getTimeline = (query: string) => {
       query: query
     }, { withCredentials: true })
     .then(res => {
-      return res.data
+      console.log("data", res)
+      return res.data.data
     })
     .catch((e) => console.log("タイムラインの取得失敗", e))
 };

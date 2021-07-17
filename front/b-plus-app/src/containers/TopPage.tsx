@@ -1,7 +1,7 @@
 import { NoDecoLink } from "../components/NoDecoLink";
 import { logout } from "../apis/session"
 import { IState, postI, commentAndUserI, RankProps, userI } from '../interfaces'
-import { getTimeline } from "../apis/posts"
+import { getTimeline } from "../apis/graphQL/post"
 import { useEffect, useState } from "react";
 import { Posts } from "../components/detailTabs/Posts"
 import { allUser } from "../apis/graphQL/user"
@@ -22,9 +22,7 @@ export const TopPage = (props: { user: IState | undefined }) => {
   }
 
   const [timeline, setTimeline] = useState<postI[]>()
-  const [comments, setComments] = useState<commentAndUserI[]>()
-  const [ranks, setRanks] = useState<RankProps[]>()
-  const [users, setUsers] = useState<userI[]>()
+
   useEffect(() => {
     allUser(`
     query {
@@ -36,12 +34,34 @@ export const TopPage = (props: { user: IState | undefined }) => {
 
     `)
     if (userId) {
-      getTimeline()
+      getTimeline(`
+      {
+        timeline{
+          id
+          impression
+          user{
+            name
+            id
+            image
+          }
+          rank{
+            rank
+            mediumUrl
+          }
+          comments{
+            user{
+              name
+              id
+              image
+            }
+            comment
+          }
+        }
+      }
+      `)
         .then((res) => {
           setTimeline(res.timeline)
-          setComments(res.comments)
-          setRanks(res.ranks)
-          setUsers(res.users)
+
           console.log("トップのレス", res)
         })
         .catch((e) => console.log(e))
@@ -65,10 +85,7 @@ export const TopPage = (props: { user: IState | undefined }) => {
         timeline &&
         <Posts
           posts={timeline}
-          comments={comments && comments}
-          ranks={ranks && ranks}
-          users={users}
-          setComments={setComments}
+
         />
       }
 
