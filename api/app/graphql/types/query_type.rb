@@ -19,14 +19,37 @@ module Types
       end
     end
 
-    field :post, PostType, null: true do
+    field :post, [PostType], null: true do
       description "idを受け取りそのポストを返す"
       argument :id, ID, required: true
     end
 
     def post(id:)
-      Post.find(id)
+      post = Post.find(id)
+      [post]
     end
+
+    field :myPosts, [PostType], null: true do
+      description "isbnを受け取りその本に対してのcurrentuserのポストを返す"
+      argument :isbn, String, required: true
+    end
+
+    def myPosts(isbn:)
+      if user = context[:current_user]
+        post = user.posts.where(book_isbn: isbn)
+
+      end
+    end
+
+    field :posts, [PostType], null: true do
+      description "isbnを受け取りその本に対してのポストを返す"
+      argument :isbn, String, required: true
+    end
+
+    def posts(isbn:)
+      post = Post.where(book_isbn: isbn)
+    end
+
 
     #コメントデータ
     field :get_comment, [CommentType], null: false do
