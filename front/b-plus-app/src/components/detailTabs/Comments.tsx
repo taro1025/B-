@@ -30,11 +30,11 @@ const Text = styled.div`
   padding: 0 .2rem .8rem .6rem;
 `
 
-export const Comments = (props: { commentSet: any }) => {
+export const Comments = (props: { comments: any }) => {
   return (
     <>
       {
-        props.commentSet.comment.map((aComment: any, i: number) => {
+        props.comments.map((comment: any, i: number) => {
           return (
             //comment.post_id === post.id &&
             <>
@@ -42,11 +42,11 @@ export const Comments = (props: { commentSet: any }) => {
                 <Profile>
                   <div>
                     <ProfileImg
-                      src={props.commentSet.users[i] ? props.commentSet.users[i]?.image.url && props.commentSet.users[i].image.url : cat} />
+                      src={comment.user.image.url ? comment.user.image.url : comment.user.image} />
                   </div>
-                  <ProfileSpan><NoDecoLink to={`/user/${aComment.user_id}`}>{aComment.user_name}</NoDecoLink></ProfileSpan>
+                  <ProfileSpan><NoDecoLink to={`/user/${comment.user.id}`}>{comment.user.name}</NoDecoLink></ProfileSpan>
                 </Profile>
-                <Text>{aComment.comment}</Text>
+                <Text>{comment.comment}</Text>
               </CommentWrapper>
             </>
           )

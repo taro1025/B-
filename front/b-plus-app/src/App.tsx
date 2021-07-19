@@ -48,90 +48,92 @@ const App: React.FC = () => {
   console.log("user", user)
   return (
     <Router>
-      <UserId.Provider value={user ? user.id : undefined}>
-        <Notice.Provider value={{ isNotice: isNotice, setIsNotice: setIsNotice }}>
-          <Layout>
-            <Switch>
+      <User.Provider value={{ user }}>
+        <UserId.Provider value={user ? user.id : undefined}>
+          <Notice.Provider value={{ isNotice: isNotice, setIsNotice: setIsNotice }}>
+            <Layout>
+              <Switch>
 
-              <Route exact path="/">
-                <TopPage
-                  user={user}
-                ></TopPage>
-              </Route>
+                <Route exact path="/">
+                  <TopPage
+                    user={user}
+                  ></TopPage>
+                </Route>
 
-              <Route exact path="/book_manager/:id">
-                <User.Provider value={{ user }}>
-                  <BookManager
-                    log={0}
-                    readBook={1}
-                    favoriteBook={2}
-                    bookWantToRead={3}
-                    isProfile={true}
-                  />
-                </User.Provider>
-              </Route>
-
-              <Route
-                exact
-                path="/search"
-                render={props =>
-                  <Search
-                    {...props}
-                    books={books}
-                    setBooks={setBooks}
-                  />
-                }
-              />
-
-
-              <Route
-                exact
-                path="/book/:id"
-                render={props =>
+                <Route exact path="/book_manager/:id">
                   <User.Provider value={{ user }}>
-                    <DetailBook
+                    <BookManager
+                      log={0}
+                      readBook={1}
+                      favoriteBook={2}
+                      bookWantToRead={3}
+                      isProfile={true}
+                    />
+                  </User.Provider>
+                </Route>
+
+                <Route
+                  exact
+                  path="/search"
+                  render={props =>
+                    <Search
                       {...props}
                       books={books}
                       setBooks={setBooks}
                     />
+                  }
+                />
+
+
+                <Route
+                  exact
+                  path="/book/:id"
+                  render={props =>
+                    <User.Provider value={{ user }}>
+                      <DetailBook
+                        {...props}
+                        books={books}
+                        setBooks={setBooks}
+                      />
+                    </User.Provider>
+                  }
+                />
+
+                <Route
+                  exact
+                  path="/login"
+                  render={props =>
+                    <Login
+                      {...props}
+                      loginAction={loginAction}
+                      loggedInStatus={loggedInStatus}
+                    />
+                  }
+                />
+
+
+
+
+                <Route exact path="/user/:id">
+                  <User.Provider value={{ user }}>
+                    <UserProfile />
                   </User.Provider>
-                }
-              />
+                </Route>
 
-              <Route
-                exact
-                path="/login"
-                render={props =>
-                  <Login
-                    {...props}
-                    loginAction={loginAction}
-                    loggedInStatus={loggedInStatus}
-                  />
-                }
-              />
+                <Route exact path="/notification">
+                  <Notification />
+                </Route>
+
+                <Route exact path="/posts/:id">
+                  <Post />
+                </Route>
 
 
-
-
-              <Route exact path="/user/:id">
-                <User.Provider value={{ user }}>
-                  <UserProfile />
-                </User.Provider>
-              </Route>
-
-              <Route exact path="/notification">
-                <Notification />
-              </Route>
-
-              <Route exact path="/posts/:id">
-                <Post />
-              </Route>
-
-
-            </Switch>
-          </Layout >
-        </Notice.Provider>
-      </UserId.Provider>
+              </Switch>
+            </Layout >
+          </Notice.Provider>
+        </UserId.Provider>
+      </User.Provider>
     </Router >
   );
 }
