@@ -2,6 +2,7 @@ import { NoDecoLink } from "../components/NoDecoLink";
 import { logout } from "../apis/session"
 import { IState, postI, commentAndUserI, RankProps, userI } from '../interfaces'
 import { graphQL } from "../apis/graphQL/client"
+import { getTimeline } from "../apis/graphQL/post"
 import { useEffect, useState } from "react";
 import { Posts } from "../components/detailTabs/Posts"
 
@@ -25,32 +26,7 @@ export const TopPage = (props: { user: IState | undefined }) => {
   useEffect(() => {
     if (userId) {
       //ログイン中のユーザーのタイムライン（ポストの集まり)を取得
-      graphQL(`
-      {
-        timeline{
-          id
-          impression
-          title
-          user{
-            name
-            id
-            image
-          }
-          rank{
-            rank
-            mediumUrl
-          }
-          comments{
-            user{
-              name
-              id
-              image
-            }
-            comment
-          }
-        }
-      }
-      `)
+      graphQL(getTimeline)
         .then((res) => {
           setTimeline(res.timeline)
 

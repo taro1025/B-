@@ -25,7 +25,6 @@ export const Detail = () => {
   useEffect(() => {
     getBooks(params.id)
       .then((res) => {
-        console.log("res", res)
         setBook(res.Items[0].Item)
       })
   }, [])

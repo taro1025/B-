@@ -11,7 +11,7 @@ module Types
       #argument :id, ID, required: true
     end
 
-    #Postデータ
+#Postデータ
     def timeline
       if user = context[:current_user]
         post = user.get_timeline
@@ -51,7 +51,7 @@ module Types
     end
 
 
-    #コメントデータ
+#コメントデータ
     field :get_comment, [CommentType], null: false do
       argument :post_id, ID, required: true
     end
@@ -61,7 +61,7 @@ module Types
       post.comments
     end
 
-    #ランクでーた
+#ランクでーた
     field :rank, RankType, null: false do
       argument :user_id, ID, required: true
       argument :book_isbn, Integer, required: true
