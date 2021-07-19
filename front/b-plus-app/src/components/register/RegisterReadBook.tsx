@@ -72,26 +72,19 @@ export const RegisterReadBook = (
 
   const handleReadBook = async () => {
     if (contextUser.user && contextIsbn) {
-      let url: { large: string, medium: string } = { large: "", medium: "" }
-      let title: string
-      await getBooks(contextIsbn)
-        .then(res => {
-          console.log(res)
-          url.large = res.Items[0].Item.largeImageUrl
-          url.medium = res.Items[0].Item.mediumImageUrl
-          title = res.Items[0].Item.title
-        })
+
+      let res: any = await getBooks(contextIsbn)
+
       await registerReadBook(contextIsbn, contextUser.user.id, Number(state.page))
-        .then(res => {
-          createPost(state.text, contextIsbn, title)
-          createRank(
-            contextUser.user.id,
-            state.rank,
-            contextIsbn,
-            url.large,
-            url.medium
-          )
-        })
+      await createRank(
+        contextUser.user.id,
+        state.rank,
+        contextIsbn,
+        res.Items[0].Item.largeImageUrl,
+        res.Items[0].Item.mediumImageUrl
+      )
+      await createPost(state.text, contextIsbn, res.Items[0].Item.title, state.rank)
+
       handleCloseDialog()
 
     } else {

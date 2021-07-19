@@ -58,7 +58,7 @@ export interface BookWantToRead {
 }
 export interface RankProps {
   id: number;
-  rank_id?: number;
+  rank?: number;
   created_at: string;
   updated_at: string;
   book_isbn: string;
@@ -114,14 +114,14 @@ export interface MonthInterface {
 
 export interface userI {
   id: number;
-  email: string;
-  image: {
+  email?: string;
+  image?: {
     url?: string;
   }
   name: string;
-  password_digest: string;
-  updated_at: string;
-  created_at: string;
+  password_digest?: string;
+  updated_at?: string;
+  created_at?: string;
   description?: string;
 }
 
@@ -148,15 +148,16 @@ export interface commentAndUserI {
 }
 
 export interface postI {
-  title: string;
-  user_name: string;
-  impression?: string;
-
-  book_isbn: string;
-  url?: string;
-  medium_url?: string;
-  user_id: number;
   id: number;
-  created_at: string;
-  updated_at: string;
+  impression: string;
+  title: string;
+  user: userI
+  rank: {
+    rank: number;
+    mediumUrl: string;
+  }
+  comments: {
+    user: userI
+    comment: string;
+  }[]
 }

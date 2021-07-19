@@ -1,10 +1,10 @@
 import { NoDecoLink } from "../components/NoDecoLink";
 import { logout } from "../apis/session"
 import { IState, postI, commentAndUserI, RankProps, userI } from '../interfaces'
-import { getTimeline } from "../apis/posts"
+import { graphQL } from "../apis/graphQL/client"
+import { getTimeline } from "../apis/graphQL/post"
 import { useEffect, useState } from "react";
 import { Posts } from "../components/detailTabs/Posts"
-
 
 
 export const TopPage = (props: { user: IState | undefined }) => {
@@ -22,17 +22,14 @@ export const TopPage = (props: { user: IState | undefined }) => {
   }
 
   const [timeline, setTimeline] = useState<postI[]>()
-  const [comments, setComments] = useState<commentAndUserI[]>()
-  const [ranks, setRanks] = useState<RankProps[]>()
-  const [users, setUsers] = useState<userI[]>()
+
   useEffect(() => {
     if (userId) {
-      getTimeline()
+      //ログイン中のユーザーのタイムライン（ポストの集まり)を取得
+      graphQL(getTimeline)
         .then((res) => {
           setTimeline(res.timeline)
-          setComments(res.comments)
-          setRanks(res.ranks)
-          setUsers(res.users)
+
           console.log("トップのレス", res)
         })
         .catch((e) => console.log(e))
@@ -56,10 +53,7 @@ export const TopPage = (props: { user: IState | undefined }) => {
         timeline &&
         <Posts
           posts={timeline}
-          comments={comments && comments}
-          ranks={ranks && ranks}
-          users={users}
-          setComments={setComments}
+          setComments={setTimeline}
         />
       }
 

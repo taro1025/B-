@@ -6,7 +6,9 @@ import styled from "styled-components"
 
 import { Detail } from "../components/detailTabs/Detail"
 import { Posts } from "../components/detailTabs/Posts"
-import { getPosts, getMyPosts } from "../apis/posts"
+import { getPosts, getMyPosts } from "../apis/graphQL/post"
+import { graphQL } from "../apis/graphQL/client"
+import { postI } from "../interfaces"
 
 //to use for Tab
 import Paper from '@material-ui/core/Paper';
@@ -41,17 +43,18 @@ export const DetailBook = (props: bookStateProps) => {
 
 
   const userId = useContext(UserId)
-  const [myPosts, setMyPosts] = useState<[] | undefined>()
-  const [posts, setPosts] = useState<[] | undefined>()
+  const [myPosts, setMyPosts] = useState<postI[]>()
+  const [posts, setPosts] = useState<postI[]>()
   useEffect(() => {
+    console.log("userId", userId)
     if (userId) {
-      getMyPosts(params.id, String(userId))
+      graphQL(getMyPosts(params.id))
         .then((res) => {
-          setMyPosts(res.posts)
+          setMyPosts(res.myPosts)
 
         })
     } else { console.log("ログインしてください") }
-    getPosts(params.id)
+    graphQL(getPosts(params.id))
       .then((res) => {
         setPosts(res.posts)
       })
@@ -77,12 +80,14 @@ export const DetailBook = (props: bookStateProps) => {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Posts
-          posts={posts ? posts : undefined}
+          posts={posts}
+          setComments={setPosts}
         />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Posts
-          posts={myPosts ? myPosts : undefined}
+          posts={myPosts}
+          setComments={setMyPosts}
         />
       </TabPanel>
 

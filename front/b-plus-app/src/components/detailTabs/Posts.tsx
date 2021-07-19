@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { useState, useEffect, useContext } from "react"
-import { UserId } from "../../App"
+import { UserId, User } from "../../App"
 import cat from "../../cat.jpeg"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SmsIcon from '@material-ui/icons/Sms';
@@ -109,10 +109,7 @@ const GrayHeartIcon = styled(FavoriteIcon)`
 export const Posts = (
   props: {
     posts?: postI[],
-    comments?: commentAndUserI[],
-    ranks?: RankProps[],
-    users?: userI[],
-    setComments?: React.Dispatch<commentAndUserI[]>,
+    setComments?: React.Dispatch<React.SetStateAction<postI[] | undefined>>,
   }
 ) => {
 
@@ -138,6 +135,10 @@ export const Posts = (
   }
 
   //コメント関係
+
+  const context: any = useContext(User)
+  const contextUser: userI = context.user
+
   let initialState = []
   props.posts ?
     initialState = Array(props.posts.length).fill(false)
@@ -147,22 +148,21 @@ export const Posts = (
   const [isText, setTextfield] = useState<boolean[]>(initialState)
   const [text, setText] = useState("")
 
-  const commentSubmit = (postId: number, i: number) => {
+  const commentSubmit = (postId: number, i: number, user: userI) => {
     createComment(postId, text)
     setTextfield(isText.fill(false))
-    props!.comments![i]!.comment.push({ comment: text })
+    props!.posts![i]!.comments!.push({ user: user, comment: text })
     if (props.setComments) {
-      props.setComments([...props.comments!])
+      props.setComments([...props.posts!])
     }
   }
-  console.log("post", props.posts)
-  console.log("ランク取れた?", props.ranks)
+
   return (
     <>
       <PostWrapper>
         {
           props.posts &&
-          props.posts.map((post: postI, i: number) => {
+          props.posts.map((post: any, i: number) => {
             return (
               post.impression &&
               <Post>
@@ -172,16 +172,16 @@ export const Posts = (
                   }
                   <div>
                     <ProfileImg
-                      src={props.users ? props.users[post.user_id]?.image.url && props.users[post.user_id].image.url : cat} />
+                      src={post.user.image.url ? post.user.image.url : post.user.image} />
                   </div>
-                  <ProfileSpan><NoDecoLink to={`/user/${post.user_id}`}>{post.user_name}</NoDecoLink></ProfileSpan>
+                  <ProfileSpan><NoDecoLink to={`/user/${post.user.id}`}>{post.user.name}</NoDecoLink></ProfileSpan>
                 </Profile>
                 <Text>{post.impression}</Text>
                 <BookWrapper>
-                  <BookImage src={props.ranks && props.ranks[i] && props!.ranks[i].medium_url} />
+                  <BookImage src={post.rank && post.rank.mediumUrl ? post.rank.mediumUrl : ""} />
 
                   <BookTitle>{post.title && post.title}</BookTitle>
-                  <Rank rank={props.ranks && props!.ranks![i].rank_id} />
+                  <Rank rank={post.rank && post.rank.rank && post.rank.rank} />
                 </BookWrapper>
                 <ActionWrapper>
                   <CommentButton type="submit" onClick={() => {
@@ -212,14 +212,14 @@ export const Posts = (
                 {
                   isText[i] && (
                     <div><CommentArea value={text} onChange={(e) => setText(e.target.value)} />
-                      <button onClick={() => commentSubmit(post.id, i)}>送信　</button>
+                      <button onClick={() => commentSubmit(post.id, i, contextUser)}>送信　</button>
                     </div>
                   )
                 }
 
                 {
-                  props.comments &&
-                  <Comments commentSet={props.comments[i]} />
+                  post.comments &&
+                  <Comments comments={post.comments} />
 
                 }
               </Post>

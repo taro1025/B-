@@ -1,25 +1,52 @@
 import { useState, useEffect } from "react"
-import { getPost } from "../apis/posts"
+//import { getPost } from "../apis/posts"
 import { useParams } from "react-router-dom"
 import { Posts } from "../components/detailTabs/Posts"
+import { postI } from "../interfaces"
+import { graphQL } from "../apis/graphQL/client"
+
+
+//一つの投稿のビュー
+
 
 export const Post = () => {
 
-  const [post, setPost] = useState<any>()
-  const [comments, setComments] = useState<any>()
-  const [ranks, setRanks] = useState<any>()
-  const [users, setUsers] = useState<any>()
+  const [post, setPost] = useState<postI[]>()
+
 
   const params: any = useParams()
   useEffect(() => {
     if (params.id) {
-      getPost(params.id)
+      //ポストのidを受け取りそのポストを返す
+      graphQL(`
+      {
+        post(id: ${params.id}){
+          id
+          impression
+          title
+          user{
+            name
+            id
+            image
+          }
+          rank{
+            rank
+            mediumUrl
+          }
+          comments{
+            user{
+              name
+              id
+              image
+            }
+            comment
+          }
+        }
+      }
+      `)
         .then(res => {
           console.log("res", res)
           setPost(res.post)
-          setComments(res.comments)
-          setRanks(res.ranks)
-          setUsers(res.users)
         })
         .catch(e => console.log(e))
     }
@@ -30,10 +57,7 @@ export const Post = () => {
         post &&
         <Posts
           posts={post}
-          comments={comments && comments}
-          ranks={ranks && ranks}
-          users={users}
-          setComments={setComments}
+          setComments={setPost}
         />
       }
 

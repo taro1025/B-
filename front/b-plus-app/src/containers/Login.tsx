@@ -50,6 +50,8 @@ export const Login = (props: loginProps) => {
       email: state.email,
       password: state.password
     }, props)
+      .then(res => console.log("ログイン成功"))
+      .catch(e => console.log("ログインエラー", e))
     if (typeof event !== undefined) { event!.preventDefault() }
   }
 

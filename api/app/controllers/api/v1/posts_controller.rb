@@ -4,8 +4,11 @@ module Api
       before_action :current_user, only: [:create, :destroy, :update, :timeline]
       before_action :correct_user, only: [:show]
       def create
-        post = @current_user.posts.new(user_name: @current_user.name, book_isbn: params[:book_isbn], impression: params[:impression], title: params[:title])
-        if post.save
+        post = nil
+        if rank = @current_user.ranks.find_by(book_isbn: params[:book_isbn])
+          post = rank.posts.create(user_name: @current_user.name, book_isbn: params[:book_isbn], impression: params[:impression], title: params[:title], user_id: @current_user.id)
+        end
+        if post
           render json: { post: post }, status: :ok
         else
           render json: {}, status: :internal_server_error
