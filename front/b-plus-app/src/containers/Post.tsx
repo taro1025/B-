@@ -3,6 +3,9 @@ import { getPost } from "../apis/posts"
 import { useParams } from "react-router-dom"
 import { Posts } from "../components/detailTabs/Posts"
 
+//一つの投稿のビュー
+
+
 export const Post = () => {
 
   const [post, setPost] = useState<any>()
@@ -27,14 +30,14 @@ export const Post = () => {
   return (
     <>
       {
-        post &&
-        <Posts
-          posts={post}
-          comments={comments && comments}
-          ranks={ranks && ranks}
-          users={users}
-          setComments={setComments}
-        />
+        //post &&
+        //<Posts
+        //  posts={post}
+        //  comments={comments && comments}
+        //  ranks={ranks && ranks}
+        //  users={users}
+        //  setComments={setComments}
+        ///>
       }
 
     </>

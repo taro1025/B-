@@ -108,11 +108,8 @@ const GrayHeartIcon = styled(FavoriteIcon)`
 
 export const Posts = (
   props: {
-    posts?: any,
-    comments?: commentAndUserI[],
-    ranks?: RankProps[],
-    users?: userI[],
-    setComments?: any,
+    posts?: postI[],
+    setComments?: React.Dispatch<React.SetStateAction<postI[] | undefined>>,
   }
 ) => {
 
@@ -154,13 +151,12 @@ export const Posts = (
   const commentSubmit = (postId: number, i: number, user: userI) => {
     createComment(postId, text)
     setTextfield(isText.fill(false))
-    props.posts[i].comments.push({ user: user, comment: text })
+    props!.posts![i]!.comments!.push({ user: user, comment: text })
     if (props.setComments) {
       props.setComments([...props.posts!])
     }
   }
-  console.log("post", props.posts)
-  console.log("ランク取れた?", props.ranks)
+
   return (
     <>
       <PostWrapper>

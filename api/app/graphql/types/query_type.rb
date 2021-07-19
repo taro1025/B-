@@ -7,10 +7,11 @@ module Types
     end
 
     field :timeline, [PostType], null: true, method: :get_timeline do
-      description "Find a post by ID"
+      description "current_userのタイムラインを取得"
       #argument :id, ID, required: true
     end
 
+    #Postデータ
     def timeline
       if user = context[:current_user]
         post = user.get_timeline
@@ -18,6 +19,16 @@ module Types
       end
     end
 
+    field :post, PostType, null: true do
+      description "idを受け取りそのポストを返す"
+      argument :id, ID, required: true
+    end
+
+    def post(id:)
+      Post.find(id)
+    end
+
+    #コメントデータ
     field :get_comment, [CommentType], null: false do
       argument :post_id, ID, required: true
     end
@@ -27,6 +38,7 @@ module Types
       post.comments
     end
 
+    #ランクでーた
     field :rank, RankType, null: false do
       argument :user_id, ID, required: true
       argument :book_isbn, Integer, required: true

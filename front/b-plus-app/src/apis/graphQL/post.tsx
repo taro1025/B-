@@ -7,8 +7,19 @@ export const getTimeline = (query: string) => {
       query: query
     }, { withCredentials: true })
     .then(res => {
-      console.log("data", res)
       return res.data.data
     })
     .catch((e) => console.log("タイムラインの取得失敗", e))
+};
+
+export const getPost = (query: string) => {
+  return axios.post(DEFAULT_GRAPH_QL_URL,
+    {
+      query: query
+    }, { withCredentials: true })
+    .then(res => {
+      console.log("data", res)
+      return res.data.data
+    })
+    .catch((e) => console.log("ポストの取得失敗", e))
 };
