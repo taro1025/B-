@@ -82,3 +82,32 @@ export const getPosts = (isbn: string): string => {
   }
   `
 }
+
+export const getPost = (isbn: string): string => {
+  return `
+{
+  post(id: "${isbn}"){
+    id
+    impression
+    title
+    user{
+      name
+      id
+      image
+    }
+    rank{
+      rank
+      mediumUrl
+    }
+    comments{
+      user{
+        name
+        id
+        image
+      }
+      comment
+    }
+  }
+}
+`
+}

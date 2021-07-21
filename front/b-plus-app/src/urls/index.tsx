@@ -1,8 +1,8 @@
-const DEFAULT_API_LOCALHOST: string = 'http://example-769847477.ap-northeast-1.elb.amazonaws.com/api/v1';
+const DEFAULT_API_LOCALHOST: string = 'http://127.0.0.1/api/v1'//'http://example-769847477.ap-northeast-1.elb.amazonaws.com/api/v1';
 //どうやら、http/://127.....だとリクエストを送ったパソコン自身のローカルホストにいってしまうらしい
 //ローカル環境用 'http://127.0.0.1/api/v1'
 
-export const DEFAULT_GRAPH_QL_URL = 'http://example-769847477.ap-northeast-1.elb.amazonaws.com/graphql'
+export const DEFAULT_GRAPH_QL_URL = 'http://127.0.0.1:3000/graphql'//'http://example-769847477.ap-northeast-1.elb.amazonaws.com/graphql'
 //'http://example-769847477.ap-northeast-1.elb.amazonaws.com/graphql
 //ローカル環境用 'http://127.0.0.1:3000/graphql'
 

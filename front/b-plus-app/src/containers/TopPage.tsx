@@ -27,12 +27,12 @@ export const TopPage = (props: { user: IState | undefined }) => {
     if (userId) {
       //ログイン中のユーザーのタイムライン（ポストの集まり)を取得
       graphQL(getTimeline)
-        .then((res) => {
+        .then((res: any) => {
           setTimeline(res.timeline)
 
           console.log("トップのレス", res)
         })
-        .catch((e) => console.log(e))
+        .catch((e: any) => console.log(e))
     }
   }, [])
 
