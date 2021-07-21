@@ -5,9 +5,10 @@ import { graphQL } from "../apis/graphQL/client"
 import { getTimeline } from "../apis/graphQL/post"
 import { useEffect, useState } from "react";
 import { Posts } from "../components/detailTabs/Posts"
-
+import { Loading } from "../components/Loading"
 
 export const TopPage = (props: { user: IState | undefined }) => {
+
   let userId: number | undefined
   let userName: string | undefined
   if (typeof props.user === 'undefined') {
@@ -37,7 +38,7 @@ export const TopPage = (props: { user: IState | undefined }) => {
   }, [])
 
   return (
-    <div className="App">
+    <div>
       {
         userName && <p>{userName}</p>
       }
@@ -50,13 +51,14 @@ export const TopPage = (props: { user: IState | undefined }) => {
       }
 
       {
-        timeline &&
-        <Posts
-          posts={timeline}
-          setComments={setTimeline}
-        />
+        timeline ?
+          <Posts
+            posts={timeline}
+            setComments={setTimeline}
+          />
+          :
+          <Loading />
       }
-
 
     </div>
   )
