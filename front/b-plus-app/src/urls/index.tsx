@@ -105,4 +105,4 @@ export const isFollowUrl = (user_id: string): string => `${DEFAULT_API_LOCALHOST
 //楽天　※urlエンコードする必要あり
 //const APP_ID = process.env.REACT_APP_RAKUTEN_ID;
 export const searchBooksUrl = (title: string): string => `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=1044368519957304134&title=${title}&outOfStockFlag=1`
-export const getBooksUrl = (isbn: string): string => `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=1044368519957304134&isbn=${isbn}`
+export const getBooksUrl = (isbn: string): string => `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=1044368519957304134&isbn=${isbn}&outOfStockFlag=1`
