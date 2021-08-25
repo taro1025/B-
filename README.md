@@ -4,6 +4,9 @@ dockerの便利コマンド
 
 docker system prune -a && docker-clean all && docker-compose down --rmi all --volumes --remove-orphans 
 
+# 始め方
+
+frontのコンテナに入って、packagejson.lockを削除。次にnpm install。
 
 # npmインストールに使ったコマンド
 
